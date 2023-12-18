@@ -4,7 +4,7 @@
 
 </div>
 
-# minishell
+# MINISHELL
 
 ## Shell Introduction
 
