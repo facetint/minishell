@@ -82,3 +82,24 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 
 ▶︎ Returns the result to the user.
 
+
+## Useful shell utilities :
+
+
+<img width="884" alt="Ekran Resmi 2023-12-24 02 00 35" src="https://github.com/facetint/minishell/assets/99668549/96413fde-0f58-4353-a8bf-ad7c6ef93644">
+
+
+## Shell subset :
+
+
+<img width="1149" alt="Ekran Resmi 2023-12-24 02 02 24" src="https://github.com/facetint/minishell/assets/99668549/3c889fb0-2727-4dca-bd88-d889304053ce">
+
+
+
+## Shell features :
+
+
+<img width="1149" alt="Ekran Resmi 2023-12-24 02 03 18" src="https://github.com/facetint/minishell/assets/99668549/96539ad5-74b5-43d8-8f1b-0bd95c8fb441">
+
+
+
