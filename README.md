@@ -13,6 +13,8 @@
 
 ## What Is Bash and How Does It Work?
 
+ Bash is the shell, or command language interpreter, for the GNU operating system.
+
   ## Prompt Display :
 
   Bash displays a "prompt" for the user to enter a command. Typically, this prompt contains the user name, computer name and working directory. The user can enter commands under this prompt.
@@ -46,3 +48,27 @@
 
 These basic steps of Bash provide a user-friendly command-line environment and come with a wide range of commands. Users can customize Bash and there is extensive documentation and community support.
   
+
+## LEXER
+
+▶︎ Its task is to decompose the commands entered by the user.
+▶︎ It parses the input into symbols and tokens.
+▶︎ For example, it takes the command "ls -l" and converts it into a delimited array like [ "ls", "-l" ].
+
+## PARSER 
+
+▶︎ Parses symbols and tokens from the lexer to understand the structure of commands.
+▶︎ Creates the syntax tree. This tree represents the structure of the command in a hierarchical way.
+▶︎ For example, it converts the command "ls -l" into a tree structure.
+
+## EXPANDER
+
+▶︎ Evaluates variables, wildcards and other special characters within the command.
+▶︎ For example, it replaces "~" with home directory or matches "*" with file names.
+
+## EXECUTE
+
+▶︎ Starts a real process using a tree structure.
+▶︎ Creates a new process using system calls such as fork and exec and executes the command specified in that process.
+▶︎ Returns the result to the user.
+
