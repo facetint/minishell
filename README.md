@@ -102,4 +102,13 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 <img width="1149" alt="Ekran Resmi 2023-12-24 02 03 18" src="https://github.com/facetint/minishell/assets/99668549/96539ad5-74b5-43d8-8f1b-0bd95c8fb441">
 
 
+## PİPE
 
+EXAMPLE :
+
+
+<img width="1323" alt="Ekran Resmi 2023-12-25 15 07 36" src="https://github.com/facetint/minishell/assets/99668549/9db762aa-dae4-47d0-971a-a770aa6976bf">
+
+
+
+<img width="1225" alt="Ekran Resmi 2023-12-24 14 38 56" src="https://github.com/facetint/minishell/assets/99668549/2b0c9e5a-ca26-48b3-95de-bb416d03c85b">
