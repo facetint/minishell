@@ -31,20 +31,6 @@ typedef struct s_command {
 	struct s_command *next;
 } t_command;
 
-
-/**
- * @brief A token is a string of characters that are grouped together
- * 	  	  based on the type of token it is.
- * 	start - The index of the first character of the token.
- * 	end - The index of the last character of the token.
- * 	  	  The last character is included in the token.
- * 	  	  	Example: "ls" -> start = 0, end = 1
- * 	type - The type of token.
- * 	  	  	Example: "ls" -> type = COMMAND
- * 	  	  		"-l" -> type = UNQUOTED_ARGUMENT
-* 	  	  		"\"ls\"" -> type = DOUBLE_QUOTED_ARGUMENT
- * 	  	  					Note: The quotes are included in the token.
- */
 typedef struct s_token {
 	int start;
 	int end;
@@ -56,9 +42,6 @@ void unexpected_token_error(char token);
 
 #define STATE_FUNCTION_PARAMETERS t_token **lexer_data, char *input, int index
 
-// öyle bir fonksiyon var ki, sana bir başka bir fonksiyon pointer veriyor.
-// ve o başka fonksiyon da sana void * döndürüyor.
-// state -> func -> void*
 typedef void *(*func_to_func_ptr)(STATE_FUNCTION_PARAMETERS);
 typedef func_to_func_ptr *(*state)(STATE_FUNCTION_PARAMETERS);
 
