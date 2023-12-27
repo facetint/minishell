@@ -1,0 +1,3 @@
+/Users/hamza/minishell/minishell/cmake-build-debug/CMakeFiles/minishell.dir
+/Users/hamza/minishell/minishell/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/hamza/minishell/minishell/cmake-build-debug/CMakeFiles/rebuild_cache.dir

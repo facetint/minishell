@@ -3,7 +3,7 @@
 NAME = minishell_demo
 LIBFT_DIR = ./libft
 LIBFT_PATH = $(LIBFT_DIR)/libft.a
-SOURCES = test.c utils.c
+SOURCES = test.c utils.c parser.c char_classification.c lexer.c expander.c syntax_analyzer.c
 OBJECTS = $(SOURCES:.c=.o)
 
 # Target rule
@@ -15,11 +15,11 @@ $(LIBFT_PATH):
 
 # Rule to build the program
 test: $(LIBFT_PATH) $(OBJECTS)
-	gcc -o $(NAME) $(OBJECTS) $(LIBFT_PATH) -L/usr/local/lib -I/usr/local/include -lreadline
+	gcc -g -o $(NAME) $(OBJECTS) $(LIBFT_PATH) -L/usr/local/lib -I/usr/local/include -lreadline
 
 # Rule to compile source files
 %.o: %.c
-	gcc -c $< -o $@
+	gcc -g -c $< -o $@
 
 # Clean rule
 clean:

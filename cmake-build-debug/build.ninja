@@ -1,0 +1,476 @@
+## This file contains all the build statements describing the
+# compilation DAG.
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# 
+# Which is the root file.
+# =============================================================================
+
+# =============================================================================
+# Project: minishell
+# Configurations: Debug
+# =============================================================================
+
+#############################################
+# Minimal version of Ninja required by this file
+
+ninja_required_version = 1.5
+
+
+#############################################
+# Set configuration variable for custom commands.
+
+CONFIGURATION = Debug
+# =============================================================================
+# Include auxiliary files.
+
+
+#############################################
+# Include rules file.
+
+include CMakeFiles/rules.ninja
+
+# =============================================================================
+
+#############################################
+# Logical path to working directory; prefix for absolute paths.
+
+cmake_ninja_workdir = /Users/hamza/minishell/minishell/cmake-build-debug/
+# =============================================================================
+# Object build statements for EXECUTABLE target minishell
+
+
+#############################################
+# Order-only phony target for minishell
+
+build cmake_object_order_depends_target_minishell: phony || CMakeFiles/minishell.dir
+
+build CMakeFiles/minishell.dir/libft/ft_atoi.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_atoi.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_atoi.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_bzero.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_bzero.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_bzero.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_calloc.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_calloc.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_calloc.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_isalnum.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_isalnum.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_isalnum.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_isalpha.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_isalpha.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_isalpha.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_isascii.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_isascii.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_isascii.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_isdigit.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_isdigit.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_isdigit.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_isprint.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_isprint.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_isprint.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_itoa.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_itoa.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_itoa.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_lstadd_back.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_lstadd_back.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_lstadd_back.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_lstadd_front.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_lstadd_front.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_lstadd_front.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_lstclear.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_lstclear.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_lstclear.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_lstdelone.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_lstdelone.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_lstdelone.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_lstiter.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_lstiter.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_lstiter.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_lstlast.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_lstlast.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_lstlast.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_lstmap.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_lstmap.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_lstmap.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_lstnew.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_lstnew.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_lstnew.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_lstsize.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_lstsize.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_lstsize.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_memchr.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_memchr.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_memchr.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_memcmp.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_memcmp.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_memcmp.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_memcpy.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_memcpy.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_memcpy.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_memmove.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_memmove.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_memmove.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_memset.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_memset.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_memset.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_putchar_fd.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_putchar_fd.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_putchar_fd.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_putendl_fd.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_putendl_fd.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_putendl_fd.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_putnbr_fd.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_putnbr_fd.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_putnbr_fd.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_putstr_fd.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_putstr_fd.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_putstr_fd.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_split.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_split.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_split.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_strchr.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_strchr.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_strchr.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_strdup.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_strdup.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_strdup.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_striteri.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_striteri.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_striteri.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_strjoin.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_strjoin.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_strjoin.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_strlcat.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_strlcat.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_strlcat.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_strlcpy.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_strlcpy.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_strlcpy.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_strlen.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_strlen.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_strlen.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_strmapi.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_strmapi.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_strmapi.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_strncmp.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_strncmp.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_strncmp.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_strnstr.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_strnstr.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_strnstr.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_strrchr.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_strrchr.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_strrchr.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_strtrim.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_strtrim.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_strtrim.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_substr.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_substr.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_substr.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_tolower.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_tolower.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_tolower.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/libft/ft_toupper.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/libft/ft_toupper.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/ft_toupper.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft
+
+build CMakeFiles/minishell.dir/parser.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/parser.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/parser.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir
+
+build CMakeFiles/minishell.dir/test.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/test.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/test.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir
+
+build CMakeFiles/minishell.dir/utils.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/utils.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/utils.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir
+
+build CMakeFiles/minishell.dir/char_classification.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/char_classification.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/char_classification.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir
+
+build CMakeFiles/minishell.dir/lexer.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/lexer.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/lexer.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir
+
+build CMakeFiles/minishell.dir/syntax_analyzer.c.o: C_COMPILER__minishell_Debug /Users/hamza/minishell/minishell/syntax_analyzer.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/syntax_analyzer.c.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/hamza/minishell/minishell/. -I/Users/hamza/minishell/minishell/libft
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target minishell
+
+
+#############################################
+# Link the executable minishell
+
+build minishell: C_EXECUTABLE_LINKER__minishell_Debug CMakeFiles/minishell.dir/libft/ft_atoi.c.o CMakeFiles/minishell.dir/libft/ft_bzero.c.o CMakeFiles/minishell.dir/libft/ft_calloc.c.o CMakeFiles/minishell.dir/libft/ft_isalnum.c.o CMakeFiles/minishell.dir/libft/ft_isalpha.c.o CMakeFiles/minishell.dir/libft/ft_isascii.c.o CMakeFiles/minishell.dir/libft/ft_isdigit.c.o CMakeFiles/minishell.dir/libft/ft_isprint.c.o CMakeFiles/minishell.dir/libft/ft_itoa.c.o CMakeFiles/minishell.dir/libft/ft_lstadd_back.c.o CMakeFiles/minishell.dir/libft/ft_lstadd_front.c.o CMakeFiles/minishell.dir/libft/ft_lstclear.c.o CMakeFiles/minishell.dir/libft/ft_lstdelone.c.o CMakeFiles/minishell.dir/libft/ft_lstiter.c.o CMakeFiles/minishell.dir/libft/ft_lstlast.c.o CMakeFiles/minishell.dir/libft/ft_lstmap.c.o CMakeFiles/minishell.dir/libft/ft_lstnew.c.o CMakeFiles/minishell.dir/libft/ft_lstsize.c.o CMakeFiles/minishell.dir/libft/ft_memchr.c.o CMakeFiles/minishell.dir/libft/ft_memcmp.c.o CMakeFiles/minishell.dir/libft/ft_memcpy.c.o CMakeFiles/minishell.dir/libft/ft_memmove.c.o CMakeFiles/minishell.dir/libft/ft_memset.c.o CMakeFiles/minishell.dir/libft/ft_putchar_fd.c.o CMakeFiles/minishell.dir/libft/ft_putendl_fd.c.o CMakeFiles/minishell.dir/libft/ft_putnbr_fd.c.o CMakeFiles/minishell.dir/libft/ft_putstr_fd.c.o CMakeFiles/minishell.dir/libft/ft_split.c.o CMakeFiles/minishell.dir/libft/ft_strchr.c.o CMakeFiles/minishell.dir/libft/ft_strdup.c.o CMakeFiles/minishell.dir/libft/ft_striteri.c.o CMakeFiles/minishell.dir/libft/ft_strjoin.c.o CMakeFiles/minishell.dir/libft/ft_strlcat.c.o CMakeFiles/minishell.dir/libft/ft_strlcpy.c.o CMakeFiles/minishell.dir/libft/ft_strlen.c.o CMakeFiles/minishell.dir/libft/ft_strmapi.c.o CMakeFiles/minishell.dir/libft/ft_strncmp.c.o CMakeFiles/minishell.dir/libft/ft_strnstr.c.o CMakeFiles/minishell.dir/libft/ft_strrchr.c.o CMakeFiles/minishell.dir/libft/ft_strtrim.c.o CMakeFiles/minishell.dir/libft/ft_substr.c.o CMakeFiles/minishell.dir/libft/ft_tolower.c.o CMakeFiles/minishell.dir/libft/ft_toupper.c.o CMakeFiles/minishell.dir/parser.c.o CMakeFiles/minishell.dir/test.c.o CMakeFiles/minishell.dir/utils.c.o CMakeFiles/minishell.dir/char_classification.c.o CMakeFiles/minishell.dir/lexer.c.o CMakeFiles/minishell.dir/syntax_analyzer.c.o
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = minishell
+  TARGET_PDB = minishell.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/hamza/minishell/minishell/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/hamza/minishell/minishell/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/hamza/minishell/minishell -B/Users/hamza/minishell/minishell/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Target aliases.
+
+# =============================================================================
+# Folder targets.
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/hamza/minishell/minishell/cmake-build-debug
+
+build all: phony minishell
+
+# =============================================================================
+# Built-in targets
+
+
+#############################################
+# Re-run CMake if any of its inputs changed.
+
+build build.ninja: RERUN_CMAKE | /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/UnixPaths.cmake /Users/hamza/minishell/minishell/CMakeLists.txt CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake
+  pool = console
+
+
+#############################################
+# A missing CMake input file is not an error.
+
+build /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/UnixPaths.cmake /Users/hamza/minishell/minishell/CMakeLists.txt CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake: phony
+
+
+#############################################
+# Clean all the built files.
+
+build clean: CLEAN
+
+
+#############################################
+# Print all primary targets available.
+
+build help: HELP
+
+
+#############################################
+# Make the all target the default.
+
+default all

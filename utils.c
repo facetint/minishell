@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
 #include "libft/libft.h"
+#include "utils.h"
 
 int is_equals_ignore_case(char *s1, char *s2, int n) {
 	if (!s1 && !s2)
@@ -42,9 +42,55 @@ char *ft_str_join(char **str_list, unsigned int str_count) {
 }
 
 char *get_cur_folder_name(char *full_path) {
-	int i = ft_strlen(full_path) - 1;
+	int i = (int) ft_strlen(full_path) - 1;
 	while (full_path[i] != '/' && i >= 0) {
 		i--;
 	}
 	return &full_path[i + 1];
+}
+
+int skip_white_spaces(const char *str) {
+	int i;
+
+	if (!str)
+		return -1;
+	i = 0;
+	while (str[i] && is_whitespace(str[i])) {
+		i++;
+	}
+	return i;
+}
+
+int count_len(const char *str, int (*is_valid)(char)) {
+	int i;
+
+	if (!str)
+		return -1;
+	i = 0;
+	while (str[i] && is_valid(str[i]))
+		i++;
+	return i;
+}
+
+/*
+ * finds char in string and return index of char.
+ * and ignores escaped chars.
+ *
+ * if not found, return -1.
+ */
+int find_char(const char *str, char looking_for) {
+	int i;
+
+	if (!str)
+		return -1;
+	i = 0;
+	while (str[i] && str[i] != looking_for)
+	{
+		if (str[i] == '\\' && str[i + 1] != '\0')
+			i++;
+		i++;
+	}
+	if (str[i] == '\0' && looking_for != '\0')
+		return -1;
+	return i;
 }
