@@ -72,6 +72,27 @@ int count_len(const char *str, int (*is_valid)(char)) {
 	return i;
 }
 
+char get_next_non_whitespace(const char *input, int index) {
+	if (!input)
+		return '\0';
+	while (input[index] && is_whitespace(input[index]))
+		index++;
+	return input[index];
+}
+
+/**
+ * checks is there backslash at the preceding index
+ * @param input the input string
+ * @param index the index of the char to check
+ * @return 1 if there is backslash at the preceding index, 0 otherwise. (if index is 0, return 0.)
+ */
+int is_escaped(char *input, unsigned int index)
+{
+	if (index == 0)
+		return 0;
+	return input[index - 1] == '\\';
+}
+
 /*
  * finds char in string and return index of char.
  * and ignores escaped chars.
