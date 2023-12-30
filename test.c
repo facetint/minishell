@@ -58,9 +58,10 @@ int is_cmd(char *input, char *cmd)
 
 void handle_input(char *input) {
 	t_token *token = lexer(input);
-
-	expand_lexer_data(input, token);
-
+	expand(&token);
+	unquote(token);
+	t_command *cmd = parse(token);
+	uninit_tokens(token);
 	//debug
 	if (!token) {
 		printf("<No Token>\n");
