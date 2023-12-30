@@ -3,7 +3,7 @@
 NAME = minishell_demo
 LIBFT_DIR = ./libft
 LIBFT_PATH = $(LIBFT_DIR)/libft.a
-SOURCES = test.c utils.c parser.c char_classification.c lexer.c expander.c syntax_analyzer.c
+SOURCES = test.c utils.c char_classification.c lexer.c unquote.c lexer_utils.c parser.c expander.c splitter.c syntax_analyzer.c
 OBJECTS = $(SOURCES:.c=.o)
 
 # Target rule

@@ -11,12 +11,12 @@ typedef enum s_token_type
 	INPUT_REDIRECTION,
 	HEREDOC_REDIRECTION,
 	APPEND_REDIRECTION,
-	WORD,
-	IFS, // Internal Field Separator. See 3.5.7 Word Splitting
+	DELIMITER,
 	UNKNOWN,
 } t_token_type;
 
-typedef enum s_quote {
+typedef enum s_quote
+{
 	DOUBLE_QUOTE = '\"',
 	SINGLE_QUOTE = '\''
 } t_quote;
@@ -37,32 +37,37 @@ typedef struct s_command
 {
 	char *name;
 	char **args;
-	char *input_file;
-	char *output_file;
-	char *heredoc;
-	int append;
-	struct s_command *next;
+	t_redirection *redirections;
+	struct s_command *next; /* output->input redirected command */
 } t_command;
 
-typedef struct s_token {
-	int start;
-	int end;
+typedef struct s_token
+{
+	int end; /* deprecated */ //todo - remove it
+	char *value;
 	t_token_type type;
 	struct s_token *next;
 } t_token;
 
-void unexpected_token_error(char token);
+void unexpected_token_error(t_token *token);
 
-#define STATE_FUNCTION_PARAMETERS t_token **lexer_data, char *input, int index
+#define LEXER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, char *input, int index
 
-typedef void *(*func_to_func_ptr)(STATE_FUNCTION_PARAMETERS);
-typedef func_to_func_ptr *(*state)(STATE_FUNCTION_PARAMETERS);
+typedef void *(*lexer_func)(LEXER_STATE_FUNCTION_PARAMETERS);
+typedef lexer_func *(*lexer_state)(LEXER_STATE_FUNCTION_PARAMETERS);
 
-state command_state(STATE_FUNCTION_PARAMETERS);
-state argument_state(STATE_FUNCTION_PARAMETERS);
-state command_after_state(STATE_FUNCTION_PARAMETERS);
-state delimiter_state(STATE_FUNCTION_PARAMETERS);
-state redirection_word_state(STATE_FUNCTION_PARAMETERS);
+lexer_state word_state(LEXER_STATE_FUNCTION_PARAMETERS);
+lexer_state meta_state(LEXER_STATE_FUNCTION_PARAMETERS);
+lexer_state delimiter_state(LEXER_STATE_FUNCTION_PARAMETERS);
+
+#define PARSER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, t_command **command
+
+typedef void *(*parser_func)(PARSER_STATE_FUNCTION_PARAMETERS);
+typedef parser_func *(*parser_state)(PARSER_STATE_FUNCTION_PARAMETERS);
+
+parser_state command_state(PARSER_STATE_FUNCTION_PARAMETERS);
+parser_state argument_state(PARSER_STATE_FUNCTION_PARAMETERS);
+parser_state operator_state(PARSER_STATE_FUNCTION_PARAMETERS);
 
 t_token_type get_meta_token_type(const char *input);
 int get_index(t_token *token);
@@ -70,17 +75,23 @@ int get_index(t_token *token);
 t_token *get_last_lexer_data(t_token *token);
 t_token *lexer_data_new(t_token token);
 void lexer_data_append(t_token **data, t_token *new_data);
+void lexer_data_insert(t_token **data, t_token *new_list);
+t_token **find_pointer_to_next(t_token **data, t_token *target);
 
 int are_redirections_valid(t_token *lexer_data);
 int are_quotes_valid(const char *input, t_token *lexer_data);
 int are_pipes_valid(t_token *lexer_data);
 
 t_token *lexer(char *input);
-t_token *expand_lexer_data(char *input, t_token *lexer_data);
+void expand(t_token **head);
+void internal_field_split(t_token **head, t_token *token);
+t_token *unquote(t_token *lexer_data);
+t_command *parse(t_token *lexer_data);
+void uninit_tokens(t_token *token);
+
 int is_in_single_quote(char *input, int index);
 
-t_token *lex(char *input);
-state word_state(t_token **lexer_data, char *input, int index);
-state meta_state(t_token **lexer_data, char *input, int index);
+int is_word(t_token_type type);
+int is_operator(t_token_type type);
 
 #endif
