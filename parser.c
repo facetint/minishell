@@ -2,7 +2,8 @@
 #include "parser.h"
 #include "utils.h"
 
-void join_all_composed_words(t_token **cur_token, char **string_ptr) {
+void join_all_composed_words(t_token **cur_token, char **string_ptr)
+{
 	char *new_name;
 	t_token *lexer_data;
 
@@ -20,11 +21,11 @@ void join_all_composed_words(t_token **cur_token, char **string_ptr) {
 	*cur_token = lexer_data;
 }
 
-parser_state command_state(t_token **cur_token, t_command **cur_cmd) {
+parser_state command_state(t_token **cur_token, t_command *cur_cmd)
+{
 	t_token *lexer_data;
 	t_command *cmd;
 
-	cmd = *cur_cmd;
 	lexer_data = *cur_token;
 	join_all_composed_words(&lexer_data, &cur_cmd->name);
 	if (!lexer_data)
@@ -39,13 +40,11 @@ parser_state command_state(t_token **cur_token, t_command **cur_cmd) {
 	return unexpected_token_error(lexer_data), NULL;
 }
 
-parser_state argument_state(t_token **cur_token, t_command **cur_cmd)
+parser_state argument_state(t_token **cur_token, t_command *cur_cmd)
 {
 	t_token *lexer_data;
 	int arg_index;
-	t_command *cmd;
 
-	cmd = *cur_cmd;
 	lexer_data = *cur_token;
 	arg_index = str_arr_size(cur_cmd->args);
 	join_all_composed_words(&lexer_data, &cur_cmd->args[arg_index]);
@@ -61,7 +60,7 @@ parser_state argument_state(t_token **cur_token, t_command **cur_cmd)
 	return unexpected_token_error(lexer_data), NULL;
 }
 
-parser_state operator_state(t_token **cur_token, t_command **cur_cmd)
+parser_state operator_state(t_token **cur_token, t_command *cur_cmd)
 {
 	t_token *lexer_data;
 	t_redirection redirection;
@@ -70,7 +69,6 @@ parser_state operator_state(t_token **cur_token, t_command **cur_cmd)
 	lexer_data = *cur_token;
 	if (lexer_data->type == PIPE)
 	{
-		*cur_cmd = (*cur_cmd)->next;
 		*cur_token = (*cur_token)->next;
 		return (parser_state) command_state;
 	}
@@ -113,7 +111,8 @@ int count_cmd_args(t_token *lexer_data) {
 	return delimiter_count;
 }
 
-int count_cmd_redirections(t_token *lexer_data) {
+int count_cmd_redirections(t_token *lexer_data)
+{
 	int redirection_count;
 
 	redirection_count = 0;
@@ -129,7 +128,8 @@ int count_cmd_redirections(t_token *lexer_data) {
 	return redirection_count;
 }
 
-void init_command(t_token *lexer_data, t_command **command) {
+void init_command(t_token *lexer_data, t_command **command)
+{
 	int arg_count;
 	int redir_count;
 
@@ -140,7 +140,8 @@ void init_command(t_token *lexer_data, t_command **command) {
 	(*command)->redirections = ft_calloc(redir_count + 1, sizeof(t_redirection));
 }
 
-t_command *parse(t_token *lexer_data) {
+t_command *parse(t_token *lexer_data)
+{
 	t_command *cur_cmd;
 	parser_state next_state;
 	t_command *result;
