@@ -60,7 +60,7 @@ lexer_state word_state(LEXER_STATE_FUNCTION_PARAMETERS);
 lexer_state meta_state(LEXER_STATE_FUNCTION_PARAMETERS);
 lexer_state delimiter_state(LEXER_STATE_FUNCTION_PARAMETERS);
 
-#define PARSER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, t_command **command
+#define PARSER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, t_command *command
 
 typedef void *(*parser_func)(PARSER_STATE_FUNCTION_PARAMETERS);
 typedef parser_func *(*parser_state)(PARSER_STATE_FUNCTION_PARAMETERS);
