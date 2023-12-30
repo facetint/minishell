@@ -94,3 +94,31 @@ void expand(t_token **head)
 	}
 	return 0;
 }
+
+void internal_field_split(t_token **head, t_token *token)
+{
+	char **new_words;
+	int size;
+	int i;
+	t_token *list;
+	t_token *new;
+
+	new_words = str_split(token->value, is_internal_field_sep);
+	size = str_arr_size(new_words);
+	if (size == 1)
+		return; /* there is no new word */
+	free(token->value);
+	token->value = new_words[0];
+	list = NULL;
+	i = 1; //skip first word
+	while (new_words[i])
+	{
+		new = lexer_data_new((t_token) {.type = DELIMITER});
+		lexer_data_append(&list, new);
+		new = lexer_data_new((t_token) {.type = UNQUOTED_WORD, .value = new_words[i]});
+		lexer_data_append(&list, new);
+		i++;
+	}
+	free(new_words);
+	lexer_data_insert(find_pointer_to_next(head, token), list);
+}
