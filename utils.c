@@ -97,6 +97,10 @@ int is_escaped(char *input, unsigned int index)
  * finds char in string and return index of char.
  * and ignores escaped chars.
  *
+ * it used to get index distance of any searched char.
+ * e.g. if we find a quote, and we want to know how many
+ * chars we should skip to find the next quote.
+ *
  * if not found, return -1.
  */
 int find_char(const char *str, char looking_for) {
