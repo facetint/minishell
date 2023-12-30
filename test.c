@@ -10,14 +10,12 @@
 char const *token_type_to_string(t_token_type type) {
 	if (type == UNKNOWN)
 		return "UNKNOWN";
-	if (type == COMMAND)
-		return "COMMAND";
-	if (type == UNQUOTED_ARGUMENT)
-		return "UNQUOTED_ARGUMENT";
-	if (type == DOUBLE_QUOTED_ARGUMENT)
-		return "DOUBLE_QUOTED_ARGUMENT";
-	if (type == SINGLE_QUOTED_ARGUMENT)
-		return "SINGLE_QUOTED_ARGUMENT";
+	if (type == UNQUOTED_WORD)
+		return "UNQUOTED_WORD";
+	if (type == DOUBLE_QUOTED_WORD)
+		return "DOUBLE_QUOTED_WORD";
+	if (type == SINGLE_QUOTED_WORD)
+		return "SINGLE_QUOTED_WORD";
 	if (type == PIPE)
 		return "PIPE";
 	if (type == INPUT_REDIRECTION)
@@ -28,8 +26,8 @@ char const *token_type_to_string(t_token_type type) {
 		return "OUTPUT_REDIRECTION";
 	if (type == APPEND_REDIRECTION)
 		return "APPEND_REDIRECTION";
-	if (type == WORD)
-		return "WORD";
+	if (type == DELIMITER)
+		return "DELIMITER";
 	return "UNRECOGNIZED";
 }
 
