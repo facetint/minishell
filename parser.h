@@ -21,7 +21,20 @@ typedef enum s_quote {
 	SINGLE_QUOTE = '\''
 } t_quote;
 
-typedef struct s_command {
+/* if 1 input, otherwise, output */
+# define INPUT (1 << 0)
+/* only valid if IS_INPUT is 1*/
+# define APPEND (1 << 1)
+/* if 1 heredoc text, otherwise, string is a file name */
+# define HEREDOC (1 << 2)
+typedef struct s_redirection
+{
+	char *redirected; /* non-null */
+	int flags;
+} t_redirection;
+
+typedef struct s_command
+{
 	char *name;
 	char **args;
 	char *input_file;
