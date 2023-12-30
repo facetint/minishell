@@ -31,11 +31,13 @@ char const *token_type_to_string(t_token_type type) {
 	return "UNRECOGNIZED";
 }
 
-void unexpected_token_error(char token)
+void unexpected_token_error(t_token *token)
 {
-	write(2, "bsq_minishell: syntax error near unexpected token '", 50);
-	write(2, &token, 1);
-	write(2, "' \n", 3);
+	if (token == NULL)
+		return ft_putstr_fd("syntax error occurred, null token found.\n", 2);
+	ft_putstr_fd("syntax error near unexpected token '", 2);
+	ft_putstr_fd((char *) token_type_to_string(token->type), 2);
+	ft_putstr_fd("'\n", 2);
 }
 
 char *get_prompt() {
