@@ -56,23 +56,51 @@ int is_cmd(char *input, char *cmd)
 	return is_equals_ignore_case(cmd, input, len - 1);
 }
 
+# define PARSER_DEBUG
 void handle_input(char *input) {
+
 	t_token *token = lexer(input);
 	expand(&token);
 	unquote(token);
 	t_command *cmd = parse(token);
 	uninit_tokens(token);
 	//debug
-	if (!token) {
-		printf("<No Token>\n");
+#ifdef PARSER_DEBUG
+	if (!cmd) {
+		printf("<No Command>\n");
 		return;
 	}
-	while (token->next) {
-		printf("\033[97m%s\033[37m(%d-%d)->", token_type_to_string(token->type), token->start, token->end);
-		token = token->next;
+	while (cmd)
+	{
+		printf("\033[97mname: %s\n\033[97margs: \033[37m", cmd->name);
+		for (int i = 0; cmd->args[i]; i++)
+			printf("`%s` ", cmd->args[i]);
+		printf("\n\033[97mredirections: \033[37m");
+		for (int i = 0; cmd->redirections[i].redirected; i++)
+			printf("`%s`(%x) ", cmd->redirections[i].redirected, cmd->redirections[i].flags);
+		printf("\n\n");
+		cmd = cmd->next;
 	}
-	printf("\033[97m%s\033[37m(%d-%d)\n", token_type_to_string(token->type), token->start, token->end);
+#endif
 
+#ifdef LEXER_DEBUG
+		if (!token) {
+			printf("<No Token>\n");
+			return;
+		}
+		while (token->next) {
+			if (is_word(token->type))
+				printf("\033[97m%s\033[37m(%s)[%d]->", token_type_to_string(token->type), token->value, token->end);
+			else
+				printf("\033[97m%s\033[37m->", token_type_to_string(token->type));
+			token = token->next;
+		}
+		if (is_word(token->type))
+			printf("\033[97m%s\033[37m(%s)[%d]\n", token_type_to_string(token->type), token->value, token->end);
+		else
+			printf("\033[97m%s\033[37m\n", token_type_to_string(token->type));
+	}
+#endif
 	/*printf("\033[37mRedirections: %s\n", are_redirections_valid(token) ? "\033[92mVALID" : "\033[91mINVALID");
 	printf("\033[37mQuotes: %s\n", are_quotes_valid(input, token) ? "\033[92mVALID" : "\033[91mINVALID");
 	printf("\033[37mPipes: %s\n", are_pipes_valid(token) ? "\033[92mVALID" : "\033[91mINVALID");
