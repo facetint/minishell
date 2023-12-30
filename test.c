@@ -45,7 +45,7 @@ char *get_prompt() {
 	char *path = get_cur_folder_name(full_path);
 	char *username = getenv("USER");
 	char *strings[] = {username, "@", path, "$ " };
-	char *prompt = ft_str_join(strings, 4);
+	char *prompt = ft_str_arr_join(strings, 4);
 	free(full_path);
 	return prompt;
 }
