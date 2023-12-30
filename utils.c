@@ -119,3 +119,15 @@ int find_char(const char *str, char looking_for) {
 		return -1;
 	return i;
 }
+
+int str_arr_size(char **strings)
+{
+	int i;
+
+	if (!strings)
+		return -1;
+	i = 0;
+	while (strings[i])
+		i++;
+	return i;
+}
