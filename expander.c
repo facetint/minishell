@@ -92,7 +92,6 @@ void expand(t_token **head)
 		}
 		token = token->next;
 	}
-	return 0;
 }
 
 void internal_field_split(t_token **head, t_token *token)
