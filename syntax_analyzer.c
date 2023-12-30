@@ -1,60 +1,58 @@
 #include "parser.h"
 
-int are_redirections_valid(t_token *lexer_data) {
+int is_word(t_token_type type) {
+	return type == UNQUOTED_WORD ||
+		   type == SINGLE_QUOTED_WORD ||
+		   type == DOUBLE_QUOTED_WORD;
+}
+
+/**
+ * check if the token is an operator (redirection operator or pipe)
+ * @param type the token type
+ * @return 1 if the token is an operator, 0 otherwise
+ */
+int is_operator(t_token_type type) {
+	return type == HEREDOC_REDIRECTION ||
+		   type == INPUT_REDIRECTION ||
+		   type == OUTPUT_REDIRECTION ||
+		   type == APPEND_REDIRECTION ||
+		   type == PIPE;
+}
+
+int is_there_lack_of_word(t_token *lexer_data) {
 	int wait_for_word;
 
-	wait_for_word = 0;
+	wait_for_word = 1;
 	while (lexer_data)
 	{
-		if (wait_for_word && lexer_data->type != WORD)
+		if (wait_for_word && !is_word(lexer_data->type))
 			return 0;
-		if (lexer_data->type == WORD)
+		if (is_word(lexer_data->type))
 			wait_for_word = 0;
-		else if (lexer_data->type == HEREDOC_REDIRECTION ||
-			lexer_data->type == INPUT_REDIRECTION ||
-			lexer_data->type == OUTPUT_REDIRECTION ||
-			lexer_data->type == APPEND_REDIRECTION) {
+		else if (is_operator(lexer_data->type))
 			wait_for_word = 1;
-		}
 		lexer_data = lexer_data->next;
 	}
 	return wait_for_word == 0;
 }
 
 int are_quotes_valid(const char *input, t_token *lexer_data) {
-	while (lexer_data)
-	{
-		if (lexer_data->type == DOUBLE_QUOTED_ARGUMENT ||
-			lexer_data->type == SINGLE_QUOTED_ARGUMENT)
-		{
-			if (lexer_data->start == lexer_data->end)
-				return 0;
-		}
-		lexer_data = lexer_data->next;
-	}
+	/* not implemented yet */
 	return 1;
 }
 
-int are_pipes_valid(t_token *lexer_data) {
-	int wait_for_command;
-
-	wait_for_command = 0;
+int is_there_unknown_token(t_token *lexer_data) {
 	while (lexer_data)
 	{
-		if (wait_for_command && lexer_data->type != COMMAND)
-			return 0;
-		if (lexer_data->type == PIPE)
-			wait_for_command = 1;
-		else if (lexer_data->type == COMMAND)
-			wait_for_command = 0;
+		if (lexer_data->type == UNKNOWN)
+			return 1;
 		lexer_data = lexer_data->next;
 	}
-	return wait_for_command == 0;
+	return 0;
 }
 
-
 int is_valid(const char *input, t_token *lexer_data) {
-	return are_quotes_valid(input, lexer_data) &&
-		are_redirections_valid(lexer_data) &&
-		are_pipes_valid(lexer_data);
+	return !is_there_unknown_token(lexer_data)
+		   && are_quotes_valid(input, lexer_data)
+		   && is_there_lack_of_word(lexer_data);
 }
