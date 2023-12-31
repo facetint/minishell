@@ -59,10 +59,15 @@ typedef enum s_quote
 # define is_unquoted_word_char(c) (!is_meta_char(c) && !is_quote(c))
 
 /**
- * @brief The manual defines a name as "A word consisting solely of letters, numbers, and underscores,
+ * @brief The manual defines a 'name' as "A word consisting solely of letters, numbers, and underscores,
  * and beginning with a letter or underscore. Names are used as shell variable and function names.
  * Also referred to as an identifier."
  *
- * But we don't care about the first letter rule. Probably we should. todo
+ * But we don't care about the first letter rule. Probably we should not. Here is why: todo
+ *
+ * In bash, variable names with digits($0,$1...) are reserved for the positional parameters.
+ * (See manual: 3.4.1 Positional Parameters) but our implementation does not have positional parameters.
+ * In a nutshell we allow variable names with digits. Because of we can. lol.
+ *
  */
 # define is_name_char(c) (ft_isalnum(c) || c == '_')
