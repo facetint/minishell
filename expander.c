@@ -18,9 +18,12 @@ char *replace_string(char *input, int p_start, int p_len, char *replacement)
 
 	head = ft_substr(input, 0, p_start);
 	tail = ft_substr(input, p_start + p_len + 1, ft_strlen(input) - p_start - p_len);
-	result = ft_str_arr_join((char *[]) {head, replacement, tail}, 3);
-	free(head);
-	free(tail);
+	if (replacement == NULL)
+		result = ft_str_arr_join((char *[]) {head, "", tail}, 3);
+	else
+		result = ft_str_arr_join((char *[]) {head, replacement, tail}, 3);
+	safe_free(head);
+	safe_free(tail);
 	return result;
 }
 
