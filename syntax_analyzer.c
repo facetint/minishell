@@ -25,6 +25,8 @@ int is_there_lack_of_word(t_token *lexer_data) {
 	wait_for_word = 1;
 	while (lexer_data)
 	{
+		if (lexer_data->type == DELIMITER)
+			lexer_data = lexer_data->next;
 		if (wait_for_word && !is_word(lexer_data->type))
 			return 0;
 		if (is_word(lexer_data->type))
