@@ -30,7 +30,7 @@ static int	word_count(char const *str, int(*is_delimiter)(char *, int))
 	return (count);
 }
 
-char	**free_all(char **result)
+char	**free_string_arr(char **result)
 {
 	int	i;
 
@@ -85,7 +85,7 @@ char	**str_split(char const *str, int(*is_delimiter)(char *, int))
 		len = wlen(str + i, is_delimiter);
 		result[word_index] = ft_substr(str, i, len);
 		if (!result[word_index++])
-			return (free_all(result));
+			return (free_string_arr(result));
 		i += len;
 	}
 	return (result);
