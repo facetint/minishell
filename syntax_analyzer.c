@@ -1,4 +1,7 @@
 #include "parser.h"
+#include "libft/libft.h"
+#include "char_classification.h"
+#include "utils.h"
 
 int is_word(t_token_type type) {
 	return type == UNQUOTED_WORD ||
@@ -35,7 +38,7 @@ int is_there_lack_of_word(t_token *lexer_data) {
 			wait_for_word = 1;
 		lexer_data = lexer_data->next;
 	}
-	return wait_for_word == 0;
+	return !wait_for_word;
 }
 
 int are_quotes_valid(t_token *lexer_data)
@@ -78,8 +81,8 @@ int is_there_unknown_token(t_token *lexer_data) {
 	return 0;
 }
 
-int is_valid(const char *input, t_token *lexer_data) {
+int is_valid(t_token *lexer_data) {
 	return !is_there_unknown_token(lexer_data)
-		   && are_quotes_valid(input, lexer_data)
+		   && are_quotes_valid(lexer_data)
 		   && is_there_lack_of_word(lexer_data);
 }

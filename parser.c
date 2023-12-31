@@ -25,7 +25,6 @@ void join_all_composed_words(t_token **cur_token, char **string_ptr)
 parser_state command_state(t_token **cur_token, t_command *cur_cmd)
 {
 	t_token *lexer_data;
-	t_command *cmd;
 
 	lexer_data = *cur_token;
 	join_all_composed_words(&lexer_data, &cur_cmd->name);

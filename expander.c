@@ -45,17 +45,17 @@ char *replace_string(char *input, int p_start, int p_len, char *replacement)
  */
 int expand_variable(char **input, int index)
 {
-	char    *str;
-	char    *varname;
-	char    *new;
-	int        result;
-	int        varname_len;
+	char	*str;
+	char	*varname;
+	char	*new;
+	int 	result;
+	int		varname_len;
 
 	str = *input;
-	varname_len = count_len(&str[index + 1], is_name_char2);
+	varname_len = count_len(&str[index + 1], is_a_name_char);
 	varname = ft_substr(str, index + 1, varname_len);
-	new = replace_string(str, index, varname_len, getenv(varname));
 	result = (int) ft_strlen(str);
+	new = replace_string(str, index, varname_len, getenv(varname));
 	*input = new;
 	safe_free(varname);
 	safe_free(str);
@@ -102,7 +102,6 @@ void expand(t_token **head)
 void internal_field_split(t_token **head, t_token *token)
 {
 	char **new_words;
-	int size;
 	int i;
 	t_token *list;
 	t_token *new;

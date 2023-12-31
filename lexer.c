@@ -2,6 +2,7 @@
 #include "parser.h"
 #include <stdio.h>
 #include "utils.h"
+#include "char_classification.h"
 
 /**
  * get token type from meta character
@@ -29,28 +30,7 @@ t_token_type get_meta_token_type(const char *input)
 	return (UNKNOWN);
 }
 
-/**
- * state for arguments
- *
- * Example:
- * 		cmd1 arg1
- * 			 ^
- * 		cmd1 "arg1"
- * 			 ^
- * 		cmd1 'arg1'
- * 			 ^
- * 		cmd1 -option
- * 			 ^
- *
- * @param lexer_data the lexer data to append new token
- * @param input the input string
- * @param index the index of the first char of the argument (included quotes)
- * @return the next state
- */
 lexer_state word_state(t_token **lexer_data, char *input, int index) {
-	//assume input and lexer_data is non-null
-	//assume 0 < index < strlen(input) 
-	//assume input[index] is not a null, whitespace or metacharacter.
 	t_token token;
 	int start_index;
 
@@ -75,7 +55,7 @@ lexer_state word_state(t_token **lexer_data, char *input, int index) {
 	token.end = index; // to mark where we stopped scanning
 	token.value = ft_substr(input, start_index, index - start_index + 1);
 	lexer_data_append(lexer_data, lexer_data_new(token));
-	return (lexer_state) delimiter_state;
+	return ((lexer_state) delimiter_state);
 }
 
 /**
@@ -111,7 +91,7 @@ lexer_state operator_state_l(t_token **lexer_data, char *input, int index)
 	token.end = index + length - 1; // to mark where we stopped scanning
 	token.value = NULL;
 	lexer_data_append(lexer_data, lexer_data_new(token));
-	return (lexer_state) delimiter_state;
+	return ((lexer_state) delimiter_state);
 }
 
 lexer_state delimiter_state(t_token **lexer_data, char *input, int index)
@@ -133,8 +113,8 @@ lexer_state delimiter_state(t_token **lexer_data, char *input, int index)
 	}
 
 	if (is_meta_char(next_non_whitespace))
-		return (lexer_state) meta_state;
-	return (lexer_state) word_state;
+		return (lexer_state) operator_state_l;
+	return ((lexer_state) word_state);
 }
 
 /*
@@ -146,10 +126,10 @@ int get_index(t_token *token) {
 	last_token = get_last_lexer_data(token);
 	if (!last_token)
 		return 0;
-	return last_token->end + 1;
+	return (last_token->end + 1);
 }
 
-t_token *lexer(char *input) {
+t_token *lex(char *input) {
 	t_token *token = NULL;
 	lexer_state next_state = (lexer_state) word_state;
 	int index;
@@ -159,5 +139,5 @@ t_token *lexer(char *input) {
 			break;
 		next_state = (lexer_state) next_state(&token, input, index);
 	}
-	return token;
+	return (token);
 }
