@@ -68,7 +68,7 @@ lexer_state word_state(t_token **lexer_data, char *input, int index) {
 	else
 	{
 		token.type = UNQUOTED_WORD;
-		while (input[index] && (is_name_char(input[index]) || is_escaped(input, index)))
+		while (input[index] && (is_unquoted_word_char(input[index]) || is_escaped(input, index)))
 			index++;
 		index--;
 	}
