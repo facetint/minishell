@@ -79,7 +79,7 @@ lexer_state word_state(t_token **lexer_data, char *input, int index) {
 }
 
 /**
- * state for metacharacters
+ * state for operators
  * Example:
  * 		cmd arg1 | cmd2
  * 				 ^
@@ -93,10 +93,10 @@ lexer_state word_state(t_token **lexer_data, char *input, int index) {
  *		 		 ^
  * @param lexer_data the lexer data to append new token
  * @param input the input string
- * @param index the index of the first char of the metacharacter
+ * @param index the index of the first char of the a operator
  * @return the next state
  */
-lexer_state meta_state(t_token **lexer_data, char *input, int index)
+lexer_state operator_state_l(t_token **lexer_data, char *input, int index)
 {
 	int length;
 	t_token token;

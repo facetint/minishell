@@ -57,7 +57,7 @@ typedef void *(*lexer_func)(LEXER_STATE_FUNCTION_PARAMETERS);
 typedef lexer_func *(*lexer_state)(LEXER_STATE_FUNCTION_PARAMETERS);
 
 lexer_state word_state(LEXER_STATE_FUNCTION_PARAMETERS);
-lexer_state meta_state(LEXER_STATE_FUNCTION_PARAMETERS);
+lexer_state operator_state_l(LEXER_STATE_FUNCTION_PARAMETERS);
 lexer_state delimiter_state(LEXER_STATE_FUNCTION_PARAMETERS);
 
 #define PARSER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, t_command *command
@@ -67,7 +67,7 @@ typedef parser_func *(*parser_state)(PARSER_STATE_FUNCTION_PARAMETERS);
 
 parser_state command_state(PARSER_STATE_FUNCTION_PARAMETERS);
 parser_state argument_state(PARSER_STATE_FUNCTION_PARAMETERS);
-parser_state operator_state(PARSER_STATE_FUNCTION_PARAMETERS);
+parser_state operator_state_p(PARSER_STATE_FUNCTION_PARAMETERS);
 
 t_token_type get_meta_token_type(const char *input);
 int get_index(t_token *token);

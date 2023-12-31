@@ -36,7 +36,7 @@ parser_state command_state(t_token **cur_token, t_command *cur_cmd)
 	if (is_word(lexer_data->type))
 		return (parser_state) argument_state;
 	else if (is_operator(lexer_data->type))
-		return (parser_state) operator_state;
+		return (parser_state) operator_state_p;
 	return unexpected_token_error(lexer_data), NULL;
 }
 
@@ -56,11 +56,11 @@ parser_state argument_state(t_token **cur_token, t_command *cur_cmd)
 	if (is_word(lexer_data->type))
 		return (parser_state) argument_state;
 	if (is_operator(lexer_data->type))
-		return (parser_state) operator_state;
+		return (parser_state) operator_state_p;
 	return unexpected_token_error(lexer_data), NULL;
 }
 
-parser_state operator_state(t_token **cur_token, t_command *cur_cmd)
+parser_state operator_state_p(t_token **cur_token, t_command *cur_cmd)
 {
 	t_token *lexer_data;
 	t_redirection redirection;
@@ -93,7 +93,7 @@ parser_state operator_state(t_token **cur_token, t_command *cur_cmd)
 	if (is_word(lexer_data->type))
 		return (parser_state) argument_state;
 	if (is_operator(lexer_data->type))
-		return (parser_state) operator_state;
+		return (parser_state) operator_state_p;
 	return unexpected_token_error(lexer_data), NULL;
 }
 
