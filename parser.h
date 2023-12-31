@@ -15,11 +15,6 @@ typedef enum s_token_type
 	UNKNOWN,
 } t_token_type;
 
-typedef enum s_quote
-{
-	DOUBLE_QUOTE = '\"',
-	SINGLE_QUOTE = '\''
-} t_quote;
 
 /* if 1 input, otherwise, output */
 # define INPUT (1 << 0)
