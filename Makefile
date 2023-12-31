@@ -3,7 +3,9 @@
 NAME = minishell
 LIBFT_DIR = ./libft
 LIBFT_PATH = $(LIBFT_DIR)/libft.a
-SOURCES = test.c utils.c char_classification.c lexer.c unquote.c lexer_utils.c parser.c expander.c splitter.c syntax_analyzer.c
+MEMORY_ALLOCATOR_SOURCES = memory-allocator/aborter.c memory-allocator/allocator.c
+SOURCES = main.c utils.c lexer.c unquote.c lexer_utils.c parser.c expander.c splitter.c syntax_analyzer.c $(MEMORY_ALLOCATOR_SOURCES)
+FLAGS = -Wall -Wextra -Werror -g
 OBJECTS = $(SOURCES:.c=.o)
 
 all: minishell
