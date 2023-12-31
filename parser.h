@@ -73,16 +73,14 @@ void lexer_data_append(t_token **data, t_token *new_data);
 void lexer_data_insert(t_token **data, t_token *new_list);
 t_token **find_pointer_to_next(t_token **data, t_token *target);
 
-int are_redirections_valid(t_token *lexer_data);
-int are_quotes_valid(const char *input, t_token *lexer_data);
-int are_pipes_valid(t_token *lexer_data);
+int is_valid(t_token *lexer_data);
 
-t_token *lexer(char *input);
+t_token *lex(char *input);
 void expand(t_token **head);
 void internal_field_split(t_token **head, t_token *token);
-t_token *unquote(t_token *lexer_data);
+void unquote(t_token *lexer_data);
 t_command *parse(t_token *lexer_data);
-void uninit_tokens(t_token *token);
+void uninit_tokens(t_token *lexical_data);
 
 int is_in_single_quote(char *input, int index);
 
