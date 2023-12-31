@@ -64,9 +64,15 @@ char	**str_split(char const *str, int(*is_delimiter)(char *, int))
 
 	if (!str)
 		return (NULL);
-	result = (char **) ft_calloc(sizeof(char *), word_count(str, is_delimiter) + 1);
+	i = word_count(str, is_delimiter);
+	result = (char **) ft_calloc(sizeof(char *),  i + 1);
 	if (!result)
 		return (NULL);
+	if (i == 0)
+	{
+		result[0] = ft_strdup(str);
+		return (result);
+	}
 	word_index = 0;
 	i = 0;
 	while (str[i])
