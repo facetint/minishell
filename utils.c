@@ -84,7 +84,13 @@ int is_escaped(char *input, unsigned int index)
 {
 	if (index == 0)
 		return 0;
-	return input[index - 1] == '\\';
+	if (input[index - 1] == '\\')
+	{
+		if (index >= 2 && input[index - 2] == '\\')
+			return 0;
+		return 1;
+	}
+	return 0;
 }
 
 /*
