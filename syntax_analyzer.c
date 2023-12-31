@@ -38,9 +38,34 @@ int is_there_lack_of_word(t_token *lexer_data) {
 	return wait_for_word == 0;
 }
 
-int are_quotes_valid(const char *input, t_token *lexer_data) {
-	/* not implemented yet */
-	return 1;
+int are_quotes_valid(t_token *lexer_data)
+{
+	unsigned int length;
+	while (lexer_data)
+	{
+		if (lexer_data->type == SINGLE_QUOTED_WORD)
+		{
+			length = ft_strlen(lexer_data->value);
+			if (length <= 1)
+				return (0);
+			if (lexer_data->value[0] != SINGLE_QUOTE || lexer_data->value[length - 1] != SINGLE_QUOTE)
+				return (0);
+			if (is_escaped(lexer_data->value, length - 1))
+				return (0);
+		}
+		else if (lexer_data->type == DOUBLE_QUOTED_WORD)
+		{
+			length = ft_strlen(lexer_data->value);
+			if (length <= 1)
+				return (0);
+			if (lexer_data->value[0] != DOUBLE_QUOTE || lexer_data->value[length - 1] != DOUBLE_QUOTE)
+				return (0);
+			if (is_escaped(lexer_data->value, length - 1))
+				return (0);
+		}
+		lexer_data = lexer_data->next;
+	}
+	return (1);
 }
 
 int is_there_unknown_token(t_token *lexer_data) {
