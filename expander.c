@@ -106,8 +106,7 @@ void internal_field_split(t_token **head, t_token *token)
 	t_token *new;
 
 	new_words = str_split(token->value, is_internal_field_sep);
-	size = str_arr_size(new_words);
-	if (size == 1)
+	if (str_arr_size(new_words) == 1)
 		return; /* there is no new word */
 	free(token->value);
 	token->value = new_words[0];
