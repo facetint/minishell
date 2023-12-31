@@ -1,6 +1,7 @@
 #include "libft/libft.h"
 #include "parser.h"
 #include "utils.h"
+#include "memory-allocator/allocator.h"
 
 void join_all_composed_words(t_token **cur_token, char **string_ptr)
 {
@@ -14,7 +15,7 @@ void join_all_composed_words(t_token **cur_token, char **string_ptr)
 	{
 		new_name = ft_strjoin(*string_ptr, lexer_data->value);
 		if (*string_ptr)
-			free(*string_ptr);
+			safe_free(*string_ptr);
 		*string_ptr = new_name;
 		lexer_data = lexer_data->next;
 	}

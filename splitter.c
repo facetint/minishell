@@ -1,5 +1,6 @@
 #include "libft/libft.h"
 #include "utils.h"
+#include "memory-allocator/allocator.h"
 
 static int	wlen(char const *str, int(*is_delimiter)(char *, int))
 {
@@ -37,10 +38,10 @@ char	**free_string_arr(char **result)
 	i = 0;
 	while (result[i])
 	{
-		free(result[i]);
+		safe_free(result[i]);
 		i++;
 	}
-	free(result);
+	safe_free(result);
 	return (NULL);
 }
 

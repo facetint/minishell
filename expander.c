@@ -1,6 +1,8 @@
 #include "parser.h"
 #include "utils.h"
 #include "libft/libft.h"
+#include "char_classification.h"
+#include "memory-allocator/allocator.h"
 
 /**
  * replaces the string at input with replacement.
@@ -55,8 +57,8 @@ int expand_variable(char **input, int index)
 	new = replace_string(str, index, varname_len, getenv(varname));
 	result = (int) ft_strlen(str);
 	*input = new;
-	free(varname);
-	free(str);
+	safe_free(varname);
+	safe_free(str);
 	return index + varname_len + (int) ft_strlen(new) - result;
 }
 
@@ -108,7 +110,7 @@ void internal_field_split(t_token **head, t_token *token)
 	new_words = str_split(token->value, is_internal_field_sep);
 	if (str_arr_size(new_words) == 1)
 		return; /* there is no new word */
-	free(token->value);
+	safe_free(token->value);
 	token->value = new_words[0];
 	list = NULL;
 	i = 1; //skip first word
@@ -120,6 +122,6 @@ void internal_field_split(t_token **head, t_token *token)
 		lexer_data_append(&list, new);
 		i++;
 	}
-	free(new_words);
+	safe_free(new_words);
 	lexer_data_insert(find_pointer_to_next(head, token), list);
 }

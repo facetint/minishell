@@ -23,7 +23,7 @@ char *ft_str_arr_join(char **str_list, unsigned int str_count) {
 	}
 	if (total_len == 0)
 		return ft_strdup("");
-	result = (char *)malloc(sizeof(char) * (total_len + 1));
+	result = (char *)safe_malloc(sizeof(char) * (total_len + 1));
 	if (!result)
 		return NULL;
 	i = 0;
