@@ -44,14 +44,6 @@ char	**free_string_arr(char **result)
 	return (NULL);
 }
 
-int is_internal_field_sep(char *str, int index) {
-	if (is_escaped(str, index))
-		return 0;
-	if (str[index] == ' ' || str[index] == '\t' || str[index] == '\n')
-		return 1;
-	return 0;
-}
-
 /**
  * @brief a string split function which allows you to specify a delimiter function.
  * to provide advanced splitting.
