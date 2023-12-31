@@ -20,5 +20,7 @@ minishell: $(LIBFT_PATH) $(OBJECTS)
 clean:
 	rm -f $(OBJECTS)
 
-# PHONY target to clean and rebuild the program
-re: clean all
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
