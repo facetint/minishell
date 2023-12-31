@@ -20,7 +20,7 @@ int count_escapes(char *str)
 	return count;
 }
 
-char *dup_without_backslash(char *str)
+char *escaped_strdup(char *str)
 {
 	char *result;
 	unsigned int i;
@@ -45,29 +45,30 @@ char *dup_without_backslash(char *str)
 	return result;
 }
 
-void remove_backslashes(t_token *lexer_data)
-{
-	char *slashless_val;
-
-	if (lexer_data->type == UNQUOTED_WORD || lexer_data->type == DOUBLE_QUOTED_WORD)
-	{
-		slashless_val = dup_without_backslash(lexer_data->value);
-		safe_free(lexer_data->value);
-		lexer_data->value = slashless_val;
-	}
-}
-
+/**
+ * @brief remove quotes and backslashes of words from the lexer data
+ * @param lexer_data the lexer data to unquote
+ */
 void unquote(t_token *lexer_data)
 {
 	char *unquoted_value;
 	while (lexer_data)
 	{
-		if (lexer_data->type == SINGLE_QUOTED_WORD || lexer_data->type == DOUBLE_QUOTED_WORD) {
+		/* remove quotes */
+		if (lexer_data->type == SINGLE_QUOTED_WORD || lexer_data->type == DOUBLE_QUOTED_WORD)
+		{
 			unquoted_value = ft_substr(lexer_data->value, 1, ft_strlen(lexer_data->value) - 2);
 			safe_free(lexer_data->value);
 			lexer_data->value = unquoted_value;
 		}
-		remove_backslashes(lexer_data);
+		/* remove backlashes */
+		if(lexer_data->type == UNQUOTED_WORD || lexer_data->type == DOUBLE_QUOTED_WORD)
+		{
+			unquoted_value = escaped_strdup(lexer_data->value);
+			safe_free(lexer_data->value);
+			lexer_data->value = unquoted_value;
+		}
+
 		lexer_data = lexer_data->next;
 	}
 

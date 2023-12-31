@@ -8,7 +8,8 @@
 #include "memory-allocator/allocator.h"
 
 /* debug function */
-char const *token_type_to_string(t_token_type type) {
+char const *token_type_to_string(t_token_type type)
+{
 	if (type == UNKNOWN)
 		return "UNKNOWN";
 	if (type == UNQUOTED_WORD)
@@ -40,8 +41,8 @@ void unexpected_token_error(t_token *token)
 	ft_putstr_fd((char *) token_type_to_string(token->type), 2);
 }
 
-
 # define PARSER_DEBUG
+# define LEXER_DEBUG
 void debug(t_token *token, t_command *cmd) {
 	(void) token;
 	(void) cmd;
@@ -53,10 +54,14 @@ void debug(t_token *token, t_command *cmd) {
 	}
 	while (cmd)
 	{
-		printf("name: %s\nargs:", cmd->name);
+		printf("name: %s\nargs:", *cmd->name ? cmd->name : "(empty)");
+		if (cmd->args[0] == NULL)
+			printf("(no args)");
 		for (int i = 0; cmd->args[i]; i++)
 			printf("`%s` ", cmd->args[i]);
 		printf("\nredirections: ");
+		if (cmd->redirections[0].redirected == NULL)
+			printf("(no redirections)");
 		for (int i = 0; cmd->redirections[i].redirected; i++)
 			printf("`%s`(%s,%s,%s) ", cmd->redirections[i].redirected,
 				   cmd->redirections[i].flags & INPUT ? "input" : "output",
@@ -82,7 +87,6 @@ void debug(t_token *token, t_command *cmd) {
 		printf("\033[97m%s\033[37m(%s)[%d]\033[97m\n", token_type_to_string(token->type), token->value, token->end);
 	else
 		printf("\033[97m%s\n", token_type_to_string(token->type));
-	}
 #endif
 }
 
@@ -115,13 +119,13 @@ void handle_input(char *input)
 	expand(&lexer_data);
 	unquote(lexer_data);
 	parser_data = parse(lexer_data);
-	uninit_tokens(lexer_data);
 
 	debug(lexer_data, parser_data);
 	uninit_tokens(lexer_data);
 }
 
-void handle_memory_error(void) {
+void handle_memory_error(void)
+{
 	ft_putstr_fd("Insufficent memory! Minishell aborting...", 2);
 	exit(1);
 }
