@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "utils.h"
 #include "libft/libft.h"
-#include "parser.h"
+#include "minishell.h"
 #include "memory-allocator/allocator.h"
 
 /* debug function */
