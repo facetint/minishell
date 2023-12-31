@@ -3,20 +3,8 @@
 #include "libft/libft.h"
 #include "utils.h"
 #include "limits.h"
-
-
-int is_equals_ignore_case(char *s1, char *s2, int n) {
-	if (!s1 && !s2)
-		return 1;
-	if (!s1 || !s2)
-		return 0;
-	while (n != 0 && *s1 && ft_tolower(*s1) == ft_tolower(*s2)) {
-		s1++;
-		s2++;
-		n--;
-	}
-	return ft_tolower(*s1) == ft_tolower(*s2);
-}
+#include "char_classification.h"
+#include "memory-allocator/allocator.h"
 
 char *ft_str_arr_join(char **str_list, unsigned int str_count) {
 	unsigned int total_len;
