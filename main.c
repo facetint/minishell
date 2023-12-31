@@ -118,6 +118,7 @@ void handle_input(char *input)
 	uninit_tokens(lexer_data);
 
 	debug(lexer_data, parser_data);
+	uninit_tokens(lexer_data);
 }
 
 void handle_memory_error(void) {
