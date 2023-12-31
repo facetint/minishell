@@ -131,3 +131,16 @@ int str_arr_size(char **strings)
 		i++;
 	return i;
 }
+
+int is_a_name_char(char c) {
+	return is_name_char(c);
+}
+
+// here is 1000-point question. do you see different behavior than the bash ?
+int is_internal_field_sep(char *str, int index) {
+	if (is_escaped(str, index))
+		return 0;
+	if (is_field_terminator(str[index]))
+		return 1;
+	return 0;
+}
