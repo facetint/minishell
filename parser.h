@@ -38,7 +38,6 @@ typedef struct s_command
 
 typedef struct s_token
 {
-	int end; /* deprecated */ //todo - remove it
 	char *value;
 	t_token_type type;
 	struct s_token *next;
@@ -46,7 +45,7 @@ typedef struct s_token
 
 void unexpected_token_error(t_token *token);
 
-#define LEXER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, char *input, int index
+#define LEXER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, char *input, int *const index
 
 typedef void *(*lexer_func)(LEXER_STATE_FUNCTION_PARAMETERS);
 typedef lexer_func *(*lexer_state)(LEXER_STATE_FUNCTION_PARAMETERS);
@@ -65,7 +64,6 @@ parser_state argument_state(PARSER_STATE_FUNCTION_PARAMETERS);
 parser_state operator_state_p(PARSER_STATE_FUNCTION_PARAMETERS);
 
 t_token_type get_meta_token_type(const char *input);
-int get_index(t_token *token);
 
 t_token *get_last_lexer_data(t_token *token);
 t_token *lexer_data_new(t_token token);
