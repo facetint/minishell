@@ -78,13 +78,13 @@ void debug(t_token *token, t_command *cmd) {
 	}
 	while (token->next) {
 		if (is_word(token->type))
-			printf("\033[97m%s\033[37m(%s)[%d]->", token_type_to_string(token->type), token->value, token->end);
+			printf("\033[97m%s\033[37m(%s)->", token_type_to_string(token->type), token->value);
 		else
 			printf("\033[97m%s\033[37m->", token_type_to_string(token->type));
 		token = token->next;
 	}
 	if (is_word(token->type))
-		printf("\033[97m%s\033[37m(%s)[%d]\033[97m\n", token_type_to_string(token->type), token->value, token->end);
+		printf("\033[97m%s\033[37m(%s)\033[97m\n", token_type_to_string(token->type), token->value);
 	else
 		printf("\033[97m%s\n", token_type_to_string(token->type));
 #endif
