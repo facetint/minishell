@@ -1,0 +1,8 @@
+cmake-build-debug/
+*.o
+minishell_demo
+CMakeLists.txt
+a.out
+idea/
+.idea/
+.vscode/
