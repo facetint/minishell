@@ -1,5 +1,6 @@
-#include <readline/readline.h>
 #include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include "utils.h"
@@ -54,7 +55,7 @@ void debug(t_token *token, t_command *cmd) {
 	}
 	while (cmd)
 	{
-		printf("name: %s\nargs:", *cmd->name ? cmd->name : "(empty)");
+		printf("name: %s\nargs:", cmd->name ? cmd->name : "(empty)");
 		if (cmd->args[0] == NULL)
 			printf("(no args)");
 		for (int i = 0; cmd->args[i]; i++)
@@ -137,7 +138,10 @@ int main() {
 		char *input = readline(prompt);
 		safe_free(prompt);
 		if (input && *input)
+		{
 			handle_input(input);
+			add_history(input);
+		}
 		if (!input)
 			printf("\n");
 		safe_free(input);
