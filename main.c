@@ -140,7 +140,6 @@ int main() {
 			handle_input(input);
 		if (!input)
 			printf("\n");
-		safe_free(input);
 		free_memory();
 	}
 }
