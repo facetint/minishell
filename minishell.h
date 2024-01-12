@@ -47,8 +47,7 @@ void unexpected_token_error(t_token *token);
 
 #define LEXER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, char *input, int *const index
 
-typedef void *(*lexer_func)(LEXER_STATE_FUNCTION_PARAMETERS);
-typedef lexer_func *(*lexer_state)(LEXER_STATE_FUNCTION_PARAMETERS);
+typedef void *(*lexer_state)(LEXER_STATE_FUNCTION_PARAMETERS);
 
 lexer_state word_state(LEXER_STATE_FUNCTION_PARAMETERS);
 lexer_state operator_state_l(LEXER_STATE_FUNCTION_PARAMETERS);
