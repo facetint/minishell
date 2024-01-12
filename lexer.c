@@ -109,8 +109,9 @@ lexer_state delimiter_state(t_token **lexer_data, char *input, int *const index)
 		token.value = NULL;
 		token.type = DELIMITER;
 		lexer_data_append(lexer_data, lexer_data_new(token));
+	} else {
+		*index = *index - 1;
 	}
-
 	if (is_meta_char(next_non_whitespace))
 		return (lexer_state) operator_state_l;
 	return ((lexer_state) word_state);
