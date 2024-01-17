@@ -17,9 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: download the repository
-      with:
-        repository: ${{ github.repository }}
-        submodules: true
-        token: ${{ secrets.LIBFT_TOKEN }}
+      run: git submodule update --init --recursive
     - name: make
       run: make
