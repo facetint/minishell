@@ -30,7 +30,8 @@ t_token_type get_meta_token_type(const char *input)
 	return (UNKNOWN);
 }
 
-lexer_state word_state(t_token **lexer_data, char *input, int *const index) {
+lexer_state word_state(t_token **lexer_data, char *input, int *const index)
+{
 	t_token token;
 	int start_index;
 
@@ -53,7 +54,8 @@ lexer_state word_state(t_token **lexer_data, char *input, int *const index) {
 		(*index)--;
 	}
 	token.value = ft_substr(input, start_index, *index - start_index + 1);
-	lexer_data_append(lexer_data, lexer_data_new(token));
+	if (ft_strlen(token.value) > 0)
+		lexer_data_append(lexer_data, lexer_data_new(token));
 	return ((lexer_state) delimiter_state);
 }
 
@@ -86,7 +88,7 @@ lexer_state operator_state_l(t_token **lexer_data, char *input, int *const index
 	else if (token.type == APPEND_REDIRECTION || token.type == HEREDOC_REDIRECTION)
 		length = 2;
 	else
-		return NULL; //do not append new token
+		return NULL; // do not append new token
 	*index = *index + length - 1; // to mark where we stopped scanning
 	token.value = NULL;
 	lexer_data_append(lexer_data, lexer_data_new(token));
@@ -109,7 +111,9 @@ lexer_state delimiter_state(t_token **lexer_data, char *input, int *const index)
 		token.value = NULL;
 		token.type = DELIMITER;
 		lexer_data_append(lexer_data, lexer_data_new(token));
-	} else {
+	}
+	else
+	{
 		*index = *index - 1;
 	}
 	if (is_meta_char(next_non_whitespace))
@@ -117,13 +121,15 @@ lexer_state delimiter_state(t_token **lexer_data, char *input, int *const index)
 	return ((lexer_state) word_state);
 }
 
-t_token *lex(char *input) {
+t_token *lex(char *input)
+{
 	t_token *token = NULL;
 	lexer_state next_state = (lexer_state) word_state;
 	int index;
 
-	index = 0;
-	while (next_state && input[index]) {
+	index = skip_white_spaces(input);
+	while (next_state && input[index])
+	{
 		next_state = (lexer_state) next_state(&token, input, &index);
 		index++;
 	}
