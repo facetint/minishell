@@ -17,7 +17,7 @@ char *replace_string(char *input, int p_start, int p_len, char *replacement)
 	char *head;
 	char *tail;
 	char *result;
-
+	
 	head = ft_substr(input, 0, p_start);
 	tail = ft_substr(input, p_start + p_len + 1, ft_strlen(input) - p_start - p_len);
 	if (replacement == NULL)
@@ -78,8 +78,6 @@ void expand_all_variables(char **string)
 	*string = str;
 }
 
-
-
 void expand(t_token **head)
 {
 	t_token *token;
@@ -93,13 +91,13 @@ void expand(t_token **head)
 			expand_all_variables(&token->value);
 			/* only unquoted words are not protected for the split */
 			if (token->type == UNQUOTED_WORD)
-				internal_field_split(head, token);
+				internal_field_split(token);
 		}
 		token = token->next;
 	}
 }
 
-void internal_field_split(t_token **head, t_token *token)
+void internal_field_split(t_token *token)
 {
 	char **new_words;
 	int i;
@@ -122,5 +120,5 @@ void internal_field_split(t_token **head, t_token *token)
 		i++;
 	}
 	safe_free(new_words);
-	lexer_data_insert(find_pointer_to_next(head, token), list);
+	lexer_data_insert(token, list);
 }
