@@ -113,8 +113,6 @@ int find_char(const char *str, char looking_for) {
 	i = 0;
 	while (str[i] && (str[i] != looking_for || is_escaped((char *)str, i)))
 		i++;
-	if (str[i] == '\0' && looking_for != '\0')
-		return -1;
 	return i;
 }
 
