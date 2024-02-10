@@ -81,8 +81,10 @@ void expand_all_variables(char **string)
 void expand(t_token **head)
 {
 	t_token *token;
+	t_token **next_ptr;
 
 	token = *head;
+	next_ptr = head;
 	while (token)
 	{
 		/* only unquoted word and double-quoted word tokens are expandable. */
@@ -91,34 +93,22 @@ void expand(t_token **head)
 			expand_all_variables(&token->value);
 			/* only unquoted words are not protected for the split */
 			if (token->type == UNQUOTED_WORD)
-				internal_field_split(token);
+				internal_field_split(next_ptr);
 		}
+		next_ptr = &token->next;
 		token = token->next;
 	}
 }
 
-void internal_field_split(t_token *token)
+void internal_field_split(t_token **token_ptr)
 {
 	char **new_words;
-	int i;
-	t_token *list;
-	t_token *new;
+	t_token *token = *token_ptr;
 
 	new_words = str_split(token->value, is_internal_field_sep);
 	if (str_arr_size(new_words) == 1)
 		return; /* there is no new word */
 	safe_free(token->value);
-	token->value = new_words[0];
-	list = NULL;
-	i = 1; //skip first word
-	while (new_words[i])
-	{
-		new = lexer_data_new((t_token) {.type = DELIMITER});
-		lexer_data_append(&list, new);
-		new = lexer_data_new((t_token) {.type = UNQUOTED_WORD, .value = new_words[i]});
-		lexer_data_append(&list, new);
-		i++;
-	}
+	insert_uword_tokens(token_ptr, new_words);
 	safe_free(new_words);
-	lexer_data_insert(token, list);
 }
