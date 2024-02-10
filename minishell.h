@@ -73,7 +73,8 @@ int is_valid(t_token *lexer_data);
 
 t_token *lex(char *input);
 void expand(t_token **head);
-void internal_field_split(t_token *token);
+void internal_field_split(t_token **token);
+void insert_uword_tokens(t_token **token_ptr, char **strings);
 void unquote(t_token *lexer_data);
 t_command *parse(t_token *lexer_data);
 void uninit_tokens(t_token *lexical_data);
