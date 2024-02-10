@@ -1,5 +1,6 @@
 #include <criterion/criterion.h>
 #include "../minishell.h"
+#include "test.h"
 #include <unistd.h>
 #include <fcntl.h>
 
@@ -27,6 +28,14 @@ char *get_token_alias(t_token *token) {
 	return "U";
 }
 
+t_token *quite_lexer(char *input)
+{
+	/* ignore error outputs */
+	freopen("/dev/null", "w", stderr);
+	t_token *head = lex(input);
+	fclose(stderr);
+	return head;
+}
 
 /**
  * @brief checks if the token matches the type and value.
@@ -54,19 +63,20 @@ char *get_token_alias(t_token *token) {
  * @param expected_pseudo_input expected tokens
  * @return the lexer tokens
 */
-t_token *check_tokens(char *lexer_input, char *expected_pseudo_input)
+t_token *check_lexer_output(char *lexer_input, char *expected_pseudo_input)
 {
-	/* ignore error outputs */
-	freopen("/dev/null", "w", stderr);
-	t_token *head = lex(lexer_input);
-	fclose(stderr);
-
+	t_token *head = quite_lexer(lexer_input);
 	if (expected_pseudo_input == NULL)
 	{
-		cr_assert_null(head, "tokens was not null.\ninput    : %s\noutput   : %s\nexpected : %s", lexer_input, get_token_alias(head), expected_pseudo_input);
+		cr_assert_null(head, "tokens was not null.\n\noutput   : %s\nexpected : %s", get_token_alias(head), expected_pseudo_input);
 		return NULL;
 	}
 
+	return check_tokens(head, lexer_input, expected_pseudo_input);
+}
+
+t_token *check_tokens(t_token *head, char *lexer_input, char *expected_pseudo_input)
+{
 	int i = 0;
 	int token_index = 0;
 	t_token *token = head;
@@ -75,13 +85,18 @@ t_token *check_tokens(char *lexer_input, char *expected_pseudo_input)
 	while (token && i < len) {
 		char *alias = get_token_alias(token);
 		int cmp_result = strncmp(alias, expected_pseudo_input + i, strlen(alias));	
-		cr_assert_eq(cmp_result, 0, "unexpected tokens found.\ninput    : %s\noutput[%d]: %s\nexpected : %s", lexer_input, token_index, alias, expected_pseudo_input);		
+		cr_assert_eq(cmp_result, 0, "unexpected tokens found.\n\ninput: %s\noutput[%d]: %s\nexpected : %s", lexer_input, token_index, alias, expected_pseudo_input);		
 		token = token->next;
 		i += strlen(alias) + 1;
 		token_index++;
 	}
 
-	cr_assert_null(token, "tokens was correct but there is over token.\ninput    : %s\noutput[%d]: %s\nexpected : %s", lexer_input, token_index, get_token_alias(token), expected_pseudo_input);
-	cr_assert_eq(i >= len, 1, "tokens was correct but there is missing tokens.\ninput    : %s\noutput[%d]: %s\nexpected : %s", lexer_input, token_index, "NULL", expected_pseudo_input);
+	if (token) {
+		t_token *cur = token;
+		while (cur)
+			cur = cur->next;
+		cr_assert_null(token, "tokens was correct but there is over token.\n\ninput: %s\noutput[%d]: %s\nexpected : %s", lexer_input, token_index, get_token_alias(token), expected_pseudo_input);
+	}
+	cr_assert_eq(i >= len, 1, "tokens was correct but there is missing tokens.\n\ninput: %s\noutput[%d]: %s\nexpected : %s", lexer_input, token_index, "NULL", expected_pseudo_input);
 	return head;
 }
