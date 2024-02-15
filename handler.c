@@ -30,6 +30,7 @@ char const *token_type_to_string(t_token_type type)
 }
 
 # define LEXER_DEBUG
+# define PARSER_DEBUG
 void debug(t_token *token, t_command *cmd) {
 	(void) token,(void) cmd;
 
@@ -76,10 +77,15 @@ void debug(t_token *token, t_command *cmd) {
 #endif
 }
 
-char *read_heredoc_input(char *eof) {
-	char *line = NULL;
-	char *input = ft_strdup("");
-	while (1) {
+char *read_heredoc_input(char *eof)
+{
+	char *line;
+	char *input;
+	
+	line = NULL;
+	input = ft_strdup("");
+	while (1)
+	{
 		line = readline("> ");
 		if (!line || !*line || ft_strncmp(line, eof, INT_MAX) == 0)
 			break;
@@ -93,13 +99,17 @@ char *read_heredoc_input(char *eof) {
 	return new;
 }
 
-void handle_heredocs(t_command *cur) {
+void handle_heredocs(t_command *cur)
+{
 	int i;
 
-	while (cur) {
+	while (cur)
+	{
 		i = 0;
-		while (cur->redirections[i].redirected) {
-			if (cur->redirections[i].flags & HEREDOC) {
+		while (cur->redirections[i].redirected)
+		{
+			if (cur->redirections[i].flags & HEREDOC)
+			{
 				char *input = read_heredoc_input(cur->redirections[i].redirected);
 				safe_free(cur->redirections[i].redirected);
 				cur->redirections[i].redirected = input;
@@ -122,7 +132,6 @@ void handle_input(char *input)
 	t_command *parser_data;
 
 	lexer_data = lex(input);
-	debug(lexer_data, NULL);
 	if (!is_valid(lexer_data))
 		return handle_invalid_input(lexer_data);
 	expand(&lexer_data);
@@ -139,4 +148,3 @@ void handle_memory_error(void)
 	ft_putstr_fd("Insufficent memory! Minishell aborting...", 2);
 	exit(1);
 }
-
