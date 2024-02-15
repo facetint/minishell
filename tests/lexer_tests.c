@@ -100,6 +100,7 @@ Test(lexer, invalid_redirection_test)
 	check_lexer_output("<", "IR");
 	check_lexer_output("a<<", "UW HR");
 	check_lexer_output("<<", "HR");
+	check_lexer_output("<<eof cat -e", "HR UW D UW D UW");
 }
 
 Test(lexer, invalid_word_test)
