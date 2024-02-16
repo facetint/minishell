@@ -12,27 +12,34 @@ char *get_token_alias(t_token *token)
 	switch (token->type)
 	{
 		case UNQUOTED_WORD:
-		return "UW";
+			return "UW";
 		case DOUBLE_QUOTED_WORD:
-		return "DW";
+			return "DW";
 		case SINGLE_QUOTED_WORD:
-		return "SW";
+			return "SW";
 		case PIPE:
-		return "P";
+			return "P";
 		case INPUT_REDIRECTION:
-		return "IR";
+			return "IR";
 		case HEREDOC_REDIRECTION:
-		return "HR";
+			return "HR";
 		case OUTPUT_REDIRECTION:
-		return "OR";
+			return "OR";
 		case APPEND_REDIRECTION:
-		return "AR";
+			return "AR";
 		case DELIMITER:
-		return "D";
+			return "D";
 		default:
-	return "U";
+			return "U";
+	}
 }
-}
+
+/**
+ * @brief returns the lexer's output. however all error outputs are ignored.
+ * 
+ * @param input input string
+ * 
+*/
 t_token *quite_lexer(char *input)
 {
 	/* ignore error outputs */
@@ -43,7 +50,7 @@ t_token *quite_lexer(char *input)
 }
 
 /**
- * @brief checks if the token matches the type and value.
+ * @brief returns NULL if the lexer output is not equal to the expected pseudo input.
  * 
  * Use this variables:
  * UW -> UNQUOTED_WORD
@@ -57,12 +64,12 @@ t_token *quite_lexer(char *input)
  * P -> PIPE
  * U -> UNKNOWN
  *
- * put spaces between tokens. 
+ * Put spaces between pseudo tokens. 
  * 
  * Example:
- * check_tokens(lex("a|b"), "UW P UW") -> 1
- * check_tokens(lex("a|b"), "UW UW") -> 0
- * check_tokens(lex("a | b"), "UW D P D UW") -> 1
+ * check_lexer_output(lex("a|b"), "UW P UW") -> VALID
+ * check_lexer_output(lex("a|b"), "UW UW") -> INVALID (returns NULL)
+ * check_lexer_output(lex("a | b"), "UW D P D UW") -> VALID
  * 
  * @param lexer_input input string
  * @param expected_pseudo_input expected tokens
@@ -96,7 +103,8 @@ t_token *check_tokens(t_token *head, char *lexer_input, char *expected_pseudo_in
 		token_index++;
 	}
 
-	if (token) {
+	if (token)
+	{
 		t_token *cur = token;
 		while (cur)
 			cur = cur->next;
