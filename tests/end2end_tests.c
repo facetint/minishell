@@ -68,6 +68,36 @@ char *stop_listening(struct listen_data ld)
 	return result;
 }
 
+char *exec_and_output(char *input, int fd)
+{
+	struct listen_data ld = start_listening(fd);
+	handle_input(input);
+	char *output = stop_listening(ld);
+	return output;
+}
+
+void exec_assert_output(char *input, char *expected_output, int fd)
+{
+	char *output = exec_and_output(input, fd);
+	cr_assert_str_eq(output, expected_output);
+}
+
+void exec_assert_not_output(char *input, char *unexpected_output, int fd)
+{
+	char *output = exec_and_output(input, fd);
+	cr_assert_str_neq(output, unexpected_output);
+}
+
+void exec_assert_stdout(char *input, char *expected_output)
+{
+	exec_assert_output(input, expected_output, 1);
+}
+
+void exec_assert_stderr(char *input, char *expected_output)
+{
+	exec_assert_output(input, expected_output, 2);
+}
+
 Test(test_utils, listen_input)
 {
 	struct listen_data ld = start_listening(1);
@@ -76,37 +106,75 @@ Test(test_utils, listen_input)
 	cr_assert_str_eq(output, "hello\n");
 }
 
-Test(end2end, echo_normal)
+Test(end2end, echo)
 {
-	struct listen_data ld = start_listening(1);
-	handle_input("echo hello");
-	char *output = stop_listening(ld);
-	cr_assert_str_eq(output, "hello\n");
+	exec_assert_stdout("echo hello", "hello\n");
+	exec_assert_stdout("echo -n hello", "hello");
+	exec_assert_stdout("echo -n -n -n hello", "hello");
+	exec_assert_stdout("echo a -n hello", "a -n hello\n");
+
+	exec_assert_not_output("echo" "a\n", NULL, 2); // error expected.
 }
 
-Test(end2end, echo_with_n_arg_normal)
+Test(end2end, unquoting)
 {
-	struct listen_data ld = start_listening(1);
-	handle_input("echo -n hello");
-	char *output = stop_listening(ld);
-	cr_assert_str_eq(output, "hello");
+	exec_assert_stdout("ec\"h\"'o' hell'o'\\ world", "hello world\n");
+	exec_assert_stdout("ec\"h\"'o' hell'o'\\world", "helloworld\n");
+	exec_assert_stdout("\"e\"'c'h'o' hello", "hello\n");
+	exec_assert_stdout("'e''c'h'o' hello", "hello\n");
+
+	exec_assert_not_output("echo \"hello", "hello\n", NULL, 2); // error expected.
+	exec_assert_not_output("echo 'hello", "hello\n", NULL, 2); // error expected.
+	
+	exec_assert_stdout("echo 'hello\\'", "hello\\\n", NULL);
 }
 
-Test(end2end, echo_with_n_arg_duplicated)
+Test(end2end, overrided_redirection)
 {
-	struct listen_data ld = start_listening(1);
-	handle_input("echo -n -n -n hello");
-	char *output = stop_listening(ld);
-	cr_assert_str_eq(output, "hello");
+	exec_assert_stdout("echo ABC > file1 > file2", NULL);
+	exec_assert_stdout("cat file1", NULL);
+	exec_assert_stdout("cat file2", "ABC\n");
+}
+Test(end2end, execute_w_path)
+{
+	exec_assert_stdout("/bin/echo hello", "hello\n");
+	exec_assert_stdout("/////////////////bin///////////echo sa", "hello\n");
+	exec_assert_stdout("////////////////bin//////../bin/////echo sa", "hello\n");
 }
 
-Test(end2end, echo_with_fake_arg)
+Test(end2end, environment_variables)
 {
-	struct listen_data ld = start_listening(1);
-	handle_input("echo a -n hello");
-	char *output = stop_listening(ld);
-	cr_assert_str_eq(output, "a -n hello\n");
+	exec_assert_stderr("setenv abc def", NULL);
+	exec_assert_stdout("echo $abc", "def\n");
+
+	exec_assert_stdout("echo $\"abc\"", "abc\n");
+
+	exec_assert_stderr("setenv abc \"k l m n o p r\"", NULL);
+	exec_assert_stdout("echo $abc", "\n");
 }
 
+Test(end2end, pipes)
+{
+	exec_assert_stdout("echo hello | cat -e", "hello$\n");
+}
 
+Test(end2end, pipes)
+{
+	exec_assert_stdout("echo hello | cat -e", "hello$\n");
+}
+
+Test(end2end, write_and_read_file)
+{
+	exec_assert_stderr("echo hello > redirection_test_file", NULL); // no error expected.
+	exec_assert_stdout("cat redirection_test_file", "hello\n");
+	exec_assert_stderr("rm redirection_test_file", NULL);
+}
+
+Test(end2end, append_and_read_file)
+{
+	exec_assert_stderr("echo hello > redirection_test_file", NULL); // no error expected.
+	exec_assert_stderr("echo world >> redirection_test_file", NULL); // no error expected.
+	exec_assert_stdout("cat redirection_test_file", "hello\nworld\n");
+	exec_assert_stderr("rm redirection_test_file", NULL);
+}
 
