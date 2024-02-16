@@ -4,30 +4,35 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-char *get_token_alias(t_token *token) {
+char *get_token_alias(t_token *token)
+{
 	if (token == NULL)
 		return "NULL";
-	if (token->type == UNQUOTED_WORD)
+	
+	switch (token->type)
+	{
+		case UNQUOTED_WORD:
 		return "UW";
-	if (token->type == DOUBLE_QUOTED_WORD)
+		case DOUBLE_QUOTED_WORD:
 		return "DW";
-	if (token->type == SINGLE_QUOTED_WORD)
+		case SINGLE_QUOTED_WORD:
 		return "SW";
-	if (token->type == PIPE)
+		case PIPE:
 		return "P";
-	if (token->type == INPUT_REDIRECTION)
+		case INPUT_REDIRECTION:
 		return "IR";
-	if (token->type == HEREDOC_REDIRECTION)
+		case HEREDOC_REDIRECTION:
 		return "HR";
-	if (token->type == OUTPUT_REDIRECTION)
+		case OUTPUT_REDIRECTION:
 		return "OR";
-	if (token->type == APPEND_REDIRECTION)
+		case APPEND_REDIRECTION:
 		return "AR";
-	if (token->type == DELIMITER)
+		case DELIMITER:
 		return "D";
+		default:
 	return "U";
 }
-
+}
 t_token *quite_lexer(char *input)
 {
 	/* ignore error outputs */
