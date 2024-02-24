@@ -1,7 +1,7 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-typedef enum s_token_type
+typedef enum e_token_type
 {
 	DOUBLE_QUOTED_WORD,
 	SINGLE_QUOTED_WORD,
@@ -15,6 +15,11 @@ typedef enum s_token_type
 	UNKNOWN,
 } t_token_type;
 
+typedef enum e_signal_type
+{
+    IN_HEREDOC,
+    DEFAULT,
+} t_signal_type;
 
 /* if 1 input, otherwise, output */
 # define INPUT (1 << 0)

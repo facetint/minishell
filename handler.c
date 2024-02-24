@@ -34,6 +34,8 @@ char const *token_type_to_string(t_token_type type)
 void debug(t_token *token, t_command *cmd) {
 	(void) token,(void) cmd;
 
+
+
 #ifdef PARSER_DEBUG
 	if (!cmd) {
 		printf("<No Command>");
@@ -81,7 +83,7 @@ char *read_heredoc_input(char *eof)
 {
 	char *line;
 	char *input;
-	
+
 	line = NULL;
 	input = ft_strdup("");
 	while (1)
@@ -99,8 +101,11 @@ char *read_heredoc_input(char *eof)
 	return new;
 }
 
+t_signal_type signal_type = DEFAULT;
+
 void handle_heredocs(t_command *cur)
 {
+    signal_type = IN_HEREDOC;
 	int i;
 
 	while (cur)
@@ -118,6 +123,7 @@ void handle_heredocs(t_command *cur)
 		}
 		cur = cur->next;
 	}
+	signal_type = DEFAULT;
 }
 
 void handle_invalid_input(t_token *lexical_data)
