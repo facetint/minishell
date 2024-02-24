@@ -36,8 +36,9 @@ $(NAME): $(LIBFT_PATH) $(MINISHELL_OBJECTS)
 
 clean:
 	rm -f $(MINISHELL_OBJECTS)
+	make -f libft/Makefile clean
 
 fclean: clean
-	rm -f $(NAME) $(TEST_PATH)/tests
+	rm -f $(NAME) $(TEST_PATH)/tests $(LIBFT_PATH)
 
 re: fclean all
