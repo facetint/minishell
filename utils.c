@@ -2,6 +2,7 @@
 #include "libft/libft.h"
 #include "utils.h"
 #include "limits.h"
+#include "minishell.h"
 #include "char_classification.h"
 #include "memory-allocator/allocator.h"
 
@@ -112,8 +113,6 @@ int find_char(const char *str, char looking_for) {
 	i = 0;
 	while (str[i] && (str[i] != looking_for || is_escaped((char *)str, i)))
 		i++;
-	if (str[i] == '\0' && looking_for != '\0')
-		return -1;
 	return i;
 }
 
@@ -140,4 +139,23 @@ int is_internal_field_sep(char *str, int index) {
 	if (is_field_terminator(str[index]))
 		return 1;
 	return 0;
+}
+
+/* unprotected mallocs todo */
+char *get_prompt()
+{
+	char *full_path = getwd(NULL);
+	char *path = get_cur_folder_name(full_path);
+	char *username = getenv("USER");
+	char *strings[] = {username, "@", path, "$ " };
+	char *prompt = ft_str_arr_join(strings, 4);
+	safe_free(full_path);
+	return prompt;
+}
+
+void unexpected_token_error(t_token *token)
+{
+	if (token == NULL)
+		return ft_putstr_fd("syntax error occurred, null token found.\n", 2);
+	ft_putstr_fd("syntax error. lol.\n", 2);
 }

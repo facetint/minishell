@@ -35,7 +35,7 @@ parser_state command_state(t_token **cur_token, t_command *cur_cmd)
 	*cur_token = lexer_data;
 	if (is_word(lexer_data->type))
 		return (parser_state) argument_state;
-	else if (is_operator(lexer_data->type))
+	if (is_operator(lexer_data->type))
 		return (parser_state) operator_state_p;
 	return unexpected_token_error(lexer_data), NULL;
 }
@@ -146,7 +146,6 @@ t_command *parse(t_token *lexer_data)
 	parser_state next_state;
 	t_command *result;
 
-	/* while (start) */
 	t_token *cur_token = lexer_data;
 	next_state = (parser_state) command_state;
 	init_command(lexer_data, &cur_cmd);

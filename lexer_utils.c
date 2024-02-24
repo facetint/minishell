@@ -21,29 +21,15 @@ t_token *lexer_data_new(t_token token)
 	return data;
 }
 
-void lexer_data_insert(t_token **data, t_token *new_list) {
+void lexer_data_insert(t_token *data, t_token *new_list) {
 	t_token *last;
 
 	if (!data || !new_list)
 		return;
 	last = get_last_lexer_data(new_list);
-	last->next = (*data)->next;
-	(*data)->next = new_list;
+	last->next = data->next;
+	data->next = new_list;
 }
-
-t_token **find_pointer_to_next(t_token **data, t_token *target)
-{
-	if (!data || !*data || !target)
-		return NULL;
-	while (*data)
-	{
-		if (*data == target)
-			return data;
-		data = &(*data)->next;
-	}
-	return NULL;
-}
-
 
 void lexer_data_append(t_token **data, t_token *new_data)
 {
