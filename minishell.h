@@ -97,4 +97,6 @@ void handle_memory_error(void);
 void debug(t_token *token, t_command *cmd);
 char *ft_str_arr_join(char **str_list, unsigned int str_count);
 
+// executer
+void execute(t_command *cmds, t_command *beginCmds);
 #endif
