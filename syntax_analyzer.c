@@ -3,7 +3,8 @@
 #include "char_classification.h"
 #include "utils.h"
 
-int is_word(t_token_type type) {
+int is_word(t_token_type type)
+{
 	return type == UNQUOTED_WORD ||
 		   type == SINGLE_QUOTED_WORD ||
 		   type == DOUBLE_QUOTED_WORD;
@@ -14,7 +15,8 @@ int is_word(t_token_type type) {
  * @param type the token type
  * @return 1 if the token is an operator, 0 otherwise
  */
-int is_operator(t_token_type type) {
+int is_operator(t_token_type type)
+{
 	return type == HEREDOC_REDIRECTION ||
 		   type == INPUT_REDIRECTION ||
 		   type == OUTPUT_REDIRECTION ||
@@ -22,7 +24,8 @@ int is_operator(t_token_type type) {
 		   type == PIPE;
 }
 
-int is_there_lack_of_word(t_token *lexer_data) {
+int is_there_lack_of_word(t_token *lexer_data)
+{
 	int wait_for_word;
 
 	wait_for_word = 1;
@@ -44,26 +47,25 @@ int is_there_lack_of_word(t_token *lexer_data) {
 int are_quotes_valid(t_token *lexer_data)
 {
 	unsigned int length;
+
 	while (lexer_data)
 	{
 		if (lexer_data->type == SINGLE_QUOTED_WORD)
 		{
 			length = ft_strlen(lexer_data->value);
-			if (length <= 1)
-				return (0);
-			if (lexer_data->value[0] != SINGLE_QUOTE || lexer_data->value[length - 1] != SINGLE_QUOTE)
-				return (0);
-			if (is_escaped(lexer_data->value, length - 1))
+			if (length <= 1
+				|| lexer_data->value[0] != SINGLE_QUOTE
+				|| lexer_data->value[length - 1] != SINGLE_QUOTE
+				|| is_escaped(lexer_data->value, length - 1))
 				return (0);
 		}
 		else if (lexer_data->type == DOUBLE_QUOTED_WORD)
 		{
 			length = ft_strlen(lexer_data->value);
-			if (length <= 1)
-				return (0);
-			if (lexer_data->value[0] != DOUBLE_QUOTE || lexer_data->value[length - 1] != DOUBLE_QUOTE)
-				return (0);
-			if (is_escaped(lexer_data->value, length - 1))
+			if (length <= 1
+				|| lexer_data->value[0] != DOUBLE_QUOTE
+				|| lexer_data->value[length - 1] != DOUBLE_QUOTE
+				|| is_escaped(lexer_data->value, length - 1))
 				return (0);
 		}
 		lexer_data = lexer_data->next;
