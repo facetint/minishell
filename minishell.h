@@ -15,7 +15,6 @@ typedef enum s_token_type
 	UNKNOWN,
 } t_token_type;
 
-
 /* if 1 input, otherwise, output */
 # define INPUT (1 << 0)
 /* only valid if IS_INPUT is 1*/
@@ -92,4 +91,6 @@ void handle_memory_error(void);
 void debug(t_token *token, t_command *cmd);
 char *ft_str_arr_join(char **str_list, unsigned int str_count);
 
+// executer
+void execute(t_command *cmds, t_command *beginCmds);
 #endif
