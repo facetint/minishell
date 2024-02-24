@@ -38,6 +38,7 @@ typedef struct s_command
 {
 	char *name;
 	char **args;
+	int fd;
 	t_redirection *redirections;
 	struct s_command *next; /* output->input redirected command */
 } t_command;
