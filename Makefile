@@ -7,7 +7,7 @@ CC = gcc
 FLAGS = -Wall -Wextra -Werror -g
 
 MEMORY_ALLOCATOR_SOURCES = memory-allocator/aborter.c memory-allocator/allocator.c
-SOURCES = expander/expander_nonvariables.c utils.c handler.c lexer.c unquote.c lexer_utils.c parser.c expander.c splitter.c syntax_analyzer.c $(MEMORY_ALLOCATOR_SOURCES)
+SOURCES = expander/expander_nonvariables.c utils.c handler.c lexer.c unquote.c lexer_utils.c parser.c execute.c expander.c splitter.c syntax_analyzer.c $(MEMORY_ALLOCATOR_SOURCES)
 
 MINISHELL_SOURCES = main.c $(SOURCES)
 MINISHELL_OBJECTS = $(MINISHELL_SOURCES:.c=.o)
