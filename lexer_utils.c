@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "includes/minishell.h"
 #include "memory-allocator/allocator.h"
 #include <stdlib.h>
 

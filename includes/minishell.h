@@ -28,6 +28,7 @@ typedef enum e_signal_type
 /* if 1 heredoc text, otherwise, string is a file name */
 # define HEREDOC (1 << 2)
 
+
 typedef struct s_redirection
 {
 	char *redirected; /* non-null */
@@ -38,6 +39,7 @@ typedef struct s_command
 {
 	char *name;
 	char **args;
+	int fd;
 	t_redirection *redirections;
 	struct s_command *next; /* output->input redirected command */
 } t_command;

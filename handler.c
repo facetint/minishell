@@ -1,4 +1,5 @@
-#include "minishell.h"
+#include <stdio.h>
+#include "includes/minishell.h"
 #include "libft/libft.h"
 #include <readline/readline.h>
 #include "memory-allocator/allocator.h"

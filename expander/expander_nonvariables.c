@@ -1,7 +1,7 @@
-#include "../minishell.h"
-#include "../utils.h"
+#include "../includes/minishell.h"
+#include "../includes/utils.h"
 #include "../libft/libft.h"
-#include "../char_classification.h"
+#include "../includes/char_classification.h"
 #include "../memory-allocator/allocator.h"
 #include <stdio.h>
 

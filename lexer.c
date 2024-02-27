@@ -1,8 +1,8 @@
 #include "libft/libft.h"
-#include "minishell.h"
+#include "includes/minishell.h"
 #include <stdio.h>
-#include "utils.h"
-#include "char_classification.h"
+#include "includes/utils.h"
+#include "includes/char_classification.h"
 
 /**
  * get token type from meta character

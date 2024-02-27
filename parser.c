@@ -1,6 +1,6 @@
 #include "libft/libft.h"
-#include "minishell.h"
-#include "utils.h"
+#include "includes/minishell.h"
+#include "includes/utils.h"
 #include "memory-allocator/allocator.h"
 
 void join_all_composed_words(t_token **cur_token, char **string_ptr)

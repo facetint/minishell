@@ -1,7 +1,7 @@
 #ifndef TEST_H
 # define TEST_H
 
-# include "../minishell.h"
+# include "../includes/minishell.h"
 
 t_token *check_lexer_output(char *input, char *expected_pseudo_input);
 t_token *quite_lexer(char *input);
