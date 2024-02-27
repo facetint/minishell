@@ -3,12 +3,20 @@
 #include <readline/history.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "utils.h"
+#include "includes/utils.h"
 #include "libft/libft.h"
-#include "minishell.h"
+#include "includes/minishell.h"
 #include "memory-allocator/allocator.h"
+#include "includes/env.h"
 
-int main() {
+t_envList *envList;
+
+int main(int ac, char **av, char **envp) {
+
+	envList = NULL;
+
+	envList = make_list(envp);
+
 	register_post_abort_func(handle_memory_error);
 	while (1) {
 		char *prompt = get_prompt();
