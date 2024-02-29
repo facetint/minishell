@@ -1,8 +1,8 @@
 #include <printf.h>
-#include "minishell.h"
+#include "includes/minishell.h"
 #include "libft/libft.h"
 #include "memory-allocator/allocator.h"
-#include "utils.h"
+#include "includes/utils.h"
 
 int count_escapes(char *str)
 {

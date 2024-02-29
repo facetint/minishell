@@ -1,7 +1,7 @@
-#include "minishell.h"
+#include "includes/minishell.h"
 #include "libft/libft.h"
-#include "char_classification.h"
-#include "utils.h"
+#include "includes/char_classification.h"
+#include "includes/utils.h"
 
 int is_word(t_token_type type)
 {

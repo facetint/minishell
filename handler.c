@@ -1,4 +1,5 @@
-#include "minishell.h"
+#include <stdio.h>
+#include "includes/minishell.h"
 #include "libft/libft.h"
 #include <readline/readline.h>
 #include "memory-allocator/allocator.h"
@@ -33,9 +34,6 @@ char const *token_type_to_string(t_token_type type)
 # define PARSER_DEBUG
 void debug(t_token *token, t_command *cmd) {
 	(void) token,(void) cmd;
-
-
-
 #ifdef PARSER_DEBUG
 	if (!cmd) {
 		printf("<No Command>");
@@ -43,7 +41,7 @@ void debug(t_token *token, t_command *cmd) {
 	}
 	while (cmd)
 	{
-		printf("name: %s\nargs:", *cmd->name ? cmd->name : "(empty)");
+		printf("name: %s\nargs:", cmd->name ? cmd->name : "(empty)");
 		if (cmd->args[0] == NULL)
 			printf("(no args)");
 		for (int i = 0; cmd->args[i]; i++)
@@ -89,6 +87,8 @@ char *read_heredoc_input(char *eof)
 	while (1)
 	{
 		line = readline("> ");
+		// if signal_type != IN_HEREDOC
+		// 	handle_input()
 		if (!line || !*line || ft_strncmp(line, eof, INT_MAX) == 0)
 			break;
 		char *new = ft_str_arr_join((char *[]) {input, line, "\n"}, 3);

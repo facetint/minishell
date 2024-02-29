@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include "libft/libft.h"
-#include "utils.h"
+#include "includes/utils.h"
 #include "limits.h"
-#include "minishell.h"
-#include "char_classification.h"
+#include "includes/minishell.h"
+#include "includes/char_classification.h"
 #include "memory-allocator/allocator.h"
 
 char *ft_str_arr_join(char **str_list, unsigned int str_count) {
