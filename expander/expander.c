@@ -3,6 +3,11 @@
 #include "../libft/libft.h"
 #include "../includes/char_classification.h"
 #include "../memory-allocator/allocator.h"
+#include "includes/minishell.h"
+#include "includes/utils.h"
+#include "libft/libft.h"
+#include "includes/char_classification.h"
+#include "memory-allocator/allocator.h"
 
 /**
  * replaces the string at input with replacement.

@@ -1,10 +1,6 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-# define STDINN 0
-# define STDOUT 1
-# define STDERR 2
-
 typedef enum e_token_type
 {
 	DOUBLE_QUOTED_WORD,
@@ -44,8 +40,6 @@ typedef struct s_command
 	char *name;
 	char **args;
 	int fd;
-	int		infile;
-	int		outfile;
 	t_redirection *redirections;
 	struct s_command *next; /* output->input redirected command */
 } t_command;
@@ -113,5 +107,6 @@ char	*find_path(char *cmd);
 int		isbuiltin(char *cmd);
 void	builtin_exit(t_command *cmd);
 void	builtin_echo(t_command *cmd);
+void    builtin_pwd(t_command *cmd);
 
 #endif

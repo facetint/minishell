@@ -6,19 +6,18 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/02/29 13:51:00 by facetint         ###   ########.fr       */
+/*   Updated: 2024/02/29 16:42:04 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include <unistd.h>
-#include <stdio.h>
+#include "includes/minishell.h"
+#include "unistd.h"
+#include "stdio.h"
 #include <sys/wait.h>
 #include <stdlib.h>
-#include "../libft/libft.h"
-#include "../memory-allocator/allocator.h"
-#include "../includes/env.h"
-#include "../get_next_line/get_next_line.h"
+#include "libft/libft.h"
+#include "memory-allocator/allocator.h"
+#include "includes/env.h"
 
 extern t_envList *envList;
 
@@ -31,7 +30,7 @@ t_command *find_before_cmd(t_command *cmds, t_command *beginCmds)
     return (beginCmds);
 }
 
-char **new_arr(char *new, char **arr) // new = ls arr = -l
+char **new_arr(char *new, char **arr)
 {
     int counter;
     char **ret_val;
@@ -48,6 +47,49 @@ char **new_arr(char *new, char **arr) // new = ls arr = -l
     return (ret_val);
 }
 
+char *find_path(char *cmd)
+{
+    char *path;
+    char **path_arr;
+    char *joined_path;
+    char *new_joined_path;
+    int counter;
+
+    path = getenv("PATH");
+    path_arr = ft_split(path, ':');
+
+    counter = 0;
+    while (path_arr[counter])
+    {
+        joined_path = ft_strjoin(path_arr[counter], "/");
+        new_joined_path = ft_strjoin(joined_path, cmd);
+        safe_free(joined_path);
+        if (access(new_joined_path, F_OK) == 0)
+        {
+            safe_free(path_arr);
+            return (new_joined_path);
+        }
+        counter++;
+    }
+    return (NULL);
+}
+
+int isbuiltin(char *cmd)
+{
+    if (ft_strncmp(cmd, "echo", ft_strlen("echo")) == 0)
+        return (1);
+    if (ft_strncmp(cmd, "export", ft_strlen("export")) == 0)
+        return (1);
+    if (ft_strncmp(cmd, "env", ft_strlen("env")) == 0)
+        return(1);
+    if (ft_strncmp(cmd, "pwd", ft_strlen("pwd")) == 0)
+        return (1);
+    if (ft_strncmp(cmd, "cd", ft_strlen("cd")) == 0)
+        return(1);
+    if (ft_strncmp(cmd, "unset", ft_strlen("unset")) == 0)
+        return(1);
+    return (0);
+}
 void execute(t_command *cmds, t_command *beginCmds)
 {
     int fd[2];
@@ -59,6 +101,15 @@ void execute(t_command *cmds, t_command *beginCmds)
     char *line;
 
     builtin = isbuiltin(cmds->name);
+    char buff[512];
+    int rd_bytes;
+    char **arg;
+    t_command *before;
+    int builtin;
+
+    builtin = isbuiltin(cmds->name);
+
+    //echo builtin
     if (!builtin)
     {
         path_cmd = find_path(cmds->name);
@@ -90,6 +141,7 @@ void execute(t_command *cmds, t_command *beginCmds)
             return;
         }
         if (pid == 0)
+        if (pid == 0) // child process
         {
             if (before)
             {
@@ -110,6 +162,7 @@ void execute(t_command *cmds, t_command *beginCmds)
         if (ft_strncmp(cmds->name, "echo", ft_strlen("echo")) == 0)
         {
             builtin_echo(cmds);
+            write(fd[1], cmds->args[0], ft_strlen(cmds->args[0]));
         }
         else if (ft_strncmp(cmds->name, "export", ft_strlen("export")) == 0)
         {
@@ -127,6 +180,10 @@ void execute(t_command *cmds, t_command *beginCmds)
             print_list(envList);
         }
     }
+        }
+        else if (ft_strncmp(cmds->name, "env", ft_strlen("env")) == 0)
+            print_list(envList);
+
     close(fd[1]);
     if (before)
        close(before->fd);
@@ -141,7 +198,6 @@ void execute(t_command *cmds, t_command *beginCmds)
             safe_free(line);
         }
         close(fd[0]);
-    }
     if (cmds->next)
         execute(cmds->next, beginCmds);
 }
