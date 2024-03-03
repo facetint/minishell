@@ -26,7 +26,6 @@
 
 void    builtin_pwd(t_command *cmd)
 {
-<<<<<<< HEAD:builtin/pwd.c
     (void)cmd;
     char    *path;
     
@@ -34,13 +33,4 @@ void    builtin_pwd(t_command *cmd)
 	getcwd(path, 4097);
 	printf("%s\n", path);
 	safe_free(path);
-=======
-	void	*result;
-
-	result = safe_malloc(count * size);
-	if (result == NULL)
-		return (NULL);
-	ft_bzero(result, count * size);
-	return (result);
->>>>>>> main:libft/ft_calloc.c
 }

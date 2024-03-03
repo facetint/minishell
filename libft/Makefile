@@ -8,10 +8,13 @@ BONUS_SOURCES = ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c 
 BONUS_OBJECTS = $(BONUS_SOURCES:.c=.o)
 
 all: $(OBJECTS)
+	@sleep 0.2
+	@echo "$(PURPLE_COLOR)$(CLEAN_CAR)Libft Compiled!$(BLUE_COLOR)"
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-	ar -rcs $(NAME) $@
+	@printf "$(PURPLE_COLOR)$(CLEAN_CAR)[libft Compiling] $(BLUE_COLOR):$(BLUE_COLOR) $<$(BLUE_COLOR)"
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@ar -rcs $(NAME) $@
 
 clean:
 	rm -f $(OBJECTS) $(BONUS_OBJECTS)
@@ -22,4 +25,13 @@ fclean: clean
 re: fclean all
 
 bonus: $(OBJECTS) $(BONUS_OBJECTS)
-	ar -rc $(NAME) $(OBJECTS) $(BONUS_OBJECTS)
+	@ar -rc $(NAME) $(OBJECTS) $(BONUS_OBJECTS)
+
+BLUE_COLOR		=	\033[1;34m
+PURPLE_COLOR	=	\x1b[35m
+ERROR_COLOR		=	\x1b[31;01m
+CLEAN_CAR		=	\033[2K\r
+
+OK_STRING		=	$(PURPLE_COLOR)[OK]$(BLUE_COLOR)
+ERROR_STRING	=	$(ERROR_COLOR)[ERRORS]$(BLUE_COLOR)
+WARN_STRING		=	$(BLUE_COLOR)[WARNINGS]$(BLUE_COLOR)
