@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 13:18:44 by facetint          #+#    #+#             */
+/*   Updated: 2024/03/03 13:18:45 by facetint         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include "libft/libft.h"
-#include "utils.h"
+#include "includes/utils.h"
 #include "limits.h"
-#include "minishell.h"
-#include "char_classification.h"
+#include "includes/minishell.h"
+#include "includes/char_classification.h"
 #include "memory-allocator/allocator.h"
 
 char *ft_str_arr_join(char **str_list, unsigned int str_count) {

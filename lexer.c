@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 13:17:52 by facetint          #+#    #+#             */
+/*   Updated: 2024/03/03 13:17:55 by facetint         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft/libft.h"
-#include "minishell.h"
+#include "includes/minishell.h"
 #include <stdio.h>
-#include "utils.h"
-#include "char_classification.h"
+#include "includes/utils.h"
+#include "includes/char_classification.h"
 
 /**
  * get token type from meta character

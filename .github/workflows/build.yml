@@ -19,4 +19,4 @@ jobs:
     - name: download the repository
       run: git submodule update --init --recursive
     - name: make
-      run: make
+      run: make all FLAGS=""

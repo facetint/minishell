@@ -1,8 +1,20 @@
-#include "minishell.h"
-#include "utils.h"
-#include "libft/libft.h"
-#include "char_classification.h"
-#include "memory-allocator/allocator.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 13:17:39 by facetint          #+#    #+#             */
+/*   Updated: 2024/03/03 13:17:40 by facetint         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/minishell.h"
+#include "../includes/utils.h"
+#include "../libft/libft.h"
+#include "../includes/char_classification.h"
+#include "../memory-allocator/allocator.h"
 
 /**
  * replaces the string at input with replacement.

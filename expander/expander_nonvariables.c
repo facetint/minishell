@@ -1,7 +1,19 @@
-#include "../minishell.h"
-#include "../utils.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander_nonvariables.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 13:17:36 by facetint          #+#    #+#             */
+/*   Updated: 2024/03/03 13:17:37 by facetint         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/minishell.h"
+#include "../includes/utils.h"
 #include "../libft/libft.h"
-#include "../char_classification.h"
+#include "../includes/char_classification.h"
 #include "../memory-allocator/allocator.h"
 #include <stdio.h>
 

@@ -1,5 +1,5 @@
 #include <criterion/criterion.h>
-#include "../minishell.h"
+#include "../includes/minishell.h"
 #include "test.h"
 
 Test(syntax_analyzer, simple_command)

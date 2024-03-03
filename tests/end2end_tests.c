@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../includes/minishell.h"
 #include <criterion/criterion.h>
 #include <fcntl.h>
 #include <pthread.h>
