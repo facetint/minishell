@@ -26,7 +26,6 @@
 
 void    builtin_export(t_command *cmd, int fd[2])
 {
-<<<<<<< HEAD:builtin/export.c
     (void)cmd;
     t_envList *tmp = get_global_env();
     while (tmp)
@@ -38,25 +37,4 @@ void    builtin_export(t_command *cmd, int fd[2])
         write(fd[1], "\n", 1);
         tmp = tmp->next;
     }
-<<<<<<< HEAD
 }
-=======
-
-}
-=======
-	t_list	*last_node;
-
-	if (!lst)
-		return ;
-	if (!*lst)
-	{
-		*lst = new;
-		return ;
-	}
-	last_node = ft_lstlast(*lst);
-	if (!last_node)
-		return ;
-	last_node -> next = new;
-}
->>>>>>> main:libft/ft_lstadd_back.c
->>>>>>> b447ad4643f5a8bac396730de020e4a38d9fe2be
