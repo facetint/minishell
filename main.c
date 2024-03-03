@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
+/*   Updated: 2024/03/03 13:18:05 by facetint         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -9,13 +21,12 @@
 #include "memory-allocator/allocator.h"
 #include "includes/env.h"
 
-t_envList *envList;
-
 int main(int ac, char **av, char **envp) {
 
-	envList = NULL;
-
-	envList = make_list(envp);
+	*get_global_env() = *make_list(envp);
+	while (*envp)
+		printf("%s\n", *envp),
+		envp++;
 	(void)ac;
 	(void)av;
 
