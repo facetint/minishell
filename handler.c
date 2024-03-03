@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/03 13:17:47 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/03 15:10:12 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ void handle_input(char *input)
 
 	debug(lexer_data, parser_data);
 	execute(parser_data, parser_data);
+	wait(NULL);
 	uninit_tokens(lexer_data);
 }
 
