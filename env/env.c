@@ -5,13 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD
 /*   Created: 2024/02/27 19:05:06 by facetint          #+#    #+#             */
-/*   Updated: 2024/02/29 13:52:44 by facetint         ###   ########.fr       */
-=======
-/*   Created: 2024/02/27 12:40:43 by facetint          #+#    #+#             */
-/*   Updated: 2024/02/27 13:04:48 by facetint         ###   ########.fr       */
->>>>>>> c579ba1004872f60388bdc319bc02a6143193b28
+/*   Updated: 2024/03/02 21:38:34 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +15,16 @@
 #include "../includes/env.h"
 #include <stdlib.h>
 #include "../memory-allocator/allocator.h"
-<<<<<<< HEAD
 #include "../includes/minishell.h"
-=======
->>>>>>> c579ba1004872f60388bdc319bc02a6143193b28
+#include <string.h> //todo lütfen beni sil
 
 t_envList *create_list(char *key, char *value)
 {
     t_envList *new_list;
 
     new_list = safe_malloc(sizeof(t_envList));
-<<<<<<< HEAD
     new_list->key = key;
     new_list->value = value;
-=======
-    new_list->key = ft_strdup(key);
-    new_list->value = ft_strdup(value);
->>>>>>> c579ba1004872f60388bdc319bc02a6143193b28
     new_list->next = NULL;
 
     return (new_list);
@@ -50,120 +38,91 @@ t_envList *add_list(char *key, char *value, t_envList *begin)
     while (tmp->next)
         tmp = tmp->next;
     tmp->next = safe_malloc(sizeof(t_envList));
-<<<<<<< HEAD
     tmp->next->key = key;
     tmp->next->value = value;
     tmp->next->next = NULL;
     return (begin);
 }
-=======
-    tmp->next->key = ft_strdup(key);
-    tmp->next->value = ft_strdup(value);
-    tmp->next->next = NULL;
-    return (begin);
-}
 
->>>>>>> c579ba1004872f60388bdc319bc02a6143193b28
 t_envList *push_list(char *key, char *value, t_envList *begin)
 {
+    key = ft_strdup(key);
+    value = ft_strdup(value);
     if (begin)
         return (add_list(key, value, begin));
     else
         return (create_list(key, value));        
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> c579ba1004872f60388bdc319bc02a6143193b28
-t_envList   *make_list(char **env)
+char *ft_strcdup(char *str, char c)
 {
-    t_envList   *envList;
-    size_t      i;
-    char        *val;
-    char        *key;
-<<<<<<< HEAD
-    int         eq_index = -1;
-=======
->>>>>>> c579ba1004872f60388bdc319bc02a6143193b28
-
-    envList = NULL;
+    char *ret_val;
+    int i;
     i = 0;
-    while (env[i])
+    while (str[i] && str[i] != c)
+        i++;
+    ret_val = safe_malloc(sizeof(char) * (i + 1));
+    i = 0;
+    while (str[i] && str[i] != c)
     {
-<<<<<<< HEAD
-        eq_index = ft_strchr(env[i], '=') - env[i];
-        if (eq_index <= 0)
-            continue;
-        key = ft_substr(env[i], 0, eq_index);
-        val = ft_substr(env[i], eq_index + 1, ft_strlen(env[i]) - eq_index - 1);
-        envList = push_list(key, val, envList);
-=======
-        key = strdup_n(env[i], '=');
-        val = strchr_new(env[i], '=');
-        envList = push_list(key, val, envList);
-        if (key)
-        safe_free(key);
->>>>>>> c579ba1004872f60388bdc319bc02a6143193b28
+        ret_val[i] = str[i];
         i++;
     }
-    return (envList);
-}
-<<<<<<< HEAD
-=======
-
->>>>>>> c579ba1004872f60388bdc319bc02a6143193b28
-char **make_arr(t_envList *lst)
-{
-    size_t i;
-    t_envList *tmp;
-    char **ret_val;
-    char *key;
-
-    i = lstsize(lst);
-    ret_val = safe_malloc(sizeof(char *) * (i + 1));
-    ret_val[i] = 0;
-
-    tmp = lst;
-    i = 0;
-    while (tmp)
-    {
-        key = ft_strjoin(tmp->key, "=");
-        ret_val[i] = ft_strjoin(key, tmp->value);
-        safe_free(key);
-        tmp = tmp->next;
-        i++;
-    }
+    ret_val[i] = '\0';
     return (ret_val);
 }
-<<<<<<< HEAD
-void print_list(t_envList *lst)
+t_envList   *make_list(char **env)
 {
-    printf("girdi");
-=======
+    t_envList *begin;
+    int i;
+    char *key;
+    char *value;
+
+    i = 0;
+    begin = NULL;
+    while (env[i])
+    {
+        key = ft_strcdup(env[i], '=');
+        value = ft_strchr(env[i], '=') + 1;
+        begin = push_list(key, value, begin);
+        i++;
+    }
+    return (begin);
+}
+char **make_arr(t_envList *lst)
+{
+    int     i;
+    int     strsize;
+    int     size;
+    char    **array;
+    t_envList   *temp;
+    i = 0;
+    size = lstsize(lst);
+    array = malloc(sizeof(char *) * (size + 1));
+    if (!array)
+        return (NULL);
+    temp = lst;
+    while (i < size)
+    {
+        strsize = ft_strlen(temp->key) + 1 + ft_strlen(temp->value);
+        array[i] = malloc(sizeof(char) * (strsize + 1));
+        ft_strlcpy(array[i], temp->key, strsize + 1);
+        ft_strlcat(array[i], "=", strsize + 1);
+        ft_strlcat(array[i], temp->value, strsize + 1);
+        temp = temp->next;
+        i++;
+    }
+    array[i] = NULL;
+    return (array);
+}
 
 void print_list(t_envList *lst)
 {
->>>>>>> c579ba1004872f60388bdc319bc02a6143193b28
+    t_envList *last = NULL;
     while (lst)
     {
-        printf("%s", lst->key);
-        printf("=");
-        printf("%s\n", lst->value);
+        printf("%s=%s\n", lst->key, lst->value);
+        last = lst;
         lst = lst->next;
     }
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> c579ba1004872f60388bdc319bc02a6143193b28
-void print_env(char **env)
-{
-	int i;
-
-	i = 0;
-	while (env[i])
-	{
-		printf("%s\n", env[i]);
-		i++;
-	}
-}
