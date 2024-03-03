@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   splitter.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 13:18:32 by facetint          #+#    #+#             */
+/*   Updated: 2024/03/03 13:18:33 by facetint         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft/libft.h"
-#include "utils.h"
+#include "includes/utils.h"
 #include "memory-allocator/allocator.h"
 
 static int	wlen(char const *str, int(*is_delimiter)(char *, int))

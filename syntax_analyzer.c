@@ -1,7 +1,19 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   syntax_analyzer.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 13:18:35 by facetint          #+#    #+#             */
+/*   Updated: 2024/03/03 13:18:36 by facetint         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "includes/minishell.h"
 #include "libft/libft.h"
-#include "char_classification.h"
-#include "utils.h"
+#include "includes/char_classification.h"
+#include "includes/utils.h"
 
 int is_word(t_token_type type)
 {

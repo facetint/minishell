@@ -1,4 +1,17 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handler.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
+/*   Updated: 2024/03/03 15:10:12 by facetint         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdio.h>
+#include "includes/minishell.h"
 #include "libft/libft.h"
 #include <readline/readline.h>
 #include "memory-allocator/allocator.h"
@@ -43,7 +56,7 @@ void debug(t_token *token, t_command *cmd) {
 	}
 	while (cmd)
 	{
-		printf("name: %s\nargs:", *cmd->name ? cmd->name : "(empty)");
+		printf("name: %s\nargs:", cmd->name ? cmd->name : "(empty)");
 		if (cmd->args[0] == NULL)
 			printf("(no args)");
 		for (int i = 0; cmd->args[i]; i++)
@@ -89,6 +102,8 @@ char *read_heredoc_input(char *eof)
 	while (1)
 	{
 		line = readline("> ");
+		// if signal_type != IN_HEREDOC
+		// 	handle_input()
 		if (!line || !*line || ft_strncmp(line, eof, INT_MAX) == 0)
 			break;
 		char *new = ft_str_arr_join((char *[]) {input, line, "\n"}, 3);
@@ -147,6 +162,7 @@ void handle_input(char *input)
 
 	debug(lexer_data, parser_data);
 	execute(parser_data, parser_data);
+	wait(NULL);
 	uninit_tokens(lexer_data);
 }
 

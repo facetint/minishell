@@ -28,6 +28,7 @@ typedef enum e_signal_type
 /* if 1 heredoc text, otherwise, string is a file name */
 # define HEREDOC (1 << 2)
 
+
 typedef struct s_redirection
 {
 	char *redirected; /* non-null */
@@ -54,7 +55,7 @@ void unexpected_token_error(t_token *token);
 
 #define LEXER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, char *input, int *const index
 
-typedef void *(*lexer_state)(LEXER_STATE_FUNCTION_PARAMETERS);
+typedef void *(*lexer_state)(LEXER_STATE_FUNCTION_PARAMETERS); //todo rename as t_lexer...
 
 lexer_state word_state(LEXER_STATE_FUNCTION_PARAMETERS);
 lexer_state operator_state_l(LEXER_STATE_FUNCTION_PARAMETERS);
@@ -62,7 +63,7 @@ lexer_state delimiter_state(LEXER_STATE_FUNCTION_PARAMETERS);
 
 #define PARSER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, t_command *command
 
-typedef void *(*parser_state)(PARSER_STATE_FUNCTION_PARAMETERS);
+typedef void *(*parser_state)(PARSER_STATE_FUNCTION_PARAMETERS);//todo rename as t_parser...
 
 parser_state command_state(PARSER_STATE_FUNCTION_PARAMETERS);
 parser_state argument_state(PARSER_STATE_FUNCTION_PARAMETERS);
@@ -99,5 +100,18 @@ void debug(t_token *token, t_command *cmd);
 char *ft_str_arr_join(char **str_list, unsigned int str_count);
 
 // executer
-void execute(t_command *cmds, t_command *beginCmds);
+void	execute(t_command *cmds, t_command *beginCmds);
+char	*find_path(char *cmd);
+
+// builtin
+int		isbuiltin(char *cmd);
+void	builtin_exit(t_command *cmd);
+void	builtin_echo(t_command *cmd, int fd[2]);
+void    builtin_pwd(t_command *cmd);
+void    builtin_export(t_command *cmd, int fd[2]);
+void    builtin_unset(t_command *cmd);
+void    builtin_cd(t_command *cmd);
+void    handle_builtin(t_command *cmd, int fd[2]);
+
+
 #endif

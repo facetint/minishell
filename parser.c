@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 13:18:28 by facetint          #+#    #+#             */
+/*   Updated: 2024/03/03 13:18:29 by facetint         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft/libft.h"
-#include "minishell.h"
-#include "utils.h"
+#include "includes/minishell.h"
+#include "includes/utils.h"
 #include "memory-allocator/allocator.h"
 
 void join_all_composed_words(t_token **cur_token, char **string_ptr)
