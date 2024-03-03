@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:05:06 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/03 17:06:20 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/03 18:11:18 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ t_envList   *make_list(char **env)
         key = strdup_n(env[i], '=');
         value = ft_strchr(env[i], '=') + 1;
         lst = push_list(key, value, lst);
-        if (key)
-            safe_free(key);
         i++;
     }
     return (lst);
