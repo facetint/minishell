@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handler.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
+/*   Updated: 2024/03/03 13:17:47 by facetint         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include "includes/minishell.h"
 #include "libft/libft.h"
@@ -145,8 +157,8 @@ void handle_input(char *input)
 	parser_data = parse(lexer_data);
 	handle_heredocs(parser_data);
 
-	execute(parser_data, parser_data);
 	debug(lexer_data, parser_data);
+	execute(parser_data, parser_data);
 	uninit_tokens(lexer_data);
 }
 
