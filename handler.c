@@ -46,6 +46,9 @@ char const *token_type_to_string(t_token_type type)
 # define PARSER_DEBUG
 void debug(t_token *token, t_command *cmd) {
 	(void) token,(void) cmd;
+
+
+
 #ifdef PARSER_DEBUG
 	if (!cmd) {
 		printf("<No Command>");
