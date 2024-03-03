@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:15:14 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/03 11:39:15 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/03 16:54:57 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,4 @@ void    builtin_export(t_command *cmd, int fd[2])
         write(fd[1], "\n", 1);
         tmp = tmp->next;
     }
-
 }
