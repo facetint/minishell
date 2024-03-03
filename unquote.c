@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:41 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/03 13:18:42 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/03 16:35:09 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char *escaped_strdup(char *str)
 	int length;
 
 	length = (int) ft_strlen(str) - count_escapes(str);
-	result = safe_malloc(length);
+	result = safe_malloc(length + 1);
 	i = 0;
 	j = 0;
 	while (str[i])
