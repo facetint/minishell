@@ -24,9 +24,6 @@
 int main(int ac, char **av, char **envp) {
 
 	*get_global_env() = *make_list(envp);
-	while (*envp)
-		printf("%s\n", *envp),
-		envp++;
 	(void)ac;
 	(void)av;
 

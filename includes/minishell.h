@@ -100,7 +100,8 @@ void debug(t_token *token, t_command *cmd);
 char *ft_str_arr_join(char **str_list, unsigned int str_count);
 
 // executer
-void	execute(t_command *cmds, t_command *beginCmds);
+void	execute(t_command *cmds);
+void	handle_command(t_command *before, t_command *cmds, t_command *beginCmds);
 char	*find_path(char *cmd);
 
 // builtin
@@ -112,6 +113,5 @@ void    builtin_export(t_command *cmd, int fd[2]);
 void    builtin_unset(t_command *cmd);
 void    builtin_cd(t_command *cmd);
 void    handle_builtin(t_command *cmd, int fd[2]);
-
 
 #endif

@@ -160,8 +160,8 @@ void handle_input(char *input)
 	parser_data = parse(lexer_data);
 	handle_heredocs(parser_data);
 
-	debug(lexer_data, parser_data);
-	execute(parser_data, parser_data);
+	//debug(lexer_data, parser_data);
+	execute(parser_data);
 	wait(NULL);
 	uninit_tokens(lexer_data);
 }
