@@ -10,6 +10,7 @@ BONUS_OBJECTS = $(BONUS_SOURCES:.c=.o)
 all: $(OBJECTS)
 	@sleep 0.2
 	@echo "$(PURPLE_COLOR)$(CLEAN_CAR)Libft Compiled!$(BLUE_COLOR)"
+	@ar -rcs $(NAME) $(OBJECTS)
 
 %.o : %.c
 	@printf "$(PURPLE_COLOR)$(CLEAN_CAR)[libft Compiling] $(BLUE_COLOR):$(BLUE_COLOR) $<$(BLUE_COLOR)"
