@@ -124,9 +124,9 @@ EXAMPLE :
 
 
 
--EXAMPLE COMMANDS-
+## -EXAMPLE COMMANDS-
 
-cat | ls -l | wc -l
+''' cat | ls -l | wc -l
 
 
 
