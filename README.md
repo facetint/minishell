@@ -129,6 +129,40 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 
 ▶︎ Returns the result to the user.
 
+### Builtins
+  
+ **exit**
++ exits the shell with the status in the argument or the current status if none is specified
++ also needs a numeric argument for the status otherwise it will error
+  
+ **cd**
++ changes the current directory to the first argument provided
++ can be relative or absolute path
++ -- changes to HOME
++ - changes to OLDPWD
++ PWD and OLDPWD are set accordingly
+
+**export**
++ with an argument it needs a valid identifier followed by an optional = and value
++ creates or changes the value of an existing environment variable
++ if no argument is provided it will print the environment variables in a weird format
+ 
+**unset**
++ with a valid identifier as argument it unsets/deletes the environment variable
++ otherwise it shows an error
+
+**pwd**
++ prints the current working directory to the stdout
+  
+**echo**
+
++ writes all the arguments to stdout followed by a newline
++ if the option -n is specified, no newline is added afterwards
++ some interesting differences are between "echo" in just lowercase and any other case version, as the latter would also accept multiple -n with as many "n" as we want
+
+**env**
++ prints the current environment variables to the stdout
+
 
 #### Signals
 
