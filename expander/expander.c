@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:39 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/03 13:17:40 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/08 19:50:02 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
  * @param p_len length of the string to replace (placeholder length)
  * @param replacement replacement string
  */
-char *replace_string(char *input, int p_start, int p_len, char *replacement)
+char	*replace_string(char *input, int p_start, int p_len, char *replacement)
 {
 	char *head;
 	char *tail;
@@ -55,7 +55,7 @@ char *replace_string(char *input, int p_start, int p_len, char *replacement)
  * @return length of string before variable + expanded variable length - 1
  * this return value points to where you should continue for next variable.
  */
-int expand_variable(char **input, int index)
+int	expand_variable(char **input, int index)
 {
 	char	*str;
 	char	*varname;
@@ -74,7 +74,7 @@ int expand_variable(char **input, int index)
 	return index + varname_len + (int) ft_strlen(new) - result;
 }
 
-void expand_all_variables(char **string)
+void	expand_all_variables(char **string)
 {
 	int index;
 	char *str;
@@ -90,7 +90,7 @@ void expand_all_variables(char **string)
 	*string = str;
 }
 
-void expand(t_token **head)
+void	expand(t_token **head)
 {
 	t_token *token;
 	t_token **next_ptr;
@@ -109,13 +109,13 @@ void expand(t_token **head)
 		}
 		next_ptr = &token->next;
 		token = token->next;
-	}
+	}   
 }
 
-void internal_field_split(t_token **token_ptr)
+void	internal_field_split(t_token **token_ptr)
 {
-	char **new_words;
-	t_token *token = *token_ptr;
+	char	**new_words;
+	t_token	*token = *token_ptr;
 
 	new_words = str_split(token->value, is_internal_field_sep);
 	if (str_arr_size(new_words) == 1)
