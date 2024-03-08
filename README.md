@@ -149,10 +149,12 @@ aaa | bbb | aaa | aaa
 ```
 
 *bash: aaa: command not found
-bash: bbb: command not found
-bash: aaa: command not found
-bash: aaa: command not found*
 
+bash: bbb: command not found
+
+bash: aaa: command not found
+
+bash: aaa: command not found*
 
 ``` 
 cat file | cat << file
