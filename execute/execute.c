@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/08 19:26:30 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/08 20:17:30 by hcoskun42        ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include "../memory-allocator/allocator.h"
 #include "../get_next_line/get_next_line.h"
 #include "../includes/env.h"
+#include <errno.h>
+
 
 t_envList   *get_global_env()
 {
@@ -37,19 +39,6 @@ void    print_and_close(int fd)
         safe_free(line);
     }
     close(fd);
-}
-void    read_and_close(t_command *before)
-{
-    char    *line;
-
-    while (1)
-    {
-        line = get_next_line(before->fd);
-        if (line == NULL)
-            break;
-        safe_free(line);
-    }
-    close(before->fd);
 }
 char    **new_arr(char *new, char **arr)
 {
@@ -93,6 +82,7 @@ void    execute_command(t_command *cmd, t_command *before, int fd[2])
 void    execute(t_command *cmds)
 {
     handle_command(NULL, cmds, cmds);
+    while (wait(NULL) > 0 || (wait(NULL) == -1 && errno != ECHILD));
 }
 void writeFd(int fd[2], char *str)
 {
@@ -116,8 +106,10 @@ void    handle_command(t_command *before, t_command *cmd, t_command *first_cmd)
         handle_heredocs(cmd);
         if (before)
         {
+            char buff[512];
+            read(before->fd, buff, 512);
+            close(before->fd);
             int newfd[2];
-            read_and_close(before);
             pipe(newfd);
             //writeFd(newfd, buff);
             writeFd(newfd, cmd->redirections[0].redirected);
@@ -127,9 +119,12 @@ void    handle_command(t_command *before, t_command *cmd, t_command *first_cmd)
         }
         else
         {
-            write(STDOUT_FILENO, cmd->redirections[0].redirected, ft_strlen(cmd->redirections[0].redirected));
-            write (STDOUT_FILENO, "\n", 1);
-            exit(0);
+            int newfd[2];
+            pipe(newfd);
+            close(newfd[0]);
+            write(STDIN_FILENO, cmd->redirections[0].redirected, ft_strlen(cmd->redirections[0].redirected));
+            close(newfd[1]);
+            cmd->fd = newfd[0];
         }
     }
     if (isbuiltin(cmd->name))
