@@ -126,10 +126,10 @@ EXAMPLE :
 
 ## -EXAMPLE COMMANDS-
 
-```  c
+```  
 cat | ls -l | wc -l
 
-´´´       --------> prints the output and remains in the loop. We need to press enter.
+```      --------> prints the output and remains in the loop. We need to press enter.
 
 
 
