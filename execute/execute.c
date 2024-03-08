@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/03 11:35:26 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/08 17:14:12 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,101 +20,119 @@
 #include "../get_next_line/get_next_line.h"
 #include "../includes/env.h"
 
-t_envList *get_global_env()
+t_envList   *get_global_env()
 {
-    static t_envList env;
-
+    static t_envList env = (t_envList){0};
     return (&env);
 }
-t_command *find_before_cmd(t_command *cmds, t_command *beginCmds)
+void    print_and_close(int fd)
 {
-    if (cmds == beginCmds)
-        return (NULL);
-    while (beginCmds->next != cmds) 
-        beginCmds = beginCmds->next;
-    return (beginCmds);
-}
-
-void read_and_print(int fd) {
-    char *line;
-    while ((line = get_next_line(fd)) != NULL)
+    char    *line;
+    while (1)
     {
-        write(1, line, ft_strlen(line));
+        line = get_next_line(fd);
+        if (line == NULL)
+            break;
+        ft_putstr_fd(line, 1);
         safe_free(line);
     }
+    close(fd);
 }
-
-char **new_arr(char *new, char **arr)
+char    **new_arr(char *new, char **arr)
 {
     int counter;
     char **ret_val;
-
     counter = 0;
     while (arr[counter])
         counter++;
     counter += 2;
-    ret_val = safe_malloc(sizeof(char  *) * (counter));
-    ret_val[counter] = NULL;
+    ret_val = safe_malloc(sizeof(char *) * (counter));
+    ret_val[counter - 1] = NULL;
     while (--counter > 0)
-        ret_val[counter] = arr[counter - 1]; 
+        ret_val[counter] = arr[counter - 1];
     ret_val[0] = new;
     return (ret_val);
 }
-
-void execute(t_command *cmds, t_command *beginCmds)
+void    execute_command(t_command *cmd, t_command *before, int fd[2])
+{
+    char *path_cmd;
+    int pid;
+    pid = fork();
+    if (pid == -1)
+        return ft_putstr_fd("Fork error!", 2); //todo exit
+    if (pid > 0)
+        return;
+    path_cmd = find_path(cmd->name);
+    if (!path_cmd)
+        return ft_putstr_fd("Command not found.\n", 2);
+    if (before)
+    {
+        dup2(before->fd, STDIN_FILENO);
+        close(before->fd);
+    }
+    //if (cmd->redirections[0].flags & HEREDOC)
+    //    write(0, cmd->redirections[0].redirected, ft_strlen(cmd->redirections[0].redirected));
+    close(fd[0]);
+    dup2(fd[1], STDOUT_FILENO);
+    close(fd[1]);
+    execve(path_cmd, new_arr(cmd->name, cmd->args), make_arr(get_global_env()));
+}
+void    execute(t_command *cmds)
+{
+    handle_command(NULL, cmds, cmds);
+}
+void writeFd(int fd[2], char *str)
+{
+    int pid = fork();
+    if (pid == 0)
+    {
+        close(fd[0]);
+        write(fd[1], str, ft_strlen(str));
+        close(fd[1]);
+        exit(0);
+    }
+    waitpid(pid, NULL, 0);
+}
+void    handle_command(t_command *before, t_command *cmd, t_command *first_cmd)
 {
     int fd[2];
-    int pid;
-    char *path_cmd;
-    char **arg;
-    t_command *before;
-    int builtin;
-
-    builtin = isbuiltin(cmds->name);
-    before = find_before_cmd(cmds, beginCmds);
-    
     if (pipe(fd) == -1)
-        return ft_putstr_fd("Pipe error!", 2);
-
-    if (!builtin)
+        return ft_putstr_fd("Pipe error!", 2); //todo exit
+    if (cmd->redirections[0].flags & HEREDOC)
     {
-        pid = fork();
-        if (pid == -1)
-            return ft_putstr_fd("Fork error!", 2);
-        
-        path_cmd = find_path(cmds->name);
-        if (!path_cmd)
-            return ft_putstr_fd("command not found: ", 2);
-        arg = new_arr(cmds->name, cmds->args);
-
-        if (pid == 0) //child
+        handle_heredocs(cmd);
+        if (before)
         {
-            if (before)
-            {
-                dup2(before->fd, STDIN_FILENO);
-                close(before->fd);
-            }
-            close(fd[0]);
-            dup2(fd[1], STDOUT_FILENO);
-            close(fd[1]);
-            execve(path_cmd, arg, NULL);
+            char buff[512];
+            read(before->fd, buff, 512);
+            close(before->fd);
+            int newfd[2];
+            pipe(newfd);
+            //writeFd(newfd, buff);
+            writeFd(newfd, cmd->redirections[0].redirected);
+            write (newfd[1], "\n", 1);
+            close(newfd[1]);
+            before->fd = newfd[0];
         }
-        //waitpid(pid, NULL, 0);
-        safe_free(arg);
+        else
+        {
+            int newfd[2];
+            pipe(newfd);
+            close(newfd[0]);
+            write(STDIN_FILENO, cmd->redirections[0].redirected, ft_strlen(cmd->redirections[0].redirected));
+            close(newfd[1]);
+            cmd->fd = newfd[0];
+        }
     }
+    if (isbuiltin(cmd->name))
+        handle_builtin(cmd, fd);
     else
-        handle_builtin(cmds, fd);
+        execute_command(cmd, before, fd);
     close(fd[1]);
     if (before)
        close(before->fd);
-    if (cmds->next)
-    {
-        cmds->fd = fd[0];
-        execute(cmds->next, beginCmds);
-    }
-    else
-    {
-        read_and_print(fd[0]);
-        close(fd[0]);
-    }
+    if (!cmd->next)
+        return print_and_close(fd[0]);
+    cmd->fd = fd[0];
+    handle_command(cmd, cmd->next, first_cmd);
 }
