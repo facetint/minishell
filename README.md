@@ -126,7 +126,8 @@ EXAMPLE :
 
 ## -EXAMPLE COMMANDS-
 
-''' cat | ls -l | wc -l
+``` c
+``` cat | ls -l | wc -l 
 
 
 
