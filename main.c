@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/03 16:37:03 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/05 13:14:02 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@
 int main(int ac, char **av, char **envp) {
 
 	*get_global_env() = *make_list(envp);
-	while (*envp)
-		printf("%s\n", *envp),
-		envp++;
 	(void)ac;
 	(void)av;
 
