@@ -15,6 +15,15 @@
   - [Parser](#the-parser)
   - [Expander](#expander)
   - [Executor](#executor)
+  - [Builtin](#builtin)
+      - [exit](#exit)
+      - [cd](#cd)
+      - [export](#export)
+      - [unset](#unset)
+      - [pwd](#pwd)
+      - [echo](#echo)
+      - [env](#env)
+  - [Signals](#signals) 
 
 
 ## Shell Introduction
