@@ -127,7 +127,7 @@ EXAMPLE :
 ## -EXAMPLE COMMANDS-
 
 ``` c
- cat | ls -l | wc -l        --------> prints the output and remains in the loop. We need to press enter.
+ cat | ls -l | wc -l '''       --------> prints the output and remains in the loop. We need to press enter.
 
 ``` c
 exit 23 45                  --------> bash: exit: too many arguments
