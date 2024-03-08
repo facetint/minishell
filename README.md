@@ -102,7 +102,7 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 <img width="1149" alt="Ekran Resmi 2023-12-24 02 03 18" src="https://github.com/facetint/minishell/assets/99668549/96539ad5-74b5-43d8-8f1b-0bd95c8fb441">
 
 
-## PİPE
+## PIPE
 
 EXAMPLE :
 
