@@ -161,11 +161,10 @@ void	handle_input(char *input)
 	expand(&lexer_data);
 	unquote(lexer_data);
 	parser_data = parse(lexer_data);
-	// handle_heredocs(parser_data);
+	handle_heredocs(parser_data);
 
 	//debug(lexer_data, parser_data);
 	execute(parser_data);
-	while (wait(NULL) > 0 || (wait(NULL) == -1 && errno != ECHILD));
 	uninit_tokens(lexer_data);
 }
 
