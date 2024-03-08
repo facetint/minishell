@@ -98,6 +98,8 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 
   *The basic building blocks of a state machine are states and transitions. A state is a situation of a system depending on previous inputs and causes a reaction on following inputs. One state is marked as the initial state; this is where the execution of the machine starts. A state transition defines for which input a state is changed from one to another. Depending on the state machine type, states and/or transitions produce outputs.*
 
+
+
 ## Implementation
 
 ### LEXER
