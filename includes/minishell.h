@@ -105,13 +105,23 @@ void	handle_command(t_command *before, t_command *cmds, t_command *beginCmds);
 char	*find_path(char *cmd);
 
 // builtin
+void    handle_builtin(t_command *cmd, int fd[2]);
+int		ft_strcmp(const char *s1, const char *s2);
 int		isbuiltin(char *cmd);
 void	builtin_exit(t_command *cmd);
 void	builtin_echo(t_command *cmd, int fd[2]);
 void    builtin_pwd(t_command *cmd);
 void    builtin_export(t_command *cmd, int fd[2]);
 void    builtin_unset(t_command *cmd);
-void    builtin_cd(t_command *cmd);
-void    handle_builtin(t_command *cmd, int fd[2]);
+// cd
+void    builtin_cd(t_command *data, t_command *cmd);
+void    execute_cd(char *str, t_command *data, t_command *cmd);
+void    change_pwd(t_command *data, t_command *cmd);
+void    change_old(char *str, t_command *cmd);
+
+
+// here-docs
+char	*read_heredoc_input(char *delimiter);
+void	handle_heredocs(t_command *cur);
 
 #endif

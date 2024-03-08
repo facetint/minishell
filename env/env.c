@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:05:06 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/03 23:25:13 by hcoskun42        ###   ########.tr       */
+/*   Updated: 2024/03/08 17:41:51 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_envList   *create_list(char *key, char *value)
     t_envList *new_list;
 
     new_list = safe_malloc(sizeof(t_envList));
-    new_list->key = key;
-    new_list->value = value;
+    new_list->key = ft_strdup(key);
+    new_list->value = ft_strdup(value);
     new_list->next = NULL;
 
     return (new_list);
@@ -37,8 +37,8 @@ t_envList *add_list(char *key, char *value, t_envList *begin)
     while (tmp->next)
         tmp = tmp->next;
     tmp->next = safe_malloc(sizeof(t_envList));
-    tmp->next->key = key;
-    tmp->next->value = value;
+    tmp->next->key = ft_strdup(key);
+    tmp->next->value = ft_strdup(value);
     tmp->next->next = NULL;
     return (begin);
 }
@@ -64,6 +64,8 @@ t_envList   *make_list(char **env)
         key = strdup_n(env[i], '=');
         value = ft_strchr(env[i], '=') + 1;
         lst = push_list(key, value, lst);
+        if (key)
+            safe_free(key);
         i++;
     }
     return (lst);
