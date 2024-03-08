@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/08 20:17:30 by hcoskun42        ###   ########.tr       */
+/*   Updated: 2024/03/09 01:45:20 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void    execute_command(t_command *cmd, t_command *before, int fd[2])
         return;
     path_cmd = find_path(cmd->name);
     if (!path_cmd)
-        return ft_putstr_fd("Command not found.\n", 2);
+        return ft_putstr_fd("command not found.\n", 2);
     if (before)
     {
         dup2(before->fd, STDIN_FILENO);
@@ -87,6 +87,10 @@ void    execute(t_command *cmds)
 void writeFd(int fd[2], char *str)
 {
     int pid = fork();
+    if (pid == -1)
+        return ft_putstr_fd("Fork error!", 2);
+    if (pid > 0)
+        return;
     if (pid == 0)
     {
         close(fd[0]);

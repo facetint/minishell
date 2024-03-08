@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/08 17:41:38 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/09 01:07:03 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void debug(t_token *token, t_command *cmd) {
 #endif
 }
 
-char *read_heredoc_input(char *eof)
+char	*read_heredoc_input(char *eof)
 {
 	char *line;
 	char *input;
@@ -168,7 +168,7 @@ void	handle_input(char *input)
 	uninit_tokens(lexer_data);
 }
 
-void handle_memory_error(void)
+void	handle_memory_error(void)
 {
 	ft_putstr_fd("Insufficent memory! Minishell aborting...", 2);
 	exit(1);
