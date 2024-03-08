@@ -24,7 +24,7 @@
       - [echo](#echo)
       - [env](#env)
   - [Signals](#signals) 
-
+- [Installation](#installation)
 
 ## Shell Introduction
 
@@ -219,9 +219,18 @@ EXAMPLE :
 
 
 
+## Installation
 
-
-
+### Clone the repository:
+``` 
+git clone https://github.com/maiadegraaf/minishell.git
+cd minishell
+make
+```
+### Run Minishell
+```
+./minishell
+```
 
 
 #### -EXAMPLE COMMANDS-
