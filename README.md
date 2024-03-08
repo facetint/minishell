@@ -164,7 +164,7 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 + prints the current environment variables to the stdout
 
 
-#### Signals
+### Signals
 
 + during the entire parent process ctrl-\ is ignored
 
