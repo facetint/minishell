@@ -101,7 +101,7 @@ char *ft_str_arr_join(char **str_list, unsigned int str_count);
 
 // executer
 void	execute(t_command *cmds);
-void	handle_command(t_command *before, t_command *cmds, t_command *beginCmds);
+void    handle_command(t_command *before, t_command *cmd, t_command *first_cmd);
 char	*find_path(char *cmd);
 
 // builtin
@@ -123,5 +123,5 @@ void    change_old(char *str, t_command *cmd);
 // here-docs
 char	*read_heredoc_input(char *delimiter);
 void	handle_heredocs(t_command *cur);
-
+void    read_and_close(t_command *before);
 #endif
