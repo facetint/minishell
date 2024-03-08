@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:05:06 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/08 16:59:25 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/08 17:41:51 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_envList   *push_list(char *key, char *value, t_envList *begin)
     if (begin)
         return (add_list(key, value, begin));
     else
-        return (create_list(key, value));        
+        return (create_list(key, value));
 }
 t_envList   *make_list(char **env)
 {
@@ -58,6 +58,7 @@ t_envList   *make_list(char **env)
     char *value;
 
     i = 0;
+    lst = NULL;
     while (env[i])
     {
         key = strdup_n(env[i], '=');
@@ -93,12 +94,9 @@ char    **make_arr(t_envList *lst)
 }
 void    print_list(t_envList *lst)
 {
-    t_envList *last = NULL;
-    while (lst)
+	 while (lst)
     {
         printf("%s=%s\n", lst->key, lst->value);
-        last = lst;
         lst = lst->next;
     }
 }
-
