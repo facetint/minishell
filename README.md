@@ -74,6 +74,7 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 
 
 
+
 ### **ALGORITM**
 
 
@@ -81,6 +82,9 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 
 
 **When we wrote this project, we were inspired by state machines.**
+
+
+
 
 #### STATE MACHINE 
 
