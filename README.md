@@ -6,6 +6,21 @@
 
 # MINISHELL
 
+## Table of Contents
+- [Shell Introduction](#shell-introduction)
+  - [What Is Bash and How Does It Work?](#what-is-bash-and-how-does-it-work)
+- [Implementation](#implementation)
+  - [Lexer](#the-lexer)
+  - [Parser](#the-parser)
+  - [Builtins](#builtins)
+  - [Executor](#executor)
+    - [Expander](#expander)
+    - [Heredoc](#heredoc)
+    - [Single Command](#single-command)
+    - [Multiple Commands](#multiple-commands)
+
+
+
 ## Shell Introduction
 
 ✣ In a shell, the user can run programs and also direct input from a file and output from a file.
