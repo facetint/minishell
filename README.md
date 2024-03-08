@@ -59,7 +59,7 @@
 These basic steps of Bash provide a user-friendly command-line environment and come with a wide range of commands. Users can customize Bash and there is extensive documentation and community support.
 
 
-**ALGORITM**
+###**ALGORITM**
 
 
 ![minishell-plan](https://github.com/facetint/minishell/assets/99668549/5d95d53a-b022-4547-9478-da55f6ffad94)
@@ -67,12 +67,12 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 
 **When we wrote this project, we were inspired by state machines.**
 
-## STATE MACHINE 
+#### STATE MACHINE 
 
   *The basic building blocks of a state machine are states and transitions. A state is a situation of a system depending on previous inputs and causes a reaction on following inputs. One state is marked as the initial state; this is where the execution of the machine starts. A state transition defines for which input a state is changed from one to another. Depending on the state machine type, states and/or transitions produce outputs.*
   
 
-## LEXER
+### LEXER
 
 ▶︎ Its task is to decompose the commands entered by the user.
 
@@ -81,7 +81,7 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 ▶︎ For example, it takes the command "ls -l" and converts it into a delimited array like [ "ls", "-l" ].
 
 
-## PARSER 
+### PARSER 
 
 ▶︎ Parses symbols and tokens from the lexer to understand the structure of commands.
 
@@ -90,14 +90,14 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 ▶︎ For example, it converts the command "ls -l" into a tree structure.
 
 
-## EXPANDER
+### EXPANDER
 
 ▶︎ Evaluates variables, wildcards and other special characters within the command.
 
 ▶︎ For example, it replaces "~" with home directory or matches "*" with file names.
 
 
-## EXECUTE
+### EXECUTE
 
 ▶︎ Starts a real process using a tree structure.
 
