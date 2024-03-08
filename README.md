@@ -17,7 +17,8 @@
 ![bahs](https://github.com/facetint/minishell/assets/99668549/9482ef70-4411-4efb-a871-2403ab33af95)
 
 
- Bash is the shell, or command language interpreter, for the GNU operating system.
+➤ *Bash is the shell, or command language interpreter, for the GNU operating system.*
+➤ *Essentially it breaks down the process into 4 steps: `lexer` → `parser` → `expander` → `executor`, which we replicated in our project.*
 
   ## Prompt Display :
 
