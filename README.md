@@ -19,7 +19,11 @@
 
 ➤ *Bash is the shell, or command language interpreter, for the GNU operating system.*
 ➤ *Essentially it breaks down the process into 4 steps: `lexer` → `parser` → `expander` → `executor`, which we replicated in our project.*
+△ *At first sight bash appears to be a simple command/response system, where users enter commands and bash returns the results after those commands are run. However, bash is also a programming platform and users are enabled to write programs that accept input and produce output using shell commands in shell scripts.*
 
+
+
+One of the most basic bash commands, ls, does one thing: list directory contents. By itself this command lists only the names of files and subdirectories in the current working directory.
   ## Prompt Display :
 
   Bash displays a "prompt" for the user to enter a command. Typically, this prompt contains the user name, computer name and working directory. The user can enter commands under this prompt.
