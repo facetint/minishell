@@ -71,6 +71,9 @@
 These basic steps of Bash provide a user-friendly command-line environment and come with a wide range of commands. Users can customize Bash and there is extensive documentation and community support.
 
 
+
+
+
 ### **ALGORITM**
 
 
