@@ -6,15 +6,15 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:41 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/03 16:35:09 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/08 19:57:50 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <printf.h>
-#include "includes/minishell.h"
-#include "libft/libft.h"
-#include "memory-allocator/allocator.h"
-#include "includes/utils.h"
+#include "../includes/minishell.h"
+#include "../libft/libft.h"
+#include "../memory-allocator/allocator.h"
+#include "../includes/utils.h"
 
 int count_escapes(char *str)
 {
