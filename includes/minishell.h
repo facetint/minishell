@@ -28,7 +28,6 @@ typedef enum e_signal_type
 /* if 1 heredoc text, otherwise, string is a file name */
 # define HEREDOC (1 << 2)
 
-
 typedef struct s_redirection
 {
 	char *redirected; /* non-null */
@@ -51,8 +50,7 @@ typedef struct s_token
 	struct s_token *next;
 } t_token;
 
-void unexpected_token_error(t_token *token);
-
+ 
 #define LEXER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, char *input, int *const index
 
 typedef void *(*lexer_state)(LEXER_STATE_FUNCTION_PARAMETERS); //todo rename as t_lexer...
@@ -69,33 +67,36 @@ parser_state command_state(PARSER_STATE_FUNCTION_PARAMETERS);
 parser_state argument_state(PARSER_STATE_FUNCTION_PARAMETERS);
 parser_state operator_state_p(PARSER_STATE_FUNCTION_PARAMETERS);
 
+// lexer
 t_token_type get_meta_token_type(const char *input);
-
 t_token *get_last_lexer_data(t_token *token);
 t_token *lexer_data_new(t_token token);
+t_token *lex(char *input);
 void lexer_data_append(t_token **data, t_token *new_data);
 void lexer_data_insert(t_token *data, t_token *new_list);
+void unquote(t_token *lexer_data);
+void uninit_tokens(t_token *lexical_data);
+int is_in_single_quote(char *input, int index);
+int is_word(t_token_type type);
+int is_operator(t_token_type type);
+void unexpected_token_error(t_token *token);
 
-int is_valid(t_token *lexer_data);
-
-t_token *lex(char *input);
+// expander
 void expand(t_token **head);
 void internal_field_split(t_token **token);
 void insert_uword_tokens(t_token **token_ptr, char **strings);
-void unquote(t_token *lexer_data);
+
+// parser
 t_command *parse(t_token *lexer_data);
-void uninit_tokens(t_token *lexical_data);
 
-int is_in_single_quote(char *input, int index);
-
-int is_word(t_token_type type);
-int is_operator(t_token_type type);
-
+// main
 char *get_prompt();
 void unexpected_token_error(t_token *token);
 void handle_input(char *input);
 void handle_memory_error(void);
+int is_valid(t_token *lexer_data);
 
+// debug
 void debug(t_token *token, t_command *cmd);
 char *ft_str_arr_join(char **str_list, unsigned int str_count);
 
@@ -105,14 +106,16 @@ void    handle_command(t_command *before, t_command *cmd, t_command *first_cmd);
 char	*find_path(char *cmd);
 
 // builtin
-void    handle_builtin(t_command *cmd, int fd[2]);
+
 int		ft_strcmp(const char *s1, const char *s2);
+void    handle_builtin(t_command *cmd, int fd[2]);
 int		isbuiltin(char *cmd);
 void	builtin_exit(t_command *cmd);
 void	builtin_echo(t_command *cmd, int fd[2]);
 void    builtin_pwd(t_command *cmd);
 void    builtin_export(t_command *cmd, int fd[2]);
 void    builtin_unset(t_command *cmd);
+
 // cd
 void    builtin_cd(t_command *data, t_command *cmd);
 void    execute_cd(char *str, t_command *data, t_command *cmd);
@@ -120,8 +123,9 @@ void    change_pwd(t_command *data, t_command *cmd);
 void    change_old(char *str, t_command *cmd);
 
 
-// here-docs
+// heredocs
 char	*read_heredoc_input(char *delimiter);
 void	handle_heredocs(t_command *cur);
 void    read_and_close(t_command *before);
+
 #endif
