@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/03 17:07:57 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/08 17:06:21 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 #include "libft/libft.h"
 #include <readline/readline.h>
 #include "memory-allocator/allocator.h"
+#include <sys/wait.h>
+#include <errno.h>
+#include <signal.h>
 
 /* debug function */
 char const *token_type_to_string(t_token_type type)
@@ -118,7 +121,7 @@ char *read_heredoc_input(char *eof)
 
 t_signal_type signal_type = DEFAULT;
 
-void handle_heredocs(t_command *cur)
+void	handle_heredocs(t_command *cur)
 {
     signal_type = IN_HEREDOC;
 	int i;
@@ -141,13 +144,13 @@ void handle_heredocs(t_command *cur)
 	signal_type = DEFAULT;
 }
 
-void handle_invalid_input(t_token *lexical_data)
+void	handle_invalid_input(t_token *lexical_data)
 {
 	ft_putstr_fd("\033[91mInvalid input\n\033[39m", 2);
 	uninit_tokens(lexical_data);
 }
 
-void handle_input(char *input)
+void	handle_input(char *input)
 {
 	t_token *lexer_data;
 	t_command *parser_data;
@@ -158,11 +161,11 @@ void handle_input(char *input)
 	expand(&lexer_data);
 	unquote(lexer_data);
 	parser_data = parse(lexer_data);
-	handle_heredocs(parser_data);
+	// handle_heredocs(parser_data);
 
-	debug(lexer_data, parser_data);
-	execute(parser_data, parser_data);
-	wait(NULL);
+	//debug(lexer_data, parser_data);
+	execute(parser_data);
+	while (wait(NULL) > 0 || (wait(NULL) == -1 && errno != ECHILD));
 	uninit_tokens(lexer_data);
 }
 
