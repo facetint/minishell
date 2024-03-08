@@ -23,7 +23,8 @@
       - [pwd](#pwd)
       - [echo](#echo)
       - [env](#env)
-  - [Signals](#signals) 
+  - [Signals](#signals)
+  - [Example Commands](#example-commands)
 - [Installation](#installation)
 
 ## Shell Introduction
@@ -219,21 +220,7 @@ EXAMPLE :
 
 
 
-## Installation
-
-### Clone the repository:
-``` 
-git clone https://github.com/facetint/minishell.git
-cd minishell
-make
-```
-### Run Minishell
-```
-./minishell
-```
-
-
-#### -EXAMPLE COMMANDS-
+#### -Example Commands-
 
 ```  
 cat | ls -l | wc -l
@@ -269,6 +256,32 @@ aaa | bbb | aaa | aaa
 cat file | cat << file
 ```
 *only heredoc output is written*
+
+
+
+
+
+
+
+## Installation
+
+### Clone the repository:
+``` 
+git clone https://github.com/facetint/minishell.git
+cd minishell
+make
+```
+
+### Run Minishell
+```
+./minishell
+```
+
+
+
+
+
+
 
 
 
