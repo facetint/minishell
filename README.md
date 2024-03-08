@@ -70,6 +70,8 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 #### STATE MACHINE 
 
 
+
+
 ![state-machine-example](https://github.com/facetint/minishell/assets/99668549/a5263d1a-815e-4f7c-a977-2298fb066e2c)
 
 
