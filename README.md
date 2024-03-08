@@ -13,6 +13,10 @@
 
 ## What Is Bash and How Does It Work?
 
+
+![bahs](https://github.com/facetint/minishell/assets/99668549/9482ef70-4411-4efb-a871-2403ab33af95)
+
+
  Bash is the shell, or command language interpreter, for the GNU operating system.
 
   ## Prompt Display :
