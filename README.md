@@ -127,7 +127,24 @@ EXAMPLE :
 ## -EXAMPLE COMMANDS-
 
 ``` c
-``` cat | ls -l | wc -l 
+ cat | ls -l | wc -l        --------> prints the output and remains in the loop. We need to press enter.
+
+``` c
+exit 23 45                  --------> bash: exit: too many arguments
+``` c
+
+cat << | wc -l              --------> bash: syntax error near unexpected token `|'
+
+``` c
+aaa | bbb | aaa | aaa       --------> bash: aaa: command not found
+                                      bash: bbb: command not found
+                                      bash: aaa: command not found
+                                      bash: aaa: command not found
+
+
+``` c
+cat file | cat << file     ---------> only heredoc output is written
+
 
 
 
