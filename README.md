@@ -14,13 +14,8 @@
 - [Implementation](#implementation)
   - [Lexer](#the-lexer)
   - [Parser](#the-parser)
-  - [Builtins](#builtins)
+  - [Expander](#expander)
   - [Executor](#executor)
-    - [Expander](#expander)
-    - [Heredoc](#heredoc)
-    - [Single Command](#single-command)
-    - [Multiple Commands](#multiple-commands)
-
 
 
 ## Shell Introduction
