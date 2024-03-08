@@ -129,7 +129,7 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 
 ▶︎ Returns the result to the user.
 
-### Builtins
+### BUILTINS
   
  **exit**
 + exits the shell with the status in the argument or the current status if none is specified
