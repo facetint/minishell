@@ -19,6 +19,8 @@
 #include "../memory-allocator/allocator.h"
 #include "../get_next_line/get_next_line.h"
 #include "../includes/env.h"
+#include <errno.h>
+
 
 t_envList   *get_global_env()
 {
@@ -93,6 +95,7 @@ void    execute_command(t_command *cmd, t_command *before, int fd[2])
 void    execute(t_command *cmds)
 {
     handle_command(NULL, cmds, cmds);
+    while (wait(NULL) > 0 || (wait(NULL) == -1 && errno != ECHILD));
 }
 void writeFd(int fd[2], char *str)
 {
