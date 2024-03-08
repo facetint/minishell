@@ -116,6 +116,8 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 
 EXAMPLE :
 
+** command : ls -l | grep "txt" | 
+
 <img width="1225" alt="Ekran Resmi 2023-12-24 14 38 56" src="https://github.com/facetint/minishell/assets/99668549/2b0c9e5a-ca26-48b3-95de-bb416d03c85b">
 
 
