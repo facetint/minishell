@@ -5,8 +5,6 @@
 
 </div>
 
-# MINISHELL
-
 ## Table of Contents
 - [Shell Introduction](#shell-introduction)
   - [What Is Bash and How Does It Work?](#what-is-bash-and-how-does-it-work)
