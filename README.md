@@ -57,7 +57,14 @@
   Bash also allows users to create shell scripts that contain a sequence of commands. These scripts are used to automate specific tasks by stringing together sequential commands.
 
 These basic steps of Bash provide a user-friendly command-line environment and come with a wide range of commands. Users can customize Bash and there is extensive documentation and community support.
-  
+
+
+**ALGORITM**
+
+
+![minishell-plan](https://github.com/facetint/minishell/assets/99668549/5d95d53a-b022-4547-9478-da55f6ffad94)
+
+
 
 ## LEXER
 
