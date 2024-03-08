@@ -6,7 +6,7 @@ LIBFT_PATH = $(LIBFT_DIR)/libft.a
 CC = gcc
 FLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 MEMORY_ALLOCATOR_SOURCES = memory-allocator/aborter.c memory-allocator/allocator.c
-SOURCES = execute/find_path.c builtin/cd.c builtin/exit.c builtin/export.c builtin/echo.c builtin/env.c builtin/pwd.c  builtin/builtin.c get_next_line/get_next_line.c expander/expander_nonvariables.c env/env_utils.c lexer/utils.c handler.c env/env.c lexer/lexer.c lexer/unquote.c lexer/lexer_utils.c parser.c execute/execute.c expander/expander.c splitter.c syntax_analyzer.c $(MEMORY_ALLOCATOR_SOURCES)
+SOURCES = execute/find_path.c builtin/cd.c builtin/exit.c builtin/export.c builtin/echo.c builtin/env.c builtin/pwd.c  builtin/builtin.c get_next_line/get_next_line.c expander/expander_nonvariables.c env/env_utils.c lexer/utils.c handler.c env/env.c lexer/lexer.c lexer/unquote.c lexer/lexer_utils.c parser.c execute/execute.c expander/expander.c splitter.c lexer/syntax_analyzer.c $(MEMORY_ALLOCATOR_SOURCES)
 
 MINISHELL_SOURCES = main.c $(SOURCES)
 MINISHELL_OBJECTS = $(MINISHELL_SOURCES:.c=.o)
@@ -14,7 +14,6 @@ MINISHELL_OBJECTS = $(MINISHELL_SOURCES:.c=.o)
 TEST_PATH = tests
 TEST_SOURCES = $(wildcard $(TEST_PATH)/*.c)
 TEST_OBJECTS = $(TEST_SOURCES:.c=.o)
-
 
 all: $(NAME)
 
@@ -37,7 +36,6 @@ $(NAME): $(LIBFT_PATH) $(MINISHELL_OBJECTS)
 	@printf "$(CLEAN_CAR)$(GREEN_COLOR)[minishell Compiling]$(BLUE_COLOR) : $(PURPLE_COLOR)$<$(NO_COLOR)\n"
 	@$(CC) $(FLAGS) -c $< -o $@
 
-	
 clean:
 	rm -f $(MINISHELL_OBJECTS)
 	make -f libft/Makefile clean
