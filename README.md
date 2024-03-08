@@ -223,7 +223,7 @@ EXAMPLE :
 
 ### Clone the repository:
 ``` 
-git clone (https://github.com/facetint/minishell.git)
+git clone https://github.com/facetint/minishell.git
 cd minishell
 make
 ```
