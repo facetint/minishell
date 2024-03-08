@@ -133,9 +133,13 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 #### Signals
 
 *during the entire parent process ctrl-\ is ignored
+
 *ctrl-C will always set a global variable to true, which quits the current processing and returns to readline
+
 *during readline ctrl-C needs some more functions so that we get a new line because readline doesn't return
+
 *the heredoc also has a special handler for readline
+
 *ctrl-\ isn't handled but it should inside heredocs which is an oversight on our part
 
 
