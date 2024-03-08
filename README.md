@@ -112,3 +112,21 @@ EXAMPLE :
 
 
 <img width="1225" alt="Ekran Resmi 2023-12-24 14 38 56" src="https://github.com/facetint/minishell/assets/99668549/2b0c9e5a-ca26-48b3-95de-bb416d03c85b">
+
+
+
+
+
+
+
+
+
+
+
+
+-EXAMPLE COMMANDS-
+
+cat | ls -l | wc -l
+
+
+
