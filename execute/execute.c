@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/09 01:45:20 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/10 17:45:59 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,40 @@
 #include <errno.h>
 
 
-t_envList   *get_global_env()
+t_envList	*get_global_env()
 {
-    static t_envList env = (t_envList){0};
-    return (&env);
+	static	t_envList env = (t_envList){0};
+	return (&env);
 }
-void    print_and_close(int fd)
+
+void	print_and_close(int fd)
+{
+    char	*line;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break;
+		ft_putstr_fd(line, 1);
+		safe_free(line);
+	}
+	close(fd);
+}
+
+void	read_and_close(t_command *before)
 {
     char    *line;
+
     while (1)
     {
-        line = get_next_line(fd);
+        line = get_next_line(before->fd);
         if (line == NULL)
             break;
-        ft_putstr_fd(line, 1);
         safe_free(line);
     }
-    close(fd);
+    close(before->fd);
 }
+
 char    **new_arr(char *new, char **arr)
 {
     int counter;
@@ -63,7 +79,7 @@ void    execute_command(t_command *cmd, t_command *before, int fd[2])
     if (pid == -1)
         return ft_putstr_fd("Fork error!", 2); //todo exit
     if (pid > 0)
-        return;
+        return; // anne return atıyor.
     path_cmd = find_path(cmd->name);
     if (!path_cmd)
         return ft_putstr_fd("command not found.\n", 2);
@@ -82,7 +98,6 @@ void    execute_command(t_command *cmd, t_command *before, int fd[2])
 void    execute(t_command *cmds)
 {
     handle_command(NULL, cmds, cmds);
-    while (wait(NULL) > 0 || (wait(NULL) == -1 && errno != ECHILD));
 }
 void writeFd(int fd[2], char *str)
 {
@@ -110,9 +125,7 @@ void    handle_command(t_command *before, t_command *cmd, t_command *first_cmd)
         handle_heredocs(cmd);
         if (before)
         {
-            char buff[512];
-            read(before->fd, buff, 512);
-            close(before->fd);
+            read_and_close(before);
             int newfd[2];
             pipe(newfd);
             //writeFd(newfd, buff);
@@ -123,12 +136,9 @@ void    handle_command(t_command *before, t_command *cmd, t_command *first_cmd)
         }
         else
         {
-            int newfd[2];
-            pipe(newfd);
-            close(newfd[0]);
-            write(STDIN_FILENO, cmd->redirections[0].redirected, ft_strlen(cmd->redirections[0].redirected));
-            close(newfd[1]);
-            cmd->fd = newfd[0];
+            write(STDOUT_FILENO, cmd->redirections[0].redirected, ft_strlen(cmd->redirections[0].redirected));
+            write(STDOUT_FILENO, "\n", 1);
+            exit(0);
         }
     }
     if (isbuiltin(cmd->name))

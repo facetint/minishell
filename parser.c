@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:28 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/03 13:18:29 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/10 18:40:08 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ parser_state operator_state_p(t_token **cur_token, t_command *cur_cmd)
 		return (parser_state) argument_state;
 	if (is_operator(lexer_data->type))
 		return (parser_state) operator_state_p;
-	return unexpected_token_error(lexer_data), NULL;
-}
+	return unexpected_token_error(lexer_data), NULL;  
+} 
 
 int count_cmd_args(t_token *lexer_data) {
 	int delimiter_count;

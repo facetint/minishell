@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 11:48:16 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/09 01:02:26 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/10 17:36:55 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void    change_pwd(t_command *data, t_command *cmd)
             if (env->value)
               safe_free(env->value);
             env->value = safe_malloc(sizeof(char) * 4097);
-            getcwd(env->value, 4097);
+            //getcwd(env->value, 4097);
             if (getcwd(env->value, 4097) == NULL)
             {
                 perror("getcwd");
@@ -89,7 +89,7 @@ void    builtin_cd(t_command *data, t_command *cmd)
     char    *str;
 
     str = safe_malloc(sizeof(char) * 4097);
-    getcwd(str, 4097);
+    //getcwd(str, 4097);
     if (getcwd(str, 4097) == NULL)
     {
         perror("getcwd");
