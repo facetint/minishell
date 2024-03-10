@@ -19,8 +19,6 @@
 #include "../memory-allocator/allocator.h"
 #include "../get_next_line/get_next_line.h"
 #include "../includes/env.h"
-#include <errno.h>
-
 
 t_envList	*get_global_env()
 {
@@ -80,7 +78,7 @@ void    execute_command(t_command *cmd, t_command *before, int fd[2])
         return ft_putstr_fd("Fork error!", 2); //todo exit
     if (pid > 0)
         return; // anne return atıyor.
-    path_cmd = find_path(cmd->name);
+    path_cmd = find_path(cmd->args[0]);
     if (!path_cmd)
         return ft_putstr_fd("command not found.\n", 2);
     if (before)
@@ -93,7 +91,7 @@ void    execute_command(t_command *cmd, t_command *before, int fd[2])
     close(fd[0]);
     dup2(fd[1], STDOUT_FILENO);
     close(fd[1]);
-    execve(path_cmd, new_arr(cmd->name, cmd->args), make_arr(get_global_env()));
+    execve(path_cmd, cmd->args, make_arr(get_global_env()));
 }
 void    execute(t_command *cmds)
 {
@@ -141,7 +139,7 @@ void    handle_command(t_command *before, t_command *cmd, t_command *first_cmd)
             exit(0);
         }
     }
-    if (isbuiltin(cmd->name))
+    if (isbuiltin(cmd->args[0]))
         handle_builtin(cmd, fd);
     else
         execute_command(cmd, before, fd);

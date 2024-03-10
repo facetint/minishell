@@ -14,9 +14,6 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <unistd.h>
-#include <stdlib.h>
-#include "includes/utils.h"
-#include "libft/libft.h"
 #include "includes/minishell.h"
 #include "memory-allocator/allocator.h"
 #include "includes/env.h"

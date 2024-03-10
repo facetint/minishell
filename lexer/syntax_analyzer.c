@@ -40,7 +40,7 @@ int is_there_lack_of_word(t_token *lexer_data)
 {
 	int wait_for_word;
 
-	wait_for_word = 1;
+	wait_for_word = 0;
 	while (lexer_data)
 	{
 		if (lexer_data->type == DELIMITER)
@@ -53,7 +53,7 @@ int is_there_lack_of_word(t_token *lexer_data)
 			wait_for_word = 1;
 		lexer_data = lexer_data->next;
 	}
-	return !wait_for_word;
+	return wait_for_word == 0;
 }
 
 int are_quotes_valid(t_token *lexer_data)

@@ -17,7 +17,6 @@
 #include "memory-allocator/allocator.h"
 #include <sys/wait.h>
 #include <errno.h>
-#include <signal.h>
 
 /* debug function */
 char const *token_type_to_string(t_token_type type)
@@ -59,7 +58,6 @@ void debug(t_token *token, t_command *cmd) {
 	}
 	while (cmd)
 	{
-		printf("name: %s\nargs:", cmd->name ? cmd->name : "(empty)");
 		if (cmd->args[0] == NULL)
 			printf("(no args)");
 		for (int i = 0; cmd->args[i]; i++)
@@ -163,7 +161,7 @@ void	handle_input(char *input)
 	parser_data = parse(lexer_data);
 	//handle_heredocs(parser_data);
 
-	//debug(lexer_data, parser_data);
+	debug(lexer_data, parser_data);
 	execute(parser_data);
 	//waitpid(-1, NULL, 0);
 	while(wait(NULL) > 0 || (wait(NULL) == -1 && errno != ECHILD));

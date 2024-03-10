@@ -14,6 +14,7 @@
 #include "includes/minishell.h"
 #include "includes/utils.h"
 #include "memory-allocator/allocator.h"
+#include <stdio.h>
 
 void join_all_composed_words(t_token **cur_token, char **string_ptr)
 {
@@ -34,25 +35,7 @@ void join_all_composed_words(t_token **cur_token, char **string_ptr)
 	*cur_token = lexer_data;
 }
 
-parser_state command_state(t_token **cur_token, t_command *cur_cmd)
-{
-	t_token *lexer_data;
-
-	lexer_data = *cur_token;
-	join_all_composed_words(&lexer_data, &cur_cmd->name);
-	if (!lexer_data)
-		return NULL;
-	if (lexer_data->type == DELIMITER)
-		lexer_data = lexer_data->next;
-	*cur_token = lexer_data;
-	if (is_word(lexer_data->type))
-		return (parser_state) argument_state;
-	if (is_operator(lexer_data->type))
-		return (parser_state) operator_state_p;
-	return unexpected_token_error(lexer_data), NULL;
-}
-
-parser_state argument_state(t_token **cur_token, t_command *cur_cmd)
+void argument_state(t_token **cur_token, t_command *cur_cmd)
 {
 	t_token *lexer_data;
 	int arg_index;
@@ -60,19 +43,26 @@ parser_state argument_state(t_token **cur_token, t_command *cur_cmd)
 	lexer_data = *cur_token;
 	arg_index = str_arr_size(cur_cmd->args);
 	join_all_composed_words(&lexer_data, &cur_cmd->args[arg_index]);
-	if (!lexer_data)
-		return NULL;
-	if (lexer_data->type == DELIMITER)
-		lexer_data = lexer_data->next;
 	*cur_token = lexer_data;
-	if (is_word(lexer_data->type))
-		return (parser_state) argument_state;
-	if (is_operator(lexer_data->type))
-		return (parser_state) operator_state_p;
-	return unexpected_token_error(lexer_data), NULL;
 }
 
-parser_state operator_state_p(t_token **cur_token, t_command *cur_cmd)
+t_redirection create_redirection_data(t_token **lexer_data)
+{
+    t_redirection redirection;
+
+   	redirection = (t_redirection){.redirected = NULL, .flags = 0};
+	if ((*lexer_data)->type == INPUT_REDIRECTION)
+		redirection.flags = INPUT;
+	else if ((*lexer_data)->type == HEREDOC_REDIRECTION)
+		redirection.flags = HEREDOC | INPUT;
+	else if ((*lexer_data)->type == APPEND_REDIRECTION)
+		redirection.flags = APPEND;
+	*lexer_data = (*lexer_data)->next;
+	join_all_composed_words(lexer_data, &redirection.redirected);
+	return redirection;
+}
+
+void operator_state_p(t_token **cur_token, t_command *cur_cmd)
 {
 	t_token *lexer_data;
 	t_redirection redirection;
@@ -80,47 +70,43 @@ parser_state operator_state_p(t_token **cur_token, t_command *cur_cmd)
 
 	lexer_data = *cur_token;
 	if (lexer_data->type == PIPE)
-	{
-		*cur_token = (*cur_token)->next;
-		return (parser_state) command_state;
-	}
+		return;
+
 	last_index = 0;
 	while (cur_cmd->redirections[last_index].redirected)
 		last_index++;
-	redirection = (t_redirection){.redirected = NULL, .flags = 0};
-	if (lexer_data->type == INPUT_REDIRECTION)
-		redirection.flags = INPUT;
-	else if (lexer_data->type == HEREDOC_REDIRECTION)
-		redirection.flags = HEREDOC | INPUT;
-	else if (lexer_data->type == APPEND_REDIRECTION)
-		redirection.flags = APPEND;
-	lexer_data = lexer_data->next;
-	join_all_composed_words(&lexer_data, &redirection.redirected);
+
+	redirection = create_redirection_data(&lexer_data);
 	cur_cmd->redirections[last_index] = redirection;
+
 	*cur_token = lexer_data;
-	if (!lexer_data)
-		return NULL;
-	if (lexer_data->type == DELIMITER)
-		lexer_data = lexer_data->next;
-	if (is_word(lexer_data->type))
-		return (parser_state) argument_state;
-	if (is_operator(lexer_data->type))
-		return (parser_state) operator_state_p;
-	return unexpected_token_error(lexer_data), NULL;  
-} 
+}
 
 int count_cmd_args(t_token *lexer_data) {
-	int delimiter_count;
+    int arg_count;
 
-	delimiter_count = 0;
+	arg_count = 0;
 	while (lexer_data && lexer_data->type != PIPE)
 	{
-		if (lexer_data->type == DELIMITER)
-			delimiter_count++;
-		lexer_data = lexer_data->next;
+		if (is_operator(lexer_data->type))
+		{
+			while (lexer_data && !is_word(lexer_data->type))
+				lexer_data = lexer_data->next;
+			lexer_data = lexer_data->next;
+			continue;
+		}
+		if (lexer_data && lexer_data->type == DELIMITER)
+			lexer_data = lexer_data->next;
+		if (lexer_data && is_word(lexer_data->type))
+		{
+		    while (lexer_data && is_word(lexer_data->type))
+				lexer_data = lexer_data->next;
+			arg_count++;
+		}
+		if (lexer_data)
+		  lexer_data = lexer_data->next;
 	}
-
-	return delimiter_count;
+	return arg_count;
 }
 
 int count_cmd_redirections(t_token *lexer_data)
@@ -152,6 +138,19 @@ void init_command(t_token *lexer_data, t_command **command)
 	(*command)->redirections = ft_calloc(redir_count + 1, sizeof(t_redirection));
 }
 
+parser_state decide_next_state(t_token **cur_token)
+{
+    if (!*cur_token)
+         return NULL;
+   	if ((*cur_token)->type == DELIMITER)
+	   *cur_token = (*cur_token)->next;
+	if (is_word((*cur_token)->type))
+	   return (parser_state) argument_state;
+	else if (is_operator((*cur_token)->type))
+	   return (parser_state) operator_state_p;
+	return NULL;
+}
+
 t_command *parse(t_token *lexer_data)
 {
 	t_command *cur_cmd;
@@ -159,17 +158,20 @@ t_command *parse(t_token *lexer_data)
 	t_command *result;
 
 	t_token *cur_token = lexer_data;
-	next_state = (parser_state) command_state;
 	init_command(lexer_data, &cur_cmd);
 	result = cur_cmd;
-	while (next_state)
+	while (1)
 	{
-		next_state = (parser_state) next_state(&cur_token, cur_cmd);
-		if (next_state == (parser_state) command_state) {
+	    next_state = decide_next_state(&cur_token);
+		if (next_state == NULL)
+		  break;
+		next_state(&cur_token, cur_cmd);
+		if (cur_token && cur_token->type == PIPE)
+		{
+		    cur_token = cur_token->next;
 			init_command(cur_token, &cur_cmd->next);
 			cur_cmd = cur_cmd->next;
 		}
 	}
-	/* while (end) */
 	return result;
 }

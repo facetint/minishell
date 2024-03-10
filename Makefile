@@ -4,7 +4,7 @@ LIBFT_DIR = ./libft
 LIBFT_PATH = $(LIBFT_DIR)/libft.a
 
 CC = gcc
-FLAGS = -g -Wall -Wextra -Werror #-fsanitize=address
+FLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 MEMORY_ALLOCATOR_SOURCES = memory-allocator/aborter.c memory-allocator/allocator.c
 SOURCES = execute/find_path.c builtin/cd.c builtin/exit.c builtin/export.c builtin/echo.c builtin/env.c builtin/pwd.c  builtin/builtin.c get_next_line/get_next_line.c expander/expander_nonvariables.c env/env_utils.c lexer/utils.c handler.c env/env.c lexer/lexer.c lexer/unquote.c lexer/lexer_utils.c parser.c execute/execute.c expander/expander.c splitter.c lexer/syntax_analyzer.c $(MEMORY_ALLOCATOR_SOURCES)
 
@@ -45,7 +45,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re
 
 NO_COLOR		=	\x1b[0m
 GREEN_COLOR		=	\x1b[32;01m

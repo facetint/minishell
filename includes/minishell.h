@@ -36,7 +36,6 @@ typedef struct s_redirection
 
 typedef struct s_command
 {
-	char *name;
 	char **args;
 	int fd;
 	t_redirection *redirections;
@@ -50,7 +49,7 @@ typedef struct s_token
 	struct s_token *next;
 } t_token;
 
- 
+
 #define LEXER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, char *input, int *const index
 
 typedef void *(*lexer_state)(LEXER_STATE_FUNCTION_PARAMETERS); //todo rename as t_lexer...
@@ -63,9 +62,8 @@ lexer_state delimiter_state(LEXER_STATE_FUNCTION_PARAMETERS);
 
 typedef void *(*parser_state)(PARSER_STATE_FUNCTION_PARAMETERS);//todo rename as t_parser...
 
-parser_state command_state(PARSER_STATE_FUNCTION_PARAMETERS);
-parser_state argument_state(PARSER_STATE_FUNCTION_PARAMETERS);
-parser_state operator_state_p(PARSER_STATE_FUNCTION_PARAMETERS);
+void argument_state(PARSER_STATE_FUNCTION_PARAMETERS);
+void operator_state_p(PARSER_STATE_FUNCTION_PARAMETERS);
 
 // lexer
 t_token_type get_meta_token_type(const char *input);
