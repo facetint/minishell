@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:04:26 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/08 17:41:46 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/10 17:29:18 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void    handle_builtin(t_command *cmd, int fd[2])
     else if (ft_strcmp(cmd->name, "export") == 0)
         builtin_export(cmd, fd);
     else if (ft_strcmp(cmd->name, "env") == 0)
-        builtin_env(get_global_env());
+        builtin_env(get_global_env(), fd);
     else if (ft_strcmp(cmd->name, "exit") == 0)
         builtin_exit(cmd);
     else if (ft_strcmp(cmd->name, "pwd") == 0)
