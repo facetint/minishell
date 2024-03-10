@@ -1,10 +1,31 @@
 <div align="center">
   
-![image](https://github.com/facetint/minishell/assets/99668549/00f5680d-417c-4369-b01f-a366555d3fa3)
+![image](https://github.com/facetint/minishell/assets/99668549/20e35f8f-8026-49b6-b46c-7b08eafb41d5)
+
 
 </div>
 
-# MINISHELL
+## Table of Contents
+- [Shell Introduction](#shell-introduction)
+  - [What Is Bash and How Does It Work?](#what-is-bash-and-how-does-it-work)
+- [Algoritm](#algoritm)
+  - [State Machines](#state-machines)
+- [Implementation](#implementation)
+  - [Lexer](#the-lexer)
+  - [Parser](#the-parser)
+  - [Expander](#expander)
+  - [Executor](#executor)
+  - [Builtin](#builtin)
+      - [exit](#exit)
+      - [cd](#cd)
+      - [export](#export)
+      - [unset](#unset)
+      - [pwd](#pwd)
+      - [echo](#echo)
+      - [env](#env)
+  - [Signals](#signals)
+  - [Example Commands](#example-commands)
+- [Installation](#installation)
 
 ## Shell Introduction
 
@@ -13,7 +34,17 @@
 
 ## What Is Bash and How Does It Work?
 
- Bash is the shell, or command language interpreter, for the GNU operating system.
+
+![bahs](https://github.com/facetint/minishell/assets/99668549/9482ef70-4411-4efb-a871-2403ab33af95)
+
+
+➤ *Bash is the shell, or command language interpreter, for the GNU operating system.*
+
+➤ *Essentially it breaks down the process into 4 steps: `lexer` → `parser` → `expander` → `executor`, which we replicated in our project.*
+
+△ *At first sight bash appears to be a simple command/response system, where users enter commands and bash returns the results after those commands are run. However, bash is also a programming platform and users are enabled to write programs that accept input and produce output using shell commands in shell scripts.*
+*One of the most basic bash commands, ls, does one thing: list directory contents. By itself this command lists only the names of files and subdirectories in the current working directory.*
+
 
   ## Prompt Display :
 
@@ -47,9 +78,35 @@
   Bash also allows users to create shell scripts that contain a sequence of commands. These scripts are used to automate specific tasks by stringing together sequential commands.
 
 These basic steps of Bash provide a user-friendly command-line environment and come with a wide range of commands. Users can customize Bash and there is extensive documentation and community support.
-  
 
-## LEXER
+
+
+
+
+
+### **ALGORITM**
+
+
+![minishell-plan](https://github.com/facetint/minishell/assets/99668549/5d95d53a-b022-4547-9478-da55f6ffad94)
+
+
+**When we wrote this project, we were inspired by state machines.**
+
+
+
+
+#### STATE MACHINE 
+
+
+  *The basic building blocks of a state machine are states and transitions. A state is a situation of a system depending on previous inputs and causes a reaction on following inputs. One state is marked as the initial state; this is where the execution of the machine starts. A state transition defines for which input a state is changed from one to another. Depending on the state machine type, states and/or transitions produce outputs.*
+
+
+![state-machine-example](https://github.com/facetint/minishell/assets/99668549/a5263d1a-815e-4f7c-a977-2298fb066e2c)
+
+
+## Implementation
+
+### LEXER
 
 ▶︎ Its task is to decompose the commands entered by the user.
 
@@ -58,7 +115,7 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 ▶︎ For example, it takes the command "ls -l" and converts it into a delimited array like [ "ls", "-l" ].
 
 
-## PARSER 
+### PARSER 
 
 ▶︎ Parses symbols and tokens from the lexer to understand the structure of commands.
 
@@ -67,20 +124,67 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 ▶︎ For example, it converts the command "ls -l" into a tree structure.
 
 
-## EXPANDER
+### EXPANDER
 
 ▶︎ Evaluates variables, wildcards and other special characters within the command.
 
 ▶︎ For example, it replaces "~" with home directory or matches "*" with file names.
 
 
-## EXECUTE
+### EXECUTE
 
 ▶︎ Starts a real process using a tree structure.
 
 ▶︎ Creates a new process using system calls such as fork and exec and executes the command specified in that process.
 
 ▶︎ Returns the result to the user.
+
+### BUILTINS
+  
+ **exit**
++ exits the shell with the status in the argument or the current status if none is specified
++ also needs a numeric argument for the status otherwise it will error
+  
+ **cd**
++ changes the current directory to the first argument provided
++ can be relative or absolute path
++ -- changes to HOME
++ - changes to OLDPWD
++ PWD and OLDPWD are set accordingly
+
+**export**
++ with an argument it needs a valid identifier followed by an optional = and value
++ creates or changes the value of an existing environment variable
++ if no argument is provided it will print the environment variables in a weird format
+ 
+**unset**
++ with a valid identifier as argument it unsets/deletes the environment variable
++ otherwise it shows an error
+
+**pwd**
++ prints the current working directory to the stdout
+  
+**echo**
+
++ writes all the arguments to stdout followed by a newline
++ if the option -n is specified, no newline is added afterwards
++ some interesting differences are between "echo" in just lowercase and any other case version, as the latter would also accept multiple -n with as many "n" as we want
+
+**env**
++ prints the current environment variables to the stdout
+
+
+### Signals
+
++ during the entire parent process ctrl-\ is ignored
+
++ ctrl-C will always set a global variable to true, which quits the current processing and returns to readline
+
++ during readline ctrl-C needs some more functions so that we get a new line because readline doesn't return
+
++ the heredoc also has a special handler for readline
+
++ ctrl-\ isn't handled but it should inside heredocs which is an oversight on our part
 
 
 ## Useful shell utilities :
@@ -102,13 +206,83 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 <img width="1149" alt="Ekran Resmi 2023-12-24 02 03 18" src="https://github.com/facetint/minishell/assets/99668549/96539ad5-74b5-43d8-8f1b-0bd95c8fb441">
 
 
-## PİPE
+## PIPE
 
 EXAMPLE :
 
-
-<img width="1323" alt="Ekran Resmi 2023-12-25 15 07 36" src="https://github.com/facetint/minishell/assets/99668549/9db762aa-dae4-47d0-971a-a770aa6976bf">
-
-
+**command : ls -l | grep "txt" | sort | nl**
 
 <img width="1225" alt="Ekran Resmi 2023-12-24 14 38 56" src="https://github.com/facetint/minishell/assets/99668549/2b0c9e5a-ca26-48b3-95de-bb416d03c85b">
+
+
+
+
+
+
+
+#### -Example Commands-
+
+```  
+cat | ls -l | wc -l
+
+```
+*prints the output and remains in the loop. We need to press enter.*
+
+
+``` 
+exit 23 45
+```
+*bash: exit: too many arguments*
+
+
+``` 
+cat << | wc -l
+```
+*bash: syntax error near unexpected token `|'*
+
+``` 
+aaa | bbb | aaa | aaa
+```
+
+*bash: aaa: command not found*
+
+*bash: bbb: command not found*
+
+*bash: aaa: command not found*
+
+*bash: aaa: command not found*
+
+``` 
+cat file | cat << file
+```
+*only heredoc output is written*
+
+
+
+
+
+
+
+## Installation
+
+### Clone the repository:
+``` 
+git clone https://github.com/facetint/minishell.git
+cd minishell
+make
+```
+
+### Run Minishell
+```
+./minishell
+```
+
+
+
+
+
+
+
+
+
+
