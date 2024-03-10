@@ -40,35 +40,6 @@ void	print_and_close(int fd)
 	close(fd);
 }
 
-void	read_and_close(t_command *before)
-{
-    char    *line;
-
-    while (1)
-    {
-        line = get_next_line(before->fd);
-        if (line == NULL)
-            break;
-        safe_free(line);
-    }
-    close(before->fd);
-}
-
-char    **new_arr(char *new, char **arr)
-{
-    int counter;
-    char **ret_val;
-    counter = 0;
-    while (arr[counter])
-        counter++;
-    counter += 2;
-    ret_val = safe_malloc(sizeof(char *) * (counter));
-    ret_val[counter - 1] = NULL;
-    while (--counter > 0)
-        ret_val[counter] = arr[counter - 1];
-    ret_val[0] = new;
-    return (ret_val);
-}
 void    execute_command(t_command *cmd, t_command *before, int fd[2])
 {
     char *path_cmd;
