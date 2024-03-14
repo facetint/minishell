@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 19:45:46 by hcoskun42        ###   ########.tr       */
+/*   Updated: 2024/03/14 20:15:49 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,10 @@ char	*read_heredoc_input(char *eof)
 			//handle_input(line);
 			return NULL;
 		}
-		if (!line || !*line || ft_strncmp(line, eof, INT_MAX) == 0)
+		if (ft_strncmp(line, eof, INT_MAX) == 0)
 			break;
+		if (!line || !*line)
+			line = ft_strdup("\n");
 		char *new = ft_str_arr_join((char *[]) {input, line, "\n"}, 3);
 		safe_free(input);
 		input = new;
