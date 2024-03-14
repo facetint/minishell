@@ -25,6 +25,7 @@
       - [env](#env)
   - [Signals](#signals)
   - [Example Commands](#example-commands)
+  - [PIPE](#pipe)
 - [Installation](#installation)
 
 ## Shell Introduction
