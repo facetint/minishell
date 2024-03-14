@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 15:54:16 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/14 19:45:46 by hcoskun42        ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,17 +167,11 @@ void	handle_input(char *input)
 	parser_data = parse(lexer_data);
 	handle_heredocs(parser_data);
 
-<<<<<<< HEAD:src/handler.c
 	//debug(lexer_data, parser_data);
 	if (!parser_data->next && parser_data->args[0] && isbuiltin(parser_data->args[0]))
 		handle_builtin(parser_data, (int[]){1, 1});
 	else
 		execute(parser_data);
-=======
-	debug(lexer_data, parser_data);
-	execute(parser_data);
-	//waitpid(-1, NULL, 0);
->>>>>>> main:handler.c
 	while(wait(NULL) > 0 || (wait(NULL) == -1 && errno != ECHILD));
 	uninit_tokens(lexer_data);
 }
