@@ -242,8 +242,13 @@ aaa | bbb | aaa | aaa
 cat file | cat << file
 ```
 
+``` 
+cat << file | cat << file
+```
 
-
+``` 
+cat << file << file2 << file3
+```
 
 
 
