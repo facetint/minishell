@@ -208,7 +208,19 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 
 ## PIPE
 
-EXAMPLE :
+
+In Bash, pipes are a fundamental mechanism for connecting the output of one command to the input of another command. This allows you to chain multiple commands together to perform more complex operations.
+
+The basic syntax for a pipe operation is:
+
+``` 
+command1 | command2
+```
+
+This command sequence takes the output of command1 and feeds it directly into the input of command2. The output of command1 is processed by command2, and the result is displayed to the user or redirected for further processing.
+
+
+EXAMPLE : 
 
 **command : ls -l | grep "txt" | sort | nl**
 
