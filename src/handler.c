@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 20:15:49 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/14 21:59:30 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,18 +107,16 @@ char	*read_heredoc_input(char *eof)
 			//handle_input(line);
 			return NULL;
 		}
-		if (ft_strncmp(line, eof, INT_MAX) == 0)
+		if (!line || ft_strncmp(line, eof, INT_MAX) == 0)
 			break;
-		if (!line || !*line)
+		if (!*line)
 			line = ft_strdup("\n");
 		char *new = ft_str_arr_join((char *[]) {input, line, "\n"}, 3);
 		safe_free(input);
 		input = new;
 		safe_free(line);
 	}
-	char *new = ft_substr(input, 0, ft_strlen(input) - 1);
-	safe_free(input);
-	return new;
+	return input;
 }
 
 int	handle_heredocs(t_command *cur)

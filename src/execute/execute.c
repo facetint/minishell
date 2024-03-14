@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 16:52:00 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/14 20:29:27 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	print_heredoc(t_command *cmd)
             int new_fd[2];
             pipe(new_fd);            
             write(new_fd[1], cmd->redirections[i].redirected, ft_strlen(cmd->redirections[i].redirected));
-            write(new_fd[1], "\n", 1);
             close(new_fd[1]);
             dup2(new_fd[0], STDIN_FILENO);
             close(new_fd[0]);
