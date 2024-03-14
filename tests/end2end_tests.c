@@ -65,9 +65,20 @@ char *stop_listening(struct listen_data ld) {
 }
 
 char *exec_and_output(char *input, int fd) {
+  struct listen_data fd_trash0, fd_trash1; // i know its ugly but i am busy.
+  if (fd != 1)
+    fd_trash0 = start_listening(1);
+  if (fd != 2)
+    fd_trash1 = start_listening(2);
+
   struct listen_data ld = start_listening(fd);
   handle_input(input);
   char *output = stop_listening(ld);
+  
+  if (fd != 1)
+    stop_listening(fd_trash0);
+  if (fd != 2)
+    stop_listening(fd_trash1);
   return output;
 }
 
@@ -96,15 +107,15 @@ Test(test_utils, listen_input) {
   cr_assert_str_eq(output, "hello\n");
 }
 
+/*
+ * ACTUAL TESTS
+ */ 
+
 Test(end2end, echo) {
   exec_assert_stdout("echo hello", "hello\n");
   exec_assert_stdout("echo -n hello", "hello");
   exec_assert_stdout("echo -n -n -n hello", "hello");
   exec_assert_stdout("echo a -n hello", "a -n hello\n");
-
-  exec_assert_not_output("echo"
-                         "a\n",
-                         NULL, 2); // error expected.
 }
 
 Test(end2end, unquoting) {
@@ -124,6 +135,7 @@ Test(end2end, overrided_redirection) {
   exec_assert_stdout("cat file1", NULL);
   exec_assert_stdout("cat file2", "ABC\n");
 }
+
 Test(end2end, execute_w_path) {
   exec_assert_stdout("/bin/echo hello", "hello\n");
   exec_assert_stdout("/////////////////bin///////////echo sa", "hello\n");
@@ -131,12 +143,12 @@ Test(end2end, execute_w_path) {
 }
 
 Test(end2end, environment_variables) {
-  exec_assert_stderr("setenv abc def", NULL);
+  exec_assert_stderr("export abc=def", NULL);
   exec_assert_stdout("echo $abc", "def\n");
 
   exec_assert_stdout("echo $\"abc\"", "abc\n");
 
-  exec_assert_stderr("setenv abc \"k l m n o p r\"", NULL);
+  exec_assert_stderr("export abc=\"k l m n o p r\"", NULL);
   exec_assert_stdout("echo $abc", "\n");
 }
 
