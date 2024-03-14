@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 20:06:35 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/10 17:34:23 by facetint         ###   ########.fr       */
+/*   Created: 2024/03/03 18:01:40 by facetint          #+#    #+#             */
+/*   Updated: 2024/03/14 16:05:55 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../libft/libft.h"
-#include "../includes/env.h"
-#include <stdio.h>
+#include "../../includes/minishell.h"
+#include "../../includes/env.h"
+#include <unistd.h>
+#include "../../libft/libft.h"
 
-void    builtin_env(t_envList *env, int fd[2])
+void    builtin_export(t_command *cmd, int fd[2])
 {
-    t_envList   *lst;
-
-    lst = env;
-    while (lst)
+    (void)cmd;
+    t_envList *tmp = get_global_env();
+    while (tmp)
     {
-        write(fd[1], lst->key, ft_strlen(lst->key));
+        write(fd[1], "declare -x ", 12);
+        write(fd[1], tmp->key, ft_strlen(tmp->key));
         write(fd[1], "=", 1);
-        write(fd[1], lst->value, ft_strlen(lst->value));
+        write(fd[1], tmp->value, ft_strlen(tmp->value));
         write(fd[1], "\n", 1);
-        //printf("%s=%s\n", lst->key, lst->value);
-        lst = lst->next;
+        tmp = tmp->next;
     }
 }

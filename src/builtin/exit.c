@@ -6,16 +6,16 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:04:14 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/03 14:11:41 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:05:08 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 #include <stdio.h>
-#include "../memory-allocator/allocator.h"
+#include "../../memory-allocator/allocator.h"
 #include <unistd.h>
 #include <stdlib.h>
-#include "../libft/libft.h"
+#include "../../libft/libft.h"
 #include "stdbool.h"
 
 static bool    is_numeric(char *s)
@@ -38,12 +38,12 @@ void    builtin_exit(t_command *cmd)
     int     exit_value;
 
     exit_value = 0;
-    if (!(cmd->args[0]))
+    if (!(cmd->args[1]))
         exit(EXIT_SUCCESS);
-    status = is_numeric((cmd->args[0]));
+    status = is_numeric((cmd->args[1]));
     if (status == false)
     {
-        printf("bash: exit: %s: numeric argument required\n",
+        printf("bash: %s: numeric argument required\n",
             cmd->args[0]);
         exit_value = 255;
     }

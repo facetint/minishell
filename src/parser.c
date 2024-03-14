@@ -6,14 +6,14 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:28 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/10 18:40:08 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/14 19:25:24 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "includes/minishell.h"
-#include "includes/utils.h"
-#include "memory-allocator/allocator.h"
+#include "../libft/libft.h"
+#include "../includes/minishell.h"
+#include "../includes/utils.h"
+#include "../memory-allocator/allocator.h"
 #include <stdio.h>
 
 void join_all_composed_words(t_token **cur_token, char **string_ptr)

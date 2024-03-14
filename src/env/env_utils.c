@@ -6,14 +6,14 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:40:58 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/08 17:16:37 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:55:54 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stdio.h"
-#include "../includes/env.h"
+#include "../../includes/env.h"
 #include <stdlib.h>
-#include "../memory-allocator/allocator.h"
+#include "../../memory-allocator/allocator.h"
 
 char	*strchr_new(const char *s, int c)
 {
@@ -45,7 +45,7 @@ char    *strdup_n(char *str, char c)
     }
     return (ret_val);
 }
-int lstsize(t_envList *lst)
+int lst_size(t_envList *lst)
 {
 	int	count;
 
@@ -57,13 +57,14 @@ int lstsize(t_envList *lst)
 	}
 	return (count);
 }
- int    ft_strcmp(const char *s1, const char *s2)
- {
-     while (*s1 && *s2 && *s1 == *s2)
-     {
-         s1++;
-         s2++;
-     }
-     return ((unsigned char)*s1 - (unsigned char)*s2);
- }
- 
+int ft_strcmp(char *s1, char *s2)
+{
+    if (!s1 || !s2)
+        return (1);
+	int	counter;
+
+	counter = 0;
+	while (s1[counter] && s1[counter] == s2[counter])
+		counter++;
+	return (s1[counter] - s2[counter]);
+}

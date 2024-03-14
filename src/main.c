@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/09 00:59:31 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/14 19:25:20 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <unistd.h>
-#include "includes/minishell.h"
-#include "memory-allocator/allocator.h"
-#include "includes/env.h"
+#include <stdlib.h>
+#include "../includes/utils.h"
+#include "../libft/libft.h"
+#include "../includes/minishell.h"
+#include "../memory-allocator/allocator.h"
+#include "../includes/env.h"
 
 int main(int ac, char **av, char **envp) {
 
@@ -24,18 +27,21 @@ int main(int ac, char **av, char **envp) {
 	(void)ac;
 	(void)av;
 
+	signal_type = DEFAULT;
 	register_post_abort_func(handle_memory_error);
+	register_signal_handler();
 	while (1) {
 		char *prompt = get_prompt();
 		char *input = readline(prompt);
 		safe_free(prompt);
-		if (input && *input)
+		if (!input)
+			free(input),
+			exit(EXIT_SUCCESS);
+		if (*input)
 		{
 			handle_input(input);
 			add_history(input);
 		}
-		if (!input)
-			printf("\n");
 		//free_memory();
 	}
 }

@@ -6,14 +6,14 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:41:06 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/03 18:01:51 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:06:25 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../libft/libft.h"
+#include "../../includes/minishell.h"
+#include "../../libft/libft.h"
 #include <stdio.h>
-#include "../memory-allocator/allocator.h"
+#include "../../memory-allocator/allocator.h"
 
 void    builtin_pwd(t_command *cmd)
 {

@@ -6,12 +6,12 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:50 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/08 19:58:12 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:07:31 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../memory-allocator/allocator.h"
+#include "../../includes/minishell.h"
+#include "../../memory-allocator/allocator.h"
 #include <stdlib.h>
 
 t_token *get_last_lexer_data(t_token *token)

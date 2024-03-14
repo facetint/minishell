@@ -6,16 +6,16 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:05:06 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/08 19:43:20 by facetint         ###   ########.tr       */
+/*   Updated: 2024/03/14 16:55:33 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "../libft/libft.h"
-#include "../includes/env.h"
+#include "../../libft/libft.h"
+#include "../../includes/env.h"
 #include <stdlib.h>
-#include "../memory-allocator/allocator.h"
-#include "../includes/minishell.h"
+#include "../../memory-allocator/allocator.h"
+#include "../../includes/minishell.h"
 
 t_envList	*create_list(char *key, char *value)
 {
@@ -78,7 +78,7 @@ char	**make_arr(t_envList *lst)
 	char		**ret_val;
 	char		*key;
 
-	i = lstsize(lst);
+	i = lst_size(lst);
 	ret_val = safe_malloc(sizeof(char *) * (i + 1));
 	ret_val[i] = 0;
 	tmp = lst;

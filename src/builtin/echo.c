@@ -6,12 +6,12 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 11:48:26 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/03 16:55:03 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:06:03 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../libft/libft.h"
+#include "../../includes/minishell.h"
+#include "../../libft/libft.h"
 #include <stdio.h>
 
 int is_n_option(char *str)
@@ -40,7 +40,7 @@ void    builtin_echo(t_command *cmd, int fd[2])
     int     i;
     int     n_option;
 
-    args = cmd->args;
+    args = &cmd->args[1];
     i = 0;
     n_option = 0;
     while (is_n_option(args[i]))

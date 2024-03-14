@@ -1,23 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_path.c                                        :+:      :+:    :+:   */
+/*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:46:34 by facetint          #+#    #+#             */
-/*   Updated: 2024/02/29 13:49:29 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:51:51 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/wait.h>
 #include <stdlib.h>
-#include "../libft/libft.h"
-#include "../memory-allocator/allocator.h"
-#include "../includes/env.h"
+#include "../../libft/libft.h"
+#include "../../memory-allocator/allocator.h"
+#include "../../includes/env.h"
+#include "../../get_next_line/get_next_line.h"
+
+t_envList	*get_global_env()
+{
+	static	t_envList env = (t_envList){0};
+	return (&env);
+}
+
+void	print_and_close(int fd)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break;
+		ft_putstr_fd(line, 1);
+		safe_free(line);
+	}
+	close(fd);
+}
 
 char    *find_path(char *cmd)
 {

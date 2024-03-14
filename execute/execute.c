@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/10 17:45:59 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/14 19:24:32 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,3 +122,4 @@ void    handle_command(t_command *before, t_command *cmd, t_command *first_cmd)
     cmd->fd = fd[0];
     handle_command(cmd, cmd->next, first_cmd);
 }
+
