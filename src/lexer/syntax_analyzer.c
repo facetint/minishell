@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_analyzer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:35 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 16:08:12 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/14 22:01:21 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ int are_quotes_valid(t_token *lexer_data)
 			length = ft_strlen(lexer_data->value);
 			if (length <= 1
 				|| lexer_data->value[0] != SINGLE_QUOTE
-				|| lexer_data->value[length - 1] != SINGLE_QUOTE
-				|| is_escaped(lexer_data->value, length - 1))
+				|| lexer_data->value[length - 1] != SINGLE_QUOTE)
 				return (0);
 		}
 		else if (lexer_data->type == DOUBLE_QUOTED_WORD)
