@@ -21,6 +21,8 @@ typedef enum e_signal_type
     DEFAULT,
 } t_signal_type;
 
+extern t_signal_type signal_type;
+
 /* if 1 input, otherwise, output */
 # define INPUT (1 << 0)
 /* only valid if IS_INPUT is 1*/
@@ -38,7 +40,7 @@ typedef struct s_command
 {
 	char *name;
 	char **args;
-	int fd;
+	int output;
 	t_redirection *redirections;
 	struct s_command *next; /* output->input redirected command */
 } t_command;
@@ -63,9 +65,8 @@ lexer_state delimiter_state(LEXER_STATE_FUNCTION_PARAMETERS);
 
 typedef void *(*parser_state)(PARSER_STATE_FUNCTION_PARAMETERS);//todo rename as t_parser...
 
-parser_state command_state(PARSER_STATE_FUNCTION_PARAMETERS);
-parser_state argument_state(PARSER_STATE_FUNCTION_PARAMETERS);
-parser_state operator_state_p(PARSER_STATE_FUNCTION_PARAMETERS);
+void argument_state(PARSER_STATE_FUNCTION_PARAMETERS);
+void operator_state_p(PARSER_STATE_FUNCTION_PARAMETERS);
 
 // lexer
 t_token_type get_meta_token_type(const char *input);
@@ -102,8 +103,10 @@ char *ft_str_arr_join(char **str_list, unsigned int str_count);
 
 // executer
 void	execute(t_command *cmds);
-void    handle_command(t_command *before, t_command *cmd, t_command *first_cmd);
+void    handle_command(t_command *prev, t_command *cmd);
 char	*find_path(char *cmd);
+void	print_and_close(int fd);
+void    run_by_type(t_command *cmd, char *path_cmd);
 
 // builtin
 
@@ -125,7 +128,11 @@ void    change_old(char *str, t_command *cmd);
 
 // heredocs
 char	*read_heredoc_input(char *delimiter);
-void	handle_heredocs(t_command *cur);
-void    read_and_close(t_command *before);
+int		handle_heredocs(t_command *cur);
+void	print_heredoc(t_command *cmd);
 
+
+//signal
+void register_signal_handler();
+void handle_signal(int signum);
 #endif

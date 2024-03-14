@@ -14,7 +14,7 @@ char		**make_arr(t_envList *lst);
 void		print_env(char **env);
 char		*strchr_new(const char *str, int c);
 char		*strdup_n(char *str, char c);
-int			lstsize(t_envList *lst);
+int			lst_size(t_envList *lst);
 void		builtin_env(t_envList *env, int fd[2]);
 t_envList	*get_global_env();
 
