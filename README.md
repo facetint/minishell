@@ -235,7 +235,7 @@ cat << | wc -l
 ```
 
 ``` 
-aaa | bbb | aaa | aaa
+exit | exit
 ```
 
 ``` 
