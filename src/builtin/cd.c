@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 11:48:16 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 18:10:34 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/15 03:01:38 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void    change_pwd(t_command *data, t_command *cmd)
     env = get_global_env();
     while (env)
     {
-        if (!ft_strcmp(env->key, "PWD") && data->args && !ft_strcmp(data->args[1], "~"))
+        if (!ft_strcmp(env->key, "PWD") && (data->args[0] || ft_strcmp(data->args[1], "~") == 0))
         {
             if (env->value)
                 free(env->value);

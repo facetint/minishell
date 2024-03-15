@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:05:06 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 16:55:33 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/15 03:33:44 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,3 +93,4 @@ char	**make_arr(t_envList *lst)
 	}
 	return (ret_val);
 }
+
