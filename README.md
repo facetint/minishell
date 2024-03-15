@@ -260,9 +260,6 @@ cat file | cat << file
 
 
 
-
-
-
 ## Installation
 
 ### Clone the repository:
