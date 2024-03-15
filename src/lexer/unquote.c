@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:41 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 16:08:29 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/14 21:53:10 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ char *escaped_strdup(char *str)
  * @brief remove quotes and backslashes of words from the lexer data
  * @param lexer_data the lexer data to unquote
  */
-void unquote(t_token *lexer_data)
+void	unquote(t_token *lexer_data)
 {
-	char *unquoted_value;
+	char	*unquoted_value;
 	while (lexer_data)
 	{
 		/* remove quotes */

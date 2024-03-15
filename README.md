@@ -263,12 +263,6 @@ cat << file | cat << file
 echo facetint | cat << file << file2 << file3
 ```
 
-``` 
-sort << file
-```
-
-
-
 ## Installation
 
 ### Clone the repository:

@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:40:58 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 17:55:54 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/15 03:41:50 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,4 @@ int ft_strcmp(char *s1, char *s2)
 	while (s1[counter] && s1[counter] == s2[counter])
 		counter++;
 	return (s1[counter] - s2[counter]);
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                   

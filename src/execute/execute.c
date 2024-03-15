@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 20:29:27 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/15 04:09:23 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,8 @@ void	execute_command(t_command *cmd, t_command *prev, int fd[2])
     if (pid != 0)
         return ;
     path_cmd = find_path(cmd->args[0]);
-    /*
-    if (!path_cmd)
+    /*if (!path_cmd)
     {
-        ft_putstr_fd("bash: ", 2);
-        ft_putstr_fd(cmd->args[0], 2);
         ft_putstr_fd(": command not found\n", 2);
         exit(127);
     }*/

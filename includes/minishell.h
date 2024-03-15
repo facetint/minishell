@@ -1,5 +1,5 @@
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 typedef enum e_token_type
 {

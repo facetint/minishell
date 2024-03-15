@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:52 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 16:07:45 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/14 23:56:06 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 t_token_type get_meta_token_type(const char *input)
 {
 	if (!input || !*input)
-		return (UNKNOWN);
+		return (UNKNOWN);  
 	if (input[0] == '>')
 	{
 		if (input[1] == '>')
