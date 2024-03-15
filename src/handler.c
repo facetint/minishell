@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 15:54:16 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/14 21:59:30 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,16 +107,16 @@ char	*read_heredoc_input(char *eof)
 			//handle_input(line);
 			return NULL;
 		}
-		if (!line || !*line || ft_strncmp(line, eof, INT_MAX) == 0)
+		if (!line || ft_strncmp(line, eof, INT_MAX) == 0)
 			break;
+		if (!*line)
+			line = ft_strdup("\n");
 		char *new = ft_str_arr_join((char *[]) {input, line, "\n"}, 3);
 		safe_free(input);
 		input = new;
 		safe_free(line);
 	}
-	char *new = ft_substr(input, 0, ft_strlen(input) - 1);
-	safe_free(input);
-	return new;
+	return input;
 }
 
 int	handle_heredocs(t_command *cur)
@@ -167,17 +167,11 @@ void	handle_input(char *input)
 	parser_data = parse(lexer_data);
 	handle_heredocs(parser_data);
 
-<<<<<<< HEAD:src/handler.c
 	//debug(lexer_data, parser_data);
 	if (!parser_data->next && parser_data->args[0] && isbuiltin(parser_data->args[0]))
 		handle_builtin(parser_data, (int[]){1, 1});
 	else
 		execute(parser_data);
-=======
-	debug(lexer_data, parser_data);
-	execute(parser_data);
-	//waitpid(-1, NULL, 0);
->>>>>>> main:handler.c
 	while(wait(NULL) > 0 || (wait(NULL) == -1 && errno != ECHILD));
 	uninit_tokens(lexer_data);
 }
