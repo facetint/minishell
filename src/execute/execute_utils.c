@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:46:34 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 16:51:51 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/15 01:11:14 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ char    *find_path(char *cmd)
     char    *new_joined_path;
     int     counter;
 
+    if (access(cmd, F_OK) == 0)
+        return (ft_strdup(cmd)); 
     path = getenv("PATH");
     path_arr = ft_split(path, ':');
 
