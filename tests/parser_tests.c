@@ -27,7 +27,7 @@ Test(parser, redirection_first_parser_test)
 
 	t_command *cmd = parse(&t0);
 	cr_assert_not_null(cmd);
-	cr_assert_str_eq(cmd->name, "cat");
+	cr_assert_str_eq(cmd->args[0], "cat");
 	cr_assert_str_eq(cmd->redirections[0].redirected, "infile");
 	cr_assert_eq(cmd->redirections[0].flags, INPUT);
 	cr_assert_null(cmd->redirections[1].redirected);
@@ -45,6 +45,6 @@ Test(parser, word_concat_parser)
 
 	t_command *cmd = parse(&t0);
 	cr_assert_not_null(cmd);
-	cr_assert_str_eq(cmd->name, "echo");
+	cr_assert_str_eq(cmd->args[0], "echo");
 }
 

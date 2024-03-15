@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 15:54:16 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/14 21:59:30 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include "../memory-allocator/allocator.h"
 #include <sys/wait.h>
 #include <errno.h>
-#include <signal.h>
 
 /* debug function */
 char const *token_type_to_string(t_token_type type)
@@ -57,7 +56,6 @@ void debug(t_token *token, t_command *cmd) {
 	}
 	while (cmd)
 	{
-		printf("name: %s\nargs:", cmd->name ? cmd->name : "(empty)");
 		if (cmd->args[0] == NULL)
 			printf("(no args)");
 		for (int i = 0; cmd->args[i]; i++)
@@ -109,16 +107,16 @@ char	*read_heredoc_input(char *eof)
 			//handle_input(line);
 			return NULL;
 		}
-		if (!line || !*line || ft_strncmp(line, eof, INT_MAX) == 0)
+		if (!line || ft_strncmp(line, eof, INT_MAX) == 0)
 			break;
+		if (!*line)
+			line = ft_strdup("\n");
 		char *new = ft_str_arr_join((char *[]) {input, line, "\n"}, 3);
 		safe_free(input);
 		input = new;
 		safe_free(line);
 	}
-	char *new = ft_substr(input, 0, ft_strlen(input) - 1);
-	safe_free(input);
-	return new;
+	return input;
 }
 
 int	handle_heredocs(t_command *cur)

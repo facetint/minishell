@@ -49,7 +49,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re
 
 NO_COLOR		=	\x1b[0m
 GREEN_COLOR		=	\x1b[32;01m
