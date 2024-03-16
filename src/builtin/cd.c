@@ -6,7 +6,7 @@
 /*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 11:48:16 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 14:45:50 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/16 14:57:31 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void    change_pwd(t_command *data, t_command *cmd)
         {
 			if (node->value)
 				free(node->value);
-            node->value = get_home(cmd);
+            node->value = find_env("HOME");
         }
         else if (!ft_strcmp(node->key, "PWD"))
         {
