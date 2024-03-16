@@ -6,7 +6,7 @@
 /*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:05:06 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 14:37:07 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/16 17:55:43 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ char	**to_arr(t_list *lst)
 	char		**ret_val;
 	t_entry    *node;
 
+	if (!lst)
+	{
+		ret_val = ft_calloc(1, sizeof(char *));
+		ret_val[0] = NULL;
+	}
 	i = ft_lstsize(lst);
 	ret_val = safe_malloc(sizeof(char *) * (i + 1));
 	ret_val[i] = 0;
@@ -79,6 +84,8 @@ char *find_env(char *key)
 	t_entry *entry;
 	
 	lst = get_global_env();
+	if (!lst->content)
+		return NULL;
 	while (lst)
 	{
 		entry = lst->content;

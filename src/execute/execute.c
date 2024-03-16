@@ -6,7 +6,7 @@
 /*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 17:28:40 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/16 17:52:50 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void	execute_command(t_command *cmd, t_command *prev, int fd[2])
 		cmd->pid = pid;
         return ;
 	}
-    path_cmd = find_path(cmd->args[0]);
-    if (!path_cmd)
-        exit(127);
+	path_cmd = find_path(cmd->args[0]);
+	if (!path_cmd)
+		exit(127);
     if (prev)
     {
 		if (cmd->redirections->flags & INPUT)
@@ -87,7 +87,6 @@ void	execute_command(t_command *cmd, t_command *prev, int fd[2])
 
 void	handle_command(t_command *prev, t_command *cmd)
 {
-	t_redirection *in_redir;
 	t_redirection *out_redir;
 	
 	int	fd[2];
@@ -104,10 +103,6 @@ void	handle_command(t_command *prev, t_command *cmd)
 	out_redir = get_output_redir(cmd);
 	if (out_redir)
 		cmd->output = open_file(out_redir->redirected, cmd->redirections->flags & APPEND);
-	in_redir = get_input_redir(cmd);
-	if (in_redir)
-		
-				
 }
 
 void	execute(t_command *cmds)
