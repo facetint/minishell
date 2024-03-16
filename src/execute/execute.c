@@ -6,7 +6,7 @@
 /*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 15:54:50 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/16 17:28:40 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	execute_command(t_command *cmd, t_command *prev, int fd[2])
         exit(127);
     if (prev)
     {
+		if (cmd->redirections->flags & INPUT)
+			
         dup2(prev->output, STDIN_FILENO);
         close(prev->output);
     }
@@ -85,6 +87,9 @@ void	execute_command(t_command *cmd, t_command *prev, int fd[2])
 
 void	handle_command(t_command *prev, t_command *cmd)
 {
+	t_redirection *in_redir;
+	t_redirection *out_redir;
+	
 	int	fd[2];
 
     if (pipe(fd) == -1)
@@ -96,6 +101,13 @@ void	handle_command(t_command *prev, t_command *cmd)
     if (!cmd->next)
         return print_and_close(fd[0]);
     cmd->output = fd[0];
+	out_redir = get_output_redir(cmd);
+	if (out_redir)
+		cmd->output = open_file(out_redir->redirected, cmd->redirections->flags & APPEND);
+	in_redir = get_input_redir(cmd);
+	if (in_redir)
+		
+				
 }
 
 void	execute(t_command *cmds)
@@ -103,6 +115,9 @@ void	execute(t_command *cmds)
 	t_command	*cur;
 	t_command	*prev;
 	int			exit_status;
+
+	if (!cmds->next && cmds->args[0] && isbuiltin(cmds->args[0]))
+		return handle_builtin(cmds, (int[]){0, 1});
 
     cur = cmds;
     prev = NULL;

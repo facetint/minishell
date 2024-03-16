@@ -6,7 +6,7 @@
 /*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 15:33:41 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/16 17:12:08 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 int *get_exit_status()
 {
 	static int exit_status = 0;
-
 	return(&exit_status);
 }
 
@@ -55,6 +54,15 @@ char	*read_heredoc_input(char *eof)
 	return input;
 }
 
+void	handle_file_redirections(t_command *cur)
+{
+	while (cur) 
+	{
+		if (!(cur->redirections->flags & INPUT))
+			create_file(cur->redirections->redirected);
+		cur = cur->next;
+	}
+}
 int	handle_heredocs(t_command *cur)
 {
     signal_type = IN_HEREDOC;
@@ -102,12 +110,10 @@ void	handle_input(char *input)
 	unquote(lexer_data);
 	parser_data = parse(lexer_data);
 	handle_heredocs(parser_data);
+	handle_file_redirections(parser_data);
 
 	//debug(lexer_data, parser_data);
-	if (!parser_data->next && parser_data->args[0] && isbuiltin(parser_data->args[0]))
-		handle_builtin(parser_data, (int[]){1, 1});
-	else
-		execute(parser_data);
+	execute(parser_data);
 	uninit_tokens(lexer_data);
 }
 
