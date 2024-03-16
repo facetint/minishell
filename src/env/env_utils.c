@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:40:58 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/15 03:41:50 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/16 14:47:45 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ char	*ft_unsafe_substr(char const *s, unsigned int start, size_t len)
 
 t_list *create_node(char *key, char *value)
 {
-    t_envList *node;
+    t_entry *node;
    	t_list	*lst;
 
-    node = malloc(sizeof(t_envList));
+    node = malloc(sizeof(t_entry));
     if (!node)
         return (NULL);
     node->key = key;
@@ -62,14 +62,13 @@ t_list *create_node(char *key, char *value)
 
 void    free_list(t_list *lst)
 {
-    t_envList *env;
+    t_entry *env;
     t_list *tmp;
     int first = 1;
 
     tmp = lst;
     while (tmp)
     {
-        printf("freeing %s\n", ((t_envList *)tmp->content)->key);
         lst = tmp;
         tmp = tmp->next;
         env = lst->content;

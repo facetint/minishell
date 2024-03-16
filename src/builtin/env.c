@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 20:06:35 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 16:06:13 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/16 14:14:46 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void    builtin_env(t_list *env, int fd[2])
 {
-    t_envList   *node;
+    t_entry   *node;
 
     while (env)
     {
