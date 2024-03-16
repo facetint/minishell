@@ -134,4 +134,7 @@ void	print_heredoc(t_command *cmd);
 //signal
 void register_signal_handler();
 void handle_signal(int signum);
+
+// global
+int *get_exit_status();
 #endif
