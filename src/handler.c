@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 21:59:30 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/16 14:44:05 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,79 +17,15 @@
 #include "../memory-allocator/allocator.h"
 #include <sys/wait.h>
 #include <errno.h>
+#include "../includes/env.h"
 
-/* debug function */
-char const *token_type_to_string(t_token_type type)
+int *get_exit_status()
 {
-	if (type == UNKNOWN)
-		return "UNKNOWN";
-	if (type == UNQUOTED_WORD)
-		return "UNQUOTED_WORD";
-	if (type == DOUBLE_QUOTED_WORD)
-		return "DOUBLE_QUOTED_WORD";
-	if (type == SINGLE_QUOTED_WORD)
-		return "SINGLE_QUOTED_WORD";
-	if (type == PIPE)
-		return "PIPE";
-	if (type == INPUT_REDIRECTION)
-		return "INPUT_REDIRECTION";
-	if (type == HEREDOC_REDIRECTION)
-		return "HEREDOC_REDIRECTION";
-	if (type == OUTPUT_REDIRECTION)
-		return "OUTPUT_REDIRECTION";
-	if (type == APPEND_REDIRECTION)
-		return "APPEND_REDIRECTION";
-	if (type == DELIMITER)
-		return "DELIMITER";
-	return "UNRECOGNIZED";
+	static int exit_status = 0;
+
+	return(&exit_status);
 }
 
-# define LEXER_DEBUG
-# define PARSER_DEBUG
-void debug(t_token *token, t_command *cmd) {
-	(void) token,(void) cmd;
-
-#ifdef PARSER_DEBUG
-	if (!cmd) {
-		printf("<No Command>");
-		return;
-	}
-	while (cmd)
-	{
-		if (cmd->args[0] == NULL)
-			printf("(no args)");
-		for (int i = 0; cmd->args[i]; i++)
-			printf("`%s` ", cmd->args[i]);
-		printf("\nredirections: ");
-		if (cmd->redirections[0].redirected == NULL)
-			printf("(no redirections)");
-		for (int i = 0; cmd->redirections[i].redirected; i++)
-			printf("`%s`(%s,%s,%s) ", cmd->redirections[i].redirected,
-				   cmd->redirections[i].flags & INPUT ? "input" : "output",
-				   cmd->redirections[i].flags & APPEND ? "append" : "no append",
-				   cmd->redirections[i].flags & HEREDOC ? "heredoc" : "no heredoc");
-		printf("\n");
-		cmd = cmd->next;
-	}
-#endif
-#ifdef LEXER_DEBUG
-	if (!token) {
-		printf("<No Token>\n");
-		return;
-	}
-	while (token->next) {
-		if (is_word(token->type))
-			printf("\033[97m%s\033[37m(%s)->", token_type_to_string(token->type), token->value);
-		else
-			printf("\033[97m%s\033[37m->", token_type_to_string(token->type));
-		token = token->next;
-	}
-	if (is_word(token->type))
-		printf("\033[97m%s\033[37m(%s)\033[97m\n", token_type_to_string(token->type), token->value);
-	else
-		printf("\033[97m%s\n", token_type_to_string(token->type));
-#endif
-}
 
 char	*read_heredoc_input(char *eof)
 {
@@ -179,5 +115,6 @@ void	handle_input(char *input)
 void	handle_memory_error(void)
 {
 	ft_putstr_fd("Insufficent memory! Minishell aborting...", 2);
+	free_list(get_global_env());
 	exit(1);
 }

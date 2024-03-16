@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:40:58 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/15 03:41:50 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/16 14:47:45 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,56 +15,81 @@
 #include <stdlib.h>
 #include "../../memory-allocator/allocator.h"
 
-char	*strchr_new(const char *s, int c)
+/*
+ * this function is the standard substr function but it does not use safe_malloc.
+ */
+char	*ft_unsafe_substr(char const *s, unsigned int start, size_t len)
 {
-	while ((char)c != *s)
-	{
-		if (!*s)
-			return (0);
-		s++;
-	}
-	return ((char *)s + 1);
-}
-char    *strdup_n(char *str, char c)
-{
-    size_t  i;
-    char *ret_val;
+	size_t	i;
+	char	*result;
 
-    if (!str || str[0] == 0)
-        return (0);
-    i = 0;
-    while (str[i] && str[i] != c)
-        i++;
-    ret_val = safe_malloc(sizeof(char) * (i + 1));
-    ret_val[i] = 0;
-    i = 0;
-    while (str[i] && str[i] != c)
+	i = len;
+	if (!s)
+		return (NULL);
+	if (start >= ft_strlen(s) || len == 0)
+	{
+	   result = malloc(sizeof(char));
+	   result[0] = '\0';
+       return (result);
+	}
+	if (len > ft_strlen(s + start))
+		i = ft_strlen(s + start);
+	result = (char *) malloc(sizeof(char) * (i + 1));
+	if (!result)
+		return (NULL);
+	ft_strlcpy(result, s + start, i + 1);
+	return (result);
+}
+
+t_list *create_node(char *key, char *value)
+{
+    t_entry *node;
+   	t_list	*lst;
+
+    node = malloc(sizeof(t_entry));
+    if (!node)
+        return (NULL);
+    node->key = key;
+    node->value = value;
+	lst = (t_list *) malloc(sizeof(t_list));
+	//printf("%p malloced for %s\n", lst, key);
+	if (!lst)
+		return (NULL);
+	lst -> content = node;
+	lst -> next = NULL;
+	return lst;
+}
+
+void    free_list(t_list *lst)
+{
+    t_entry *env;
+    t_list *tmp;
+    int first = 1;
+
+    tmp = lst;
+    while (tmp)
     {
-        ret_val[i] = str[i];
-        i++;
+        lst = tmp;
+        tmp = tmp->next;
+        env = lst->content;
+        free(env->key);
+        free(env->value);
+        free(env);
+        if (first)
+            first = 0;
+        else
+            free(lst);
     }
-    return (ret_val);
 }
-int lst_size(t_envList *lst)
-{
-	int	count;
 
-	count = 0;
-	while (lst)
-	{
-		lst = lst->next;
-		count++;
-	}
-	return (count);
-}
 int ft_strcmp(char *s1, char *s2)
 {
-    if (!s1 || !s2)
+    if (!s1 || !s2){
         return (1);
-	int	counter;
+    }
 
-	counter = 0;
+	int	counter = 0;
 	while (s1[counter] && s1[counter] == s2[counter])
 		counter++;
 	return (s1[counter] - s2[counter]);
-}                                                                                                                                                                                                                                                                                                                                                                                                                                   
+}

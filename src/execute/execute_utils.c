@@ -20,9 +20,9 @@
 #include "../../includes/env.h"
 #include "../../get_next_line/get_next_line.h"
 
-t_envList	*get_global_env()
+t_list	*get_global_env()
 {
-	static	t_envList env = (t_envList){0};
+	static	t_list env = (t_list){0};
 	return (&env);
 }
 
@@ -50,7 +50,7 @@ char    *find_path(char *cmd)
     int     counter;
 
     if (access(cmd, F_OK) == 0)
-        return (ft_strdup(cmd)); 
+        return (ft_strdup(cmd));
     path = getenv("PATH");
     path_arr = ft_split(path, ':');
 

@@ -13,7 +13,6 @@
 #include "libft.h"
 #include "../memory-allocator/allocator.h"
 
-//tocheck
 char	*ft_strdup(const char *str)
 {
 	char	*res;

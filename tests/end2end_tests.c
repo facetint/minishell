@@ -38,7 +38,7 @@ struct listen_data start_listening(int fd) {
   result.pipe_fd = malloc(sizeof(int) * 2);
   result.fd_copy = dup(result.fd);
 
-  pipe(result.pipe_fd); // 0 for read, 1 for write
+  pipe(result.pipe_fd);
   dup2(result.fd, result.fd_copy);
   dup2(result.pipe_fd[1], result.fd);
   return result;

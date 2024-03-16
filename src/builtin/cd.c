@@ -20,13 +20,15 @@
 char    *get_home(t_command *cmd)
 {
     (void)cmd;
-    t_envList   *env;
-    
+    t_list   *env;
+    t_envList   *node;
+
     env = get_global_env();
     while (env)
     {
-        if (!ft_strcmp(env->key, "HOME"))
-            return (env->value);
+        node = env->content;
+        if (!ft_strcmp(node->key, "HOME"))
+            return (node->value);
         env = env->next;
     }
     return (NULL);
@@ -35,15 +37,18 @@ char    *get_home(t_command *cmd)
 void    change_old(char *str, t_command *cmd)
 {
     (void)cmd;
-    t_envList   *env;
+    t_list   *env;
+    t_envList   *node;
+
     env = get_global_env();
     while (env)
     {
-        if (!ft_strcmp(env->key, "OLDPWD"))
+        node = env->content;
+        if (!ft_strcmp(node->key, "OLDPWD"))
         {
-            if (env->value)
-              safe_free(env->value);
-            env->value = str;
+            if (node->value)
+              safe_free(node->value);
+            node->value = str;
             break;
         }
         env = env->next;
@@ -51,24 +56,26 @@ void    change_old(char *str, t_command *cmd)
 }
 void    change_pwd(t_command *data, t_command *cmd)
 {
-    t_envList   *env;
+    t_list   *env;
+    t_envList   *node;
 
     env = get_global_env();
     while (env)
     {
-        if (!ft_strcmp(env->key, "PWD") && (data->args[0] || ft_strcmp(data->args[1], "~") == 0))
+        node = env->content;
+        if (!ft_strcmp(node->key, "PWD") && (data->args[0] || ft_strcmp(data->args[1], "~") == 0))
         {
-            if (env->value)
-                free(env->value);
-            env->value = get_home(cmd);
+            if (node->value)
+                free(node->value);
+            node->value = get_home(cmd);
         }
-        else if (!ft_strcmp(env->key, "PWD"))
+        else if (!ft_strcmp(node->key, "PWD"))
         {
-            if (env->value)
-              safe_free(env->value);
-            env->value = safe_malloc(sizeof(char) * 4097);
-            getcwd(env->value, 4097);
-            if (getcwd(env->value, 4097) == NULL)
+            if (node->value)
+              safe_free(node->value);
+            node->value = safe_malloc(sizeof(char) * 4097);
+            getcwd(node->value, 4097);
+            if (getcwd(node->value, 4097) == NULL)
             {
                 perror("getcwd");
                 return;

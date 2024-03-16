@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:44 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 20:06:40 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/16 13:43:35 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,19 @@ char *ft_str_arr_join(char **str_list, unsigned int str_count) {
 	return result;
 }
 
-char *get_cur_folder_name(char *full_path)
+char *get_cur_folder_name()
 {
-	int i = (int) ft_strlen(full_path) - 1;
+	char	*result;
+	char	*full_path;
+	int		i;
+
+	full_path = getwd(NULL);
+	i = (int) ft_strlen(full_path) - 1;
 	while (i >= 0 && full_path[i] != '/')
 		i--;
-	return &full_path[i + 1];
+	result = ft_strdup(&full_path[i + 1]);
+	safe_free(full_path);
+	return result;
 }
 
 int skip_white_spaces(const char *str) {
@@ -156,12 +163,16 @@ int is_internal_field_sep(char *str, int index) {
 /* unprotected mallocs todo */
 char *get_prompt()
 {
-	char *full_path = getwd(NULL);
-	char *path = get_cur_folder_name(full_path);
-	char *username = getenv("USER");
-	char *strings[] = {username, "@", path, "$ " };
-	char *prompt = ft_str_arr_join(strings, 4);
-	safe_free(full_path);
+	char	*path;
+	char	*prompt;
+	char	*username;
+
+	path = get_cur_folder_name();
+	username = getenv("USER");
+	if (username)
+		prompt = ft_str_arr_join((char *[]){username, "@", path, "$ "}, 4);
+	else
+		prompt = ft_str_arr_join((char *[]){path, "$ "}, 2);
 	return prompt;
 }
 
