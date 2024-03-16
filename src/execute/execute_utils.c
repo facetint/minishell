@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:46:34 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/15 01:11:14 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:54:02 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ char    *find_path(char *cmd)
 
     if (access(cmd, F_OK) == 0)
         return (ft_strdup(cmd));
-    path = getenv("PATH");
+    path = find_env("PATH");
+	if (!path)
+		return NULL;
     path_arr = ft_split(path, ':');
 
     counter = 0;

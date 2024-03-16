@@ -131,6 +131,11 @@ char	*read_heredoc_input(char *delimiter);
 int		handle_heredocs(t_command *cur);
 void	print_heredoc(t_command *cmd);
 
+//file redirections
+void create_file(char *file);
+int open_file(char *file, int append);
+t_redirection *get_input_redir(t_command *cmd);
+t_redirection *get_output_redir(t_command *cmd);
 
 //signal
 void register_signal_handler();

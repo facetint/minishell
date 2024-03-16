@@ -6,7 +6,7 @@
 /*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 15:05:56 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/16 17:49:12 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 
 void set_env(char **envp) {
 	t_list *lst = to_list(envp);
+	if (!lst)
+		return;
 	*get_global_env() = *lst;
 	free(lst);
 }
