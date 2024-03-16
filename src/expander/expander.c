@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:39 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 16:09:43 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:35:21 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,20 @@ int	expand_variable(char **input, int index)
 	return index + varname_len + (int) ft_strlen(new) - result;
 }
 
+int expand_exit_status(char **input, int index)
+{
+	int		exit_status;
+	char	*new;
+	int		input_len;
+	
+	input_len = (int) ft_strlen(*input);
+	exit_status = *get_exit_status();
+	new = replace_string(*input, index, 1, ft_itoa(exit_status));
+	safe_free(*input);
+	*input = new;
+	return index + 1 + ((int) ft_strlen(new)) - input_len;
+}
+
 void	expand_all_variables(char **string)
 {
 	int index;
@@ -84,7 +98,12 @@ void	expand_all_variables(char **string)
 	while (str[index])
 	{
 		if (str[index] == '$')
-			index = expand_variable(&str, index);
+		{
+			if (str[index + 1] == '?')
+				index = expand_exit_status(&str, index);
+			else
+				index = expand_variable(&str, index);
+		}
 		index++;
 	}
 	*string = str;

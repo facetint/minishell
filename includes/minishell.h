@@ -38,9 +38,10 @@ typedef struct s_redirection
 
 typedef struct s_command
 {
-	char **args;
-	int output;
-	t_redirection *redirections;
+	char			**args;
+	int				output;
+	int				pid;
+	t_redirection	*redirections;
 	struct s_command *next; /* output->input redirected command */
 } t_command;
 
