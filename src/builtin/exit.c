@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:04:14 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 17:05:08 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/16 18:45:30 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void    builtin_exit(t_command *cmd)
     else
     {
         printf("bash: exit: too many arguments\n");
+        *get_exit_status() = 1;
         return ;
     }
     exit(exit_value);

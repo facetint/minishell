@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 17:12:08 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/16 21:26:46 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	handle_input(char *input)
 	t_token *lexer_data;
 	t_command *parser_data;
 
-	lexer_data = lex(input);
+	lexer_data = lex(input); 
 	if (!is_valid(lexer_data))
 		return handle_invalid_input(lexer_data);
 	expand(&lexer_data);
