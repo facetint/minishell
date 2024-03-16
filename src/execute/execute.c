@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 17:52:50 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/16 21:26:16 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <fcntl.h>
 #include "stdio.h"
 #include <sys/wait.h>
 #include <stdlib.h>
@@ -59,6 +60,9 @@ void    run_by_type(t_command *cmd, char *path_cmd)
 }
 void	execute_command(t_command *cmd, t_command *prev, int fd[2])
 {
+    t_redirection *input_redir;
+
+    input_redir = get_input_redir(cmd);
 	char	*path_cmd;
     int		pid;
 
@@ -71,11 +75,14 @@ void	execute_command(t_command *cmd, t_command *prev, int fd[2])
 	}
 	path_cmd = find_path(cmd->args[0]);
 	if (!path_cmd)
-		exit(127);
+    {
+        ft_putstr_fd("minishell: ", 2);
+        ft_putstr_fd(cmd->args[0], 2);
+        ft_putstr_fd(": command not found\n", 2);
+        exit(127);
+    }
     if (prev)
     {
-		if (cmd->redirections->flags & INPUT)
-			
         dup2(prev->output, STDIN_FILENO);
         close(prev->output);
     }
@@ -102,7 +109,7 @@ void	handle_command(t_command *prev, t_command *cmd)
     cmd->output = fd[0];
 	out_redir = get_output_redir(cmd);
 	if (out_redir)
-		cmd->output = open_file(out_redir->redirected, cmd->redirections->flags & APPEND);
+		cmd->output = open_file(out_redir->redirected, cmd->redirections->flags & APPEND);    
 }
 
 void	execute(t_command *cmds)

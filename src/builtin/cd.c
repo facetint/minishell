@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 11:48:16 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 15:02:28 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/16 18:42:32 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,19 @@ void    change_pwd(t_command *cmd)
 
 void    execute_cd(char *str, t_command *cmd)
 {
+    char    *home;
+
     change_old(str);
     chdir(find_env("HOME"));
+    home = find_env("HOME");
+    if(!home)
+    {
+        ft_putstr_fd("cd: HOME not set\n", 2);
+        *get_exit_status() = 1;
+        return;
+    }
     change_pwd(cmd);
+    *get_exit_status() = 0;
 }
 
 void    builtin_cd(t_command *cmd)
@@ -91,11 +101,13 @@ void    builtin_cd(t_command *cmd)
         {
             change_old(str);
             change_pwd(cmd);
+            *get_exit_status() = 0;
         }
         else
         {
             if (str)
                 free(str);
+            *get_exit_status() = 1;
             perror("cd");
         }
     }
