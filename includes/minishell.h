@@ -119,10 +119,10 @@ void    builtin_export(t_command *cmd, int fd[2]);
 void    builtin_unset(t_command *cmd);
 
 // cd
-void    builtin_cd(t_command *data, t_command *cmd);
-void    execute_cd(char *str, t_command *data, t_command *cmd);
-void    change_pwd(t_command *data, t_command *cmd);
-void    change_old(char *str, t_command *cmd);
+void    builtin_cd(t_command *cmd);
+void    execute_cd(char *str, t_command *cmd);
+void    change_pwd(t_command *cmd);
+void    change_old(char *str);
 
 
 // heredocs

@@ -6,11 +6,12 @@
 /*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 20:20:00 by hcoskun42         #+#    #+#             */
-/*   Updated: 2023/07/11 14:42:49 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/16 14:58:50 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "../memory-allocator/allocator.h"
 
 int	digits(unsigned int n)
 {
@@ -48,7 +49,7 @@ char	*ft_itoa(int n)
 		n = -n;
 	}
 	len = digits(n) + is_negative;
-	result = (char *) malloc(sizeof(char) * (len + 1));
+	result = (char *) safe_malloc(sizeof(char) * (len + 1));
 	if (!result)
 		return (NULL);
 	if (is_negative)
