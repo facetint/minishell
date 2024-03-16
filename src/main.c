@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 07:20:53 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/16 07:25:38 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int main(int ac, char **av, char **envp)
 		char *input = readline(prompt);
 		safe_free(prompt);
 		if (!input)
-			free(input),
 			exit(EXIT_SUCCESS);
 		if (*input)
 		{
