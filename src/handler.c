@@ -6,7 +6,7 @@
 /*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 15:17:21 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/16 15:33:41 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	handle_input(char *input)
 		handle_builtin(parser_data, (int[]){1, 1});
 	else
 		execute(parser_data);
-	while(wait(NULL) > 0 || (wait(NULL) == -1 && errno != ECHILD));
 	uninit_tokens(lexer_data);
 }
 

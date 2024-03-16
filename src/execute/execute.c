@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/15 04:09:23 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:54:50 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,13 @@ void	execute_command(t_command *cmd, t_command *prev, int fd[2])
     pid = fork();
     if (pid == -1)
         return ft_putstr_fd("Fork error!", 2); //todo exit
-    if (pid != 0)
+    if (pid != 0) {
+		cmd->pid = pid;
         return ;
+	}
     path_cmd = find_path(cmd->args[0]);
-    /*if (!path_cmd)
-    {
-        ft_putstr_fd(": command not found\n", 2);
+    if (!path_cmd)
         exit(127);
-    }*/
     if (prev)
     {
         dup2(prev->output, STDIN_FILENO);
@@ -103,6 +102,7 @@ void	execute(t_command *cmds)
 {
 	t_command	*cur;
 	t_command	*prev;
+	int			exit_status;
 
     cur = cmds;
     prev = NULL;
@@ -112,4 +112,8 @@ void	execute(t_command *cmds)
         prev = cur;
         cur = cur->next;
     }
+
+	waitpid(prev->pid, &exit_status, 0);
+	*get_exit_status() = exit_status >> 8;
+	while(wait(NULL) > 0);
 }
