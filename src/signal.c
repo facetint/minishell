@@ -1,11 +1,9 @@
 #include <unistd.h>
-#include <stdlib.h>
 #include <signal.h>
 #include <stdio.h>
 #include "../includes/minishell.h"
 #include <readline/history.h>
 #include <readline/readline.h>
-#include "../libft/libft.h"
 
 t_signal_type signal_type;
 

@@ -16,7 +16,6 @@
 #include "../../memory-allocator/allocator.h"
 #include "../../includes/env.h"
 
-
 int isbuiltin(char *cmd)
 {
     if (ft_strcmp(cmd, "echo") == 0)
