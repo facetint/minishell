@@ -17,14 +17,18 @@
 
 void    builtin_export(t_command *cmd, int fd[2])
 {
+    t_list *tmp;
+    t_envList *node;
     (void)cmd;
-    t_envList *tmp = get_global_env();
+
+    tmp = get_global_env();
     while (tmp)
     {
+        node = tmp->content;
         write(fd[1], "declare -x ", 12);
-        write(fd[1], tmp->key, ft_strlen(tmp->key));
+        write(fd[1], node->key, ft_strlen(node->key));
         write(fd[1], "=", 1);
-        write(fd[1], tmp->value, ft_strlen(tmp->value));
+        write(fd[1], node->value, ft_strlen(node->value));
         write(fd[1], "\n", 1);
         tmp = tmp->next;
     }

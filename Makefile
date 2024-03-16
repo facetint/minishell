@@ -4,7 +4,8 @@ LIBFT_DIR = ./libft
 LIBFT_PATH = $(LIBFT_DIR)/libft.a
 
 CC = gcc
-FLAGS = -g -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -g -Wall -Wextra -Werror #-fsanitize=address
+
 MEMORY_ALLOCATOR_SOURCES = memory-allocator/aborter.c memory-allocator/allocator.c
 SOURCES = src/execute/execute_utils.c src/builtin/cd.c src/builtin/exit.c src/builtin/export.c src/builtin/echo.c \
  src/builtin/env.c src/builtin/pwd.c  src/builtin/builtin.c get_next_line/get_next_line.c \
@@ -29,7 +30,7 @@ test: $(TEST_PATH) $(NAME)
 	./$(TEST_PATH)/tests
 
 $(LIBFT_PATH):
-	@make -C $(LIBFT_DIR)
+	@make bonus -C $(LIBFT_DIR)
 
 $(NAME): $(LIBFT_PATH) $(MINISHELL_OBJECTS)
 	@$(CC) $(FLAGS) -o $(NAME) $(MINISHELL_OBJECTS) $(LIBFT_PATH) -L/usr/local/lib -I/usr/local/include -lreadline

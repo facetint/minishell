@@ -10,23 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
 #include "../../libft/libft.h"
 #include "../../includes/env.h"
-#include <stdio.h>
 
-void    builtin_env(t_envList *env, int fd[2])
+void    builtin_env(t_list *env, int fd[2])
 {
-    t_envList   *lst;
+    t_envList   *node;
 
-    lst = env;
-    while (lst)
+    while (env)
     {
-        write(fd[1], lst->key, ft_strlen(lst->key));
-        write(fd[1], "=", 1);
-        write(fd[1], lst->value, ft_strlen(lst->value));
-        write(fd[1], "\n", 1);
-        //printf("%s=%s\n", lst->key, lst->value);
-        lst = lst->next;
+        node = env->content;
+        ft_putstr_fd(node->key, fd[1]);
+        ft_putstr_fd("=", fd[1]);
+        ft_putstr_fd(node->value, fd[1]);
+        ft_putstr_fd("\n", fd[1]);
+        env = env->next;
     }
 }

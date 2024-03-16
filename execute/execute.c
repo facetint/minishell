@@ -20,9 +20,9 @@
 #include "../get_next_line/get_next_line.h"
 #include "../includes/env.h"
 
-t_envList	*get_global_env()
+t_list	*get_global_env()
 {
-	static	t_envList env = (t_envList){0};
+	static	t_list env = (t_list){0};
 	return (&env);
 }
 
@@ -122,4 +122,3 @@ void    handle_command(t_command *before, t_command *cmd, t_command *first_cmd)
     cmd->fd = fd[0];
     handle_command(cmd, cmd->next, first_cmd);
 }
-

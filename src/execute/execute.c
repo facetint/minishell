@@ -30,7 +30,7 @@ void	print_heredoc(t_command *cmd)
         if (cmd->redirections[i].flags & HEREDOC)
         {
             int new_fd[2];
-            pipe(new_fd);            
+            pipe(new_fd);
             write(new_fd[1], cmd->redirections[i].redirected, ft_strlen(cmd->redirections[i].redirected));
             close(new_fd[1]);
             dup2(new_fd[0], STDIN_FILENO);
@@ -53,7 +53,7 @@ void    run_by_type(t_command *cmd, char *path_cmd)
     }
     else
     {
-        execve(path_cmd, cmd->args, make_arr(get_global_env()));
+        execve(path_cmd, cmd->args, to_arr(get_global_env()));
         exit(127);
     }
 }

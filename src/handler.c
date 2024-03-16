@@ -17,6 +17,7 @@
 #include "../memory-allocator/allocator.h"
 #include <sys/wait.h>
 #include <errno.h>
+#include "../includes/env.h"
 
 /* debug function */
 char const *token_type_to_string(t_token_type type)
@@ -179,5 +180,6 @@ void	handle_input(char *input)
 void	handle_memory_error(void)
 {
 	ft_putstr_fd("Insufficent memory! Minishell aborting...", 2);
+	free_list(get_global_env());
 	exit(1);
 }
