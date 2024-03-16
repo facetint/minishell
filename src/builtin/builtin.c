@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:04:26 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 19:25:26 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:03:18 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void    handle_builtin(t_command *cmd, int fd[2])
     else if (ft_strcmp(cmd->args[0], "pwd") == 0)
         builtin_pwd(cmd);
     if (ft_strcmp(cmd->args[0], "cd") == 0)
-        builtin_cd(cmd, cmd);
+        builtin_cd(cmd);
     if (ft_strcmp(cmd->args[0], "unset") == 0)
         return;
 }
