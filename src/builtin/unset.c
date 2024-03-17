@@ -20,6 +20,7 @@ void    builtin_unset(t_command *cmd, int fd[2])
 	t_list *cur;
 	t_list *prev;
 
+	(void)fd; //todo will we use it?
 	cur = get_global_env();
 	prev = NULL;
 	while (cur)
@@ -32,6 +33,7 @@ void    builtin_unset(t_command *cmd, int fd[2])
 			else
 			{
 				printf("this env could not unset\n"); // fixme
+				return;
 			}
 			free(((t_entry *)cur->content)->key);
 			free(((t_entry *)cur->content)->value);
