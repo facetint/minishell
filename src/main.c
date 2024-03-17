@@ -37,7 +37,8 @@ int main(int ac, char **av, char **envp)
 	signal_type = DEFAULT;
 	register_post_abort_func(handle_memory_error);
 	register_signal_handler();
-	while (1) {
+	while (1)
+	{
 		char *prompt = get_prompt();
 		char *input = readline(prompt);
 		safe_free(prompt);
@@ -51,5 +52,4 @@ int main(int ac, char **av, char **envp)
 		free(input);
 		free_memory();
 	}
-	free_list(get_global_env());
 }
