@@ -36,50 +36,86 @@ int is_operator(t_token_type type)
 		   type == PIPE;
 }
 
-int is_there_lack_of_word(t_token *lexer_data)
+int is_there_lack_of_word(t_token *token)
 {
 	int wait_for_word;
 
 	wait_for_word = 0;
-	while (lexer_data)
+	while (token)
 	{
-		if (lexer_data->type == DELIMITER)
-			lexer_data = lexer_data->next;
-		if (wait_for_word && !is_word(lexer_data->type))
+		if (token->type == DELIMITER)
+			token = token->next;
+		if (wait_for_word && !is_word(token->type))
 			return 0;
-		if (is_word(lexer_data->type))
+		if (is_word(token->type))
 			wait_for_word = 0;
-		else if (is_operator(lexer_data->type))
+		else if (is_operator(token->type))
 			wait_for_word = 1;
-		lexer_data = lexer_data->next;
+		token = token->next;
 	}
 	return wait_for_word == 0;
 }
 
-int are_quotes_valid(t_token *lexer_data)
+int	validate_pipes(t_token *token)
+{
+	int args;
+
+	args = 0;
+	while (token)
+	{
+		if (is_word(token->type))
+		{
+			args++;
+			token = token->next;
+			continue;
+		}
+
+		if (is_operator(token->type) && token->type != PIPE)
+		{
+			token = token->next;
+			if (token && token->type == DELIMITER)
+				token = token->next;
+			if (!token || !is_word(token->type))
+				return 0;
+			token = token->next;
+			continue;
+		}
+
+		if (token->type == PIPE)
+		{
+			if (args == 0)
+				return 0;
+			args = 0;
+		}
+		token = token->next;
+	}
+	return 1;
+}
+
+int are_quotes_valid(t_token *token)
 {
 	unsigned int length;
 
-	while (lexer_data)
+	while (token)
 	{
-		if (lexer_data->type == SINGLE_QUOTED_WORD)
+		if (token->type == SINGLE_QUOTED_WORD)
 		{
-			length = ft_strlen(lexer_data->value);
+			length = ft_strlen(token->value);
 			if (length <= 1
-				|| lexer_data->value[0] != SINGLE_QUOTE
-				|| lexer_data->value[length - 1] != SINGLE_QUOTE)
+				|| token->value[0] != SINGLE_QUOTE
+				|| token->value[length - 1] != SINGLE_QUOTE)
 				return (0);
 		}
-		else if (lexer_data->type == DOUBLE_QUOTED_WORD)
+		else if (token->type == DOUBLE_QUOTED_WORD)
 		{
-			length = ft_strlen(lexer_data->value);
+			length = ft_strlen(token->value);
 			if (length <= 1
-				|| lexer_data->value[0] != DOUBLE_QUOTE
-				|| lexer_data->value[length - 1] != DOUBLE_QUOTE
-				|| is_escaped(lexer_data->value, length - 1))
+				|| token->value[0] != DOUBLE_QUOTE
+				|| token->value[length - 1] != DOUBLE_QUOTE
+				|| is_escaped(token->value, length - 1))
 				return (0);
 		}
-		lexer_data = lexer_data->next;
+		token = token->next;
 	}
 	return (1);
 }
@@ -100,5 +136,6 @@ int are_tokens_valid(t_token *lexer_data)
 int is_valid(t_token *lexer_data) {
 	return are_tokens_valid(lexer_data)
 		   && are_quotes_valid(lexer_data)
-		   && is_there_lack_of_word(lexer_data);
+		   && is_there_lack_of_word(lexer_data)
+		   && validate_pipes(lexer_data);
 }
