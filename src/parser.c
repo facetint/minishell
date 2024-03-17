@@ -89,10 +89,11 @@ int count_cmd_args(t_token *lexer_data) {
 		{
 			while (lexer_data && !is_word(lexer_data->type))
 				lexer_data = lexer_data->next;
-			lexer_data = lexer_data->next;
+			if (lexer_data)
+				lexer_data = lexer_data->next;
 			continue;
 		}
-		if (lexer_data && lexer_data->type == DELIMITER)
+		if (lexer_data->type == DELIMITER)
 			lexer_data = lexer_data->next;
 		if (lexer_data && is_word(lexer_data->type))
 		{
