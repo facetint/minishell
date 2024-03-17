@@ -49,5 +49,5 @@ void    handle_builtin(t_command *cmd, int fd[2])
     if (ft_strcmp(cmd->args[0], "cd") == 0)
         builtin_cd(cmd);
     if (ft_strcmp(cmd->args[0], "unset") == 0)
-        return;
+		builtin_unset(cmd, fd);
 }

@@ -121,7 +121,7 @@ void	builtin_exit(t_command *cmd);
 void	builtin_echo(t_command *cmd, int fd[2]);
 void    builtin_pwd(t_command *cmd);
 void    builtin_export(t_command *cmd, int fd[2]);
-void    builtin_unset(t_command *cmd);
+void    builtin_unset(t_command *cmd, int fd[2]);
 
 // cd
 void    builtin_cd(t_command *cmd);
