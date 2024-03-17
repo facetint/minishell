@@ -13,13 +13,12 @@
 #include <stdio.h>
 #include "../../libft/libft.h"
 #include "../../includes/env.h"
-#include <stdlib.h>
 #include "../../memory-allocator/allocator.h"
 #include "../../includes/minishell.h"
 
-t_list  *to_node(char *env)
+t_list	*to_node(char *env)
 {
-    char		*key;
+	char		*key;
 	char		*value;
 	int        eq_index;
 	char		*eq_ptr;
@@ -27,7 +26,7 @@ t_list  *to_node(char *env)
 	eq_ptr = ft_strchr(env, '=');
 	if (!eq_ptr)
 		return NULL; // todo - error handling
-    eq_index = (int) (eq_ptr - env);
+	eq_index = (int) (eq_ptr - env);
 	key = ft_unsafe_substr(env, 0, eq_index);
 	value = ft_unsafe_substr(env, eq_index + 1, ft_strlen(env) - eq_index - 1);
 	return create_node(key, value);
