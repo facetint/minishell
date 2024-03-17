@@ -22,8 +22,12 @@ t_list  *to_node(char *env)
     char		*key;
 	char		*value;
 	int        eq_index;
+	char		*eq_ptr;
 
-    eq_index = ft_strchr(env, '=') - env;
+	eq_ptr = ft_strchr(env, '=');
+	if (!eq_ptr)
+		return NULL; // todo - error handling
+    eq_index = (int) (eq_ptr - env);
 	key = ft_unsafe_substr(env, 0, eq_index);
 	value = ft_unsafe_substr(env, eq_index + 1, ft_strlen(env) - eq_index - 1);
 	return create_node(key, value);
@@ -58,7 +62,7 @@ char	**to_arr(t_list *lst)
 	char		**ret_val;
 	t_entry    *node;
 
-	if (!lst)
+	if (lst->content == NULL)
 	{
 		ret_val = ft_calloc(1, sizeof(char *));
 		ret_val[0] = NULL;
