@@ -9,6 +9,7 @@ typedef struct s_entry
 	char *value;
 } t_entry;
 
+t_list  *to_node(char *env);
 t_list		*to_list(char **env);
 char		**to_arr(t_list *lst);
 void		print_list(t_entry *lst);
