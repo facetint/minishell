@@ -37,13 +37,10 @@ void join_all_composed_words(t_token **cur_token, char **string_ptr)
 
 void argument_state(t_token **cur_token, t_command *cur_cmd)
 {
-	t_token *lexer_data;
 	int arg_index;
 
-	lexer_data = *cur_token;
 	arg_index = str_arr_size(cur_cmd->args);
-	join_all_composed_words(&lexer_data, &cur_cmd->args[arg_index]);
-	*cur_token = lexer_data;
+	join_all_composed_words(cur_token, &cur_cmd->args[arg_index]);
 }
 
 t_redirection create_redirection_data(t_token **lexer_data)
