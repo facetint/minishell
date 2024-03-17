@@ -10,48 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "../includes/minishell.h"
 #include "../libft/libft.h"
-#include <readline/readline.h>
-#include "../memory-allocator/allocator.h"
-#include <sys/wait.h>
-#include <errno.h>
 #include "../includes/env.h"
 
 int *get_exit_status()
 {
 	static int exit_status = 0;
 	return(&exit_status);
-}
-
-
-char	*read_heredoc_input(char *eof)
-{
-	char *line;
-	char *input;
-
-	line = NULL;
-	input = ft_strdup("");
-	while (1)
-	{
-		line = readline("> ");
-		if (signal_type != IN_HEREDOC)
-		{
-			printf("i caught: '%s'\n", line);
-			//handle_input(line);
-			return NULL;
-		}
-		if (!line || ft_strncmp(line, eof, INT_MAX) == 0)
-			break;
-		if (!*line)
-			line = ft_strdup("\n");
-		char *new = ft_str_arr_join((char *[]) {input, line, "\n"}, 3);
-		safe_free(input);
-		input = new;
-		safe_free(line);
-	}
-	return input;
 }
 
 void	handle_file_redirections(t_command *cur)
@@ -65,8 +31,8 @@ void	handle_file_redirections(t_command *cur)
 }
 int	handle_heredocs(t_command *cur)
 {
-    signal_type = IN_HEREDOC;
 	int i;
+	int input_fd;
 
 	while (cur)
 	{
@@ -75,20 +41,15 @@ int	handle_heredocs(t_command *cur)
 		{
 			if (cur->redirections[i].flags & HEREDOC)
 			{
-				char *input = read_heredoc_input(cur->redirections[i].redirected);
-				if (!input)
-				{
-					signal_type = DEFAULT;
+				input_fd = read_heredoc_input(cur->redirections[i].redirected);
+				if (input_fd == -1)
 					return 1;
-				}
-				safe_free(cur->redirections[i].redirected);
-				cur->redirections[i].redirected = input;
+				cur->redirections[i].input_fd = input_fd;
 			}
 			i++;
 		}
 		cur = cur->next;
 	}
-	signal_type = DEFAULT;
 	return 0;
 }
 
@@ -109,11 +70,14 @@ void	handle_input(char *input)
 	expand(&lexer_data);
 	unquote(lexer_data);
 	parser_data = parse(lexer_data);
-	handle_heredocs(parser_data);
+	if (handle_heredocs(parser_data))
+		return;
 	handle_file_redirections(parser_data);
 
 	//debug(lexer_data, parser_data);
+	signal_type = RUNNING_COMMAND;
 	execute(parser_data);
+	signal_type = PROMPT;
 	uninit_tokens(lexer_data);
 }
 

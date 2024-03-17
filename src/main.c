@@ -39,12 +39,14 @@ int main(int ac, char **av, char **envp)
 	register_signal_handler();
 	while (1)
 	{
+		signal_type = PROMPT;
 		char *prompt = get_prompt();
 		char *input = readline(prompt);
 		safe_free(prompt);
 		if (!input)
 			exit(EXIT_SUCCESS);
-		if (*input)
+
+		if (*input && ft_strcmp(input, "^C"))
 		{
 			handle_input(input);
 			add_history(input);

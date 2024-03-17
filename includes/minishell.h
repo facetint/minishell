@@ -18,7 +18,9 @@ typedef enum e_token_type
 typedef enum e_signal_type
 {
     IN_HEREDOC,
-    DEFAULT,
+    WAITING_HEREDOC,
+	RUNNING_COMMAND,
+    PROMPT,
 } t_signal_type;
 
 extern t_signal_type signal_type;
