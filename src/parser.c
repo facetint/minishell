@@ -113,10 +113,7 @@ int count_cmd_redirections(t_token *lexer_data)
 	redirection_count = 0;
 	while (lexer_data && lexer_data->type != PIPE)
 	{
-		if (lexer_data->type == INPUT_REDIRECTION
-			|| lexer_data->type == HEREDOC_REDIRECTION
-			|| lexer_data->type == OUTPUT_REDIRECTION
-			|| lexer_data->type == APPEND_REDIRECTION)
+		if (is_operator(lexer_data->type) && lexer_data->type != PIPE)
 			redirection_count++;
 		lexer_data = lexer_data->next;
 	}
