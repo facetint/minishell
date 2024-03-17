@@ -160,7 +160,6 @@ int is_internal_field_sep(char *str, int index) {
 	return 0;
 }
 
-/* unprotected mallocs todo */
 char *get_prompt()
 {
 	char	*path;

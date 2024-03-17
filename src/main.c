@@ -10,10 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <unistd.h>
 #include <stdlib.h>
 #include "../libft/libft.h"
 #include "../includes/minishell.h"
@@ -34,7 +32,6 @@ int main(int ac, char **av, char **envp)
 	(void)av;
 
 	set_env(envp);
-	signal_type = DEFAULT;
 	register_post_abort_func(handle_memory_error);
 	register_signal_handler();
 	while (1)
@@ -49,9 +46,8 @@ int main(int ac, char **av, char **envp)
 		if (*input && ft_strcmp(input, "^C"))
 		{
 			handle_input(input);
-			add_history(input);
+			add_history(input); //todo - move it up. and may it break something?
 		}
 		free(input);
 		free_memory();
-	}
-}
+	}}

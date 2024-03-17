@@ -6,22 +6,19 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 21:26:16 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/17 07:57:36 by hcoskun42        ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <fcntl.h>
 #include "stdio.h"
 #include <sys/wait.h>
 #include <stdlib.h>
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
-#include "../../memory-allocator/allocator.h"
-#include "../../get_next_line/get_next_line.h"
 #include "../../includes/env.h"
 
-void	print_heredoc(t_command *cmd)
+void	link_heredoc_input(t_command *cmd)
 {
     int    i;
 
@@ -30,12 +27,9 @@ void	print_heredoc(t_command *cmd)
     {
         if (cmd->redirections[i].flags & HEREDOC)
         {
-            int new_fd[2];
-            pipe(new_fd);
-            write(new_fd[1], cmd->redirections[i].redirected, ft_strlen(cmd->redirections[i].redirected));
-            close(new_fd[1]);
-            dup2(new_fd[0], STDIN_FILENO);
-            close(new_fd[0]);
+			close(0);
+            dup2(cmd->redirections[i].input_fd, STDIN_FILENO);
+            close(cmd->redirections[i].input_fd);
         }
         i++;
 	}
@@ -43,8 +37,7 @@ void	print_heredoc(t_command *cmd)
 
 void    run_by_type(t_command *cmd, char *path_cmd)
 {
-    if (cmd->redirections[0].flags & HEREDOC)
-        print_heredoc(cmd);
+	link_heredoc_input(cmd);
     if (isbuiltin(cmd->args[0]))
     {
         int new_fd[2];
@@ -60,9 +53,6 @@ void    run_by_type(t_command *cmd, char *path_cmd)
 }
 void	execute_command(t_command *cmd, t_command *prev, int fd[2])
 {
-    t_redirection *input_redir;
-
-    input_redir = get_input_redir(cmd);
 	char	*path_cmd;
     int		pid;
 

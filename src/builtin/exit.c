@@ -12,8 +12,6 @@
 
 #include "../../includes/minishell.h"
 #include <stdio.h>
-#include "../../memory-allocator/allocator.h"
-#include <unistd.h>
 #include <stdlib.h>
 #include "../../libft/libft.h"
 #include "stdbool.h"
@@ -43,8 +41,7 @@ void    builtin_exit(t_command *cmd)
     status = is_numeric((cmd->args[1]));
     if (status == false)
     {
-        printf("bash: %s: numeric argument required\n",
-            cmd->args[0]);
+        printf("bash: %s: numeric argument required\n", cmd->args[0]);
         exit_value = 255;
     }
     else if (!cmd->args[1])
