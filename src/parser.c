@@ -47,7 +47,7 @@ t_redirection create_redirection_data(t_token **lexer_data)
 {
     t_redirection redirection;
 
-   	redirection = (t_redirection){.redirected = NULL, .flags = 0};
+   	redirection = (t_redirection){0};
 	if ((*lexer_data)->type == INPUT_REDIRECTION)
 		redirection.flags = INPUT;
 	else if ((*lexer_data)->type == HEREDOC_REDIRECTION)
