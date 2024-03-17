@@ -47,7 +47,7 @@ void    builtin_exit(t_command *cmd)
             cmd->args[0]);
         exit_value = 255;
     }
-    else if (status == true && !(cmd->args[1]))
+    else if (!cmd->args[1])
         exit_value = ft_atoi((cmd->args[0]));
     else
     {
