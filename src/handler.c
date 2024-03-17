@@ -34,6 +34,7 @@ int	handle_heredocs(t_command *cur)
 	int i;
 	int input_fd;
 
+	input_fd = -1;
 	while (cur)
 	{
 		i = 0;
@@ -41,6 +42,8 @@ int	handle_heredocs(t_command *cur)
 		{
 			if (cur->redirections[i].flags & HEREDOC)
 			{
+				if (input_fd != -1)
+					close(input_fd);
 				input_fd = read_heredoc_input(cur->redirections[i].redirected);
 				if (input_fd == -1)
 					return 1;

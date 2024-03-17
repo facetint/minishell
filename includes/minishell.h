@@ -35,7 +35,7 @@ extern t_signal_type signal_type;
 typedef struct s_redirection
 {
 	char *redirected; /* non-null */
-	int input_fd; /* -1 if not set */
+	int input_fd;
 	int flags;
 } t_redirection;
 
