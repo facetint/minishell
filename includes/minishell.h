@@ -18,7 +18,9 @@ typedef enum e_token_type
 typedef enum e_signal_type
 {
     IN_HEREDOC,
-    DEFAULT,
+    WAITING_HEREDOC,
+	RUNNING_COMMAND,
+    PROMPT,
 } t_signal_type;
 
 extern t_signal_type signal_type;
@@ -33,6 +35,7 @@ extern t_signal_type signal_type;
 typedef struct s_redirection
 {
 	char *redirected; /* non-null */
+	int input_fd;
 	int flags;
 } t_redirection;
 
@@ -86,6 +89,7 @@ void unexpected_token_error(t_token *token);
 void expand(t_token **head);
 void internal_field_split(t_token **token);
 void insert_uword_tokens(t_token **token_ptr, char **strings);
+void	expand_all_variables(char **string);
 
 // parser
 t_command *parse(t_token *lexer_data);
@@ -117,7 +121,7 @@ void	builtin_exit(t_command *cmd);
 void	builtin_echo(t_command *cmd, int fd[2]);
 void    builtin_pwd(t_command *cmd);
 void    builtin_export(t_command *cmd, int fd[2]);
-void    builtin_unset(t_command *cmd);
+void    builtin_unset(t_command *cmd, int fd[2]);
 
 // cd
 void    builtin_cd(t_command *cmd);
@@ -127,9 +131,9 @@ void    change_old(char *str);
 
 
 // heredocs
-char	*read_heredoc_input(char *delimiter);
+int		read_heredoc_input(char *delimiter);
 int		handle_heredocs(t_command *cur);
-void	print_heredoc(t_command *cmd);
+void	link_heredoc_input(t_command *cmd);
 
 //file redirections
 void create_file(char *file);

@@ -37,20 +37,17 @@ void join_all_composed_words(t_token **cur_token, char **string_ptr)
 
 void argument_state(t_token **cur_token, t_command *cur_cmd)
 {
-	t_token *lexer_data;
 	int arg_index;
 
-	lexer_data = *cur_token;
 	arg_index = str_arr_size(cur_cmd->args);
-	join_all_composed_words(&lexer_data, &cur_cmd->args[arg_index]);
-	*cur_token = lexer_data;
+	join_all_composed_words(cur_token, &cur_cmd->args[arg_index]);
 }
 
 t_redirection create_redirection_data(t_token **lexer_data)
 {
     t_redirection redirection;
 
-   	redirection = (t_redirection){.redirected = NULL, .flags = 0};
+   	redirection = (t_redirection){0};
 	if ((*lexer_data)->type == INPUT_REDIRECTION)
 		redirection.flags = INPUT;
 	else if ((*lexer_data)->type == HEREDOC_REDIRECTION)
@@ -92,10 +89,11 @@ int count_cmd_args(t_token *lexer_data) {
 		{
 			while (lexer_data && !is_word(lexer_data->type))
 				lexer_data = lexer_data->next;
-			lexer_data = lexer_data->next;
+			if (lexer_data)
+				lexer_data = lexer_data->next;
 			continue;
 		}
-		if (lexer_data && lexer_data->type == DELIMITER)
+		if (lexer_data->type == DELIMITER)
 			lexer_data = lexer_data->next;
 		if (lexer_data && is_word(lexer_data->type))
 		{
@@ -116,10 +114,7 @@ int count_cmd_redirections(t_token *lexer_data)
 	redirection_count = 0;
 	while (lexer_data && lexer_data->type != PIPE)
 	{
-		if (lexer_data->type == INPUT_REDIRECTION
-			|| lexer_data->type == HEREDOC_REDIRECTION
-			|| lexer_data->type == OUTPUT_REDIRECTION
-			|| lexer_data->type == APPEND_REDIRECTION)
+		if (is_operator(lexer_data->type) && lexer_data->type != PIPE)
 			redirection_count++;
 		lexer_data = lexer_data->next;
 	}

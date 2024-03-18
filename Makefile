@@ -4,14 +4,14 @@ LIBFT_DIR = ./libft
 LIBFT_PATH = $(LIBFT_DIR)/libft.a
 
 CC = gcc
-FLAGS = -g -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -g -Wall -Wextra -Werror #-fsanitize=address
 
 MEMORY_ALLOCATOR_SOURCES = memory-allocator/aborter.c memory-allocator/allocator.c
 SOURCES = src/execute/execute_utils.c src/builtin/cd.c src/builtin/exit.c src/builtin/export.c src/builtin/echo.c \
- src/builtin/env.c src/builtin/pwd.c  src/builtin/builtin.c get_next_line/get_next_line.c \
+ src/builtin/env.c src/builtin/pwd.c  src/builtin/builtin.c src/builtin/unset.c get_next_line/get_next_line.c \
  src/expander/expander_nonvariables.c src/env/env_utils.c src/lexer/utils.c src/handler.c src/env/env.c\
  src/lexer/lexer.c src/lexer/unquote.c src/lexer/lexer_utils.c src/parser.c src/execute/execute.c \
- src/execute/redirections.c src/expander/expander.c src/splitter.c src/lexer/syntax_analyzer.c src/signal.c $(MEMORY_ALLOCATOR_SOURCES)
+ src/execute/redirections.c src/execute/heredoc.c src/expander/expander.c src/splitter.c src/lexer/syntax_analyzer.c src/signal.c $(MEMORY_ALLOCATOR_SOURCES)
 
 MINISHELL_SOURCES = src/main.c $(SOURCES)
 MINISHELL_OBJECTS = $(MINISHELL_SOURCES:.c=.o)

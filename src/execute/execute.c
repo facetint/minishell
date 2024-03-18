@@ -6,45 +6,20 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 21:26:16 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/17 07:57:36 by hcoskun42        ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <fcntl.h>
 #include "stdio.h"
 #include <sys/wait.h>
 #include <stdlib.h>
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
-#include "../../memory-allocator/allocator.h"
-#include "../../get_next_line/get_next_line.h"
 #include "../../includes/env.h"
-
-void	print_heredoc(t_command *cmd)
-{
-    int    i;
-
-    i = 0;
-    while (cmd->redirections[i].redirected)
-    {
-        if (cmd->redirections[i].flags & HEREDOC)
-        {
-            int new_fd[2];
-            pipe(new_fd);
-            write(new_fd[1], cmd->redirections[i].redirected, ft_strlen(cmd->redirections[i].redirected));
-            close(new_fd[1]);
-            dup2(new_fd[0], STDIN_FILENO);
-            close(new_fd[0]);
-        }
-        i++;
-	}
-}
 
 void    run_by_type(t_command *cmd, char *path_cmd)
 {
-    if (cmd->redirections[0].flags & HEREDOC)
-        print_heredoc(cmd);
     if (isbuiltin(cmd->args[0]))
     {
         int new_fd[2];
@@ -58,18 +33,38 @@ void    run_by_type(t_command *cmd, char *path_cmd)
         exit(127);
     }
 }
+
+t_redirection	*get_heredoc_redir(t_command *cmd)
+{
+	t_redirection *result;
+	int i;
+
+	i = 0;
+	result = NULL;
+	while (cmd->redirections[i].redirected)
+	{
+		if (cmd->redirections[i].flags & HEREDOC)
+			result = &cmd->redirections[i];
+		i++;
+	}
+	return result;
+}
+
 void	execute_command(t_command *cmd, t_command *prev, int fd[2])
 {
-    t_redirection *input_redir;
-
-    input_redir = get_input_redir(cmd);
+	t_redirection *heredoc;
 	char	*path_cmd;
     int		pid;
 
+	heredoc = get_heredoc_redir(cmd);
     pid = fork();
     if (pid == -1)
         return ft_putstr_fd("Fork error!", 2); //todo exit
     if (pid != 0) {
+		if (heredoc)
+			close(heredoc->input_fd);
+		if (prev)
+			close(prev->output);
 		cmd->pid = pid;
         return ;
 	}
@@ -81,7 +76,15 @@ void	execute_command(t_command *cmd, t_command *prev, int fd[2])
         ft_putstr_fd(": command not found\n", 2);
         exit(127);
     }
-    if (prev)
+
+	if (heredoc)
+	{
+		if (prev)
+			close(prev->output);
+		dup2(heredoc->input_fd, STDIN_FILENO);
+		close(heredoc->input_fd);
+	}
+    else if (prev)
     {
         dup2(prev->output, STDIN_FILENO);
         close(prev->output);
@@ -100,7 +103,7 @@ void	handle_command(t_command *prev, t_command *cmd)
 
     if (pipe(fd) == -1)
         return ft_putstr_fd("Pipe error!", 2); //todo exit
-    execute_command(cmd, prev, fd);
+	execute_command(cmd, prev, fd);
     close(fd[1]);
     if (prev)
        close(prev->output);
