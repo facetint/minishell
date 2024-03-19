@@ -46,6 +46,7 @@ int main(int ac, char **av, char **envp)
 
 		if (*input && ft_strcmp(input, "^C"))
 		{
+			add_history(input);
 			handle_input(input);
 			add_history(input); //todo - move it up. and may it break something?
 		}
