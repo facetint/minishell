@@ -27,7 +27,7 @@ $(TEST_PATH):
 
 test: $(TEST_PATH) $(NAME)
 	$(CC) $(SOURCES:.c=.o) $(LIBFT_PATH) $(TEST_SOURCES) -o $(TEST_PATH)/tests -lcriterion -L/usr/local/lib -I/usr/local/include -lreadline
-	./$(TEST_PATH)/tests
+	./$(TEST_PATH)/tests ; rm -f __test_file*
 
 $(LIBFT_PATH):
 	@make bonus -C $(LIBFT_DIR)
@@ -35,18 +35,22 @@ $(LIBFT_PATH):
 $(NAME): $(LIBFT_PATH) $(MINISHELL_OBJECTS)
 	@$(CC) $(FLAGS) -o $(NAME) $(MINISHELL_OBJECTS) $(LIBFT_PATH) -L/usr/local/lib -I/usr/local/include -lreadline
 	@sleep 0.2
-	@echo "$(CLEAN_CAR)$(GREEN_COLOR)Minishell Compiled!$(NO_COLOR)"
+	@echo "$(CLEAN_CAR)$(GREEN_COLOR)Minishell compiled!$(NO_COLOR)"
 
 %.o: %.c
-	@printf "$(CLEAN_CAR)$(GREEN_COLOR)[minishell Compiling]$(BLUE_COLOR) : $(PURPLE_COLOR)$<$(NO_COLOR)\n"
+	@printf "$(CLEAN_CAR)$(GREEN_COLOR)[Minishell compiling]$(BLUE_COLOR) : $(PURPLE_COLOR)$<$(NO_COLOR)"
 	@$(CC) $(FLAGS) -c $< -o $@
 
 clean:
-	rm -f $(MINISHELL_OBJECTS)
-	make -f libft/Makefile clean
+	@printf "$(CLEAN_CAR)$(GREEN_COLOR)All object files removed.$(NO_COLOR)"
+	@rm -f $(MINISHELL_OBJECTS)
+	@make -C libft clean
 
-fclean: clean
-	rm -f $(NAME) $(TEST_PATH)/tests $(LIBFT_PATH)
+fclean:
+	@printf "$(CLEAN_CAR)$(GREEN_COLOR)All object and executable files removed.$(NO_COLOR)"
+	@rm -f $(MINISHELL_OBJECTS)
+	@rm -f $(NAME) $(TEST_PATH)/tests
+	@make -C libft fclean
 
 re: fclean all
 
