@@ -131,9 +131,9 @@ Test(end2end, unquoting) {
 }
 
 Test(end2end, overrided_redirection) {
-  exec_assert_stdout("echo ABC > file1 > file2", NULL);
-  exec_assert_stdout("cat file1", NULL);
-  exec_assert_stdout("cat file2", "ABC\n");
+  exec_assert_stdout("echo ABC > __test_file2 > __test_file3", NULL);
+  exec_assert_stdout("cat __test_file2", NULL);
+  exec_assert_stdout("cat __test_file3", "ABC\n");
 }
 
 Test(end2end, execute_w_path) {
@@ -155,17 +155,17 @@ Test(end2end, environment_variables) {
 Test(end2end, pipes) { exec_assert_stdout("echo hello | cat -e", "hello$\n"); }
 
 Test(end2end, write_and_read_file) {
-  exec_assert_stderr("echo hello > redirection_test_file",
+  exec_assert_stderr("echo hello > __test_file0",
                      NULL); // no error expected.
-  exec_assert_stdout("cat redirection_test_file", "hello\n");
-  exec_assert_stderr("rm redirection_test_file", NULL);
+  exec_assert_stdout("cat __test_file0", "hello\n");
+  exec_assert_stderr("rm __test_file0", NULL);
 }
 
 Test(end2end, append_and_read_file) {
-  exec_assert_stderr("echo hello > redirection_test_file",
+  exec_assert_stderr("echo hello > __test_file1",
                      NULL); // no error expected.
-  exec_assert_stderr("echo world >> redirection_test_file",
+  exec_assert_stderr("echo world >> __test_file1",
                      NULL); // no error expected.
-  exec_assert_stdout("cat redirection_test_file", "hello\nworld\n");
-  exec_assert_stderr("rm redirection_test_file", NULL);
+  exec_assert_stdout("cat __test_file1", "hello\nworld\n");
+  exec_assert_stderr("rm __test_file1", NULL);
 }
