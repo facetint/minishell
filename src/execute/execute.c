@@ -1,22 +1,23 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/17 07:57:36 by hcoskun42        ###   ########.tr       */
+/*   Updated: 2024/03/22 00:40:25 by fatmanurcet      ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include <unistd.h>
-#include "stdio.h"
+#include <stdio.h>
 #include <sys/wait.h>
 #include <stdlib.h>
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
 #include "../../includes/env.h"
+#include <fcntl.h>
 
 void    run_by_type(t_command *cmd, char *path_cmd)
 {
@@ -53,9 +54,11 @@ t_redirection	*get_heredoc_redir(t_command *cmd)
 void	execute_command(t_command *cmd, t_command *prev, int fd[2])
 {
 	t_redirection *heredoc;
+    t_redirection *in_redir;
 	char	*path_cmd;
     int		pid;
 
+    in_redir = get_input_redir(cmd);
 	heredoc = get_heredoc_redir(cmd);
     pid = fork();
     if (pid == -1)
@@ -76,7 +79,6 @@ void	execute_command(t_command *cmd, t_command *prev, int fd[2])
         ft_putstr_fd(": command not found\n", 2);
         exit(127);
     }
-
 	if (heredoc)
 	{
 		if (prev)
@@ -84,6 +86,17 @@ void	execute_command(t_command *cmd, t_command *prev, int fd[2])
 		dup2(heredoc->input_fd, STDIN_FILENO);
 		close(heredoc->input_fd);
 	}
+    if (in_redir)
+    {
+        int input_fd = open(in_redir->redirected, O_RDWR);
+        dup2(input_fd, STDIN_FILENO);
+        close(input_fd);
+    }
+    else if (prev)
+    {
+        dup2(prev->output, STDIN_FILENO);
+        close(prev->output);
+    }
     else if (prev)
     {
         dup2(prev->output, STDIN_FILENO);
@@ -97,8 +110,6 @@ void	execute_command(t_command *cmd, t_command *prev, int fd[2])
 
 void	handle_command(t_command *prev, t_command *cmd)
 {
-	t_redirection *out_redir;
-	
 	int	fd[2];
 
     if (pipe(fd) == -1)
@@ -110,9 +121,9 @@ void	handle_command(t_command *prev, t_command *cmd)
     if (!cmd->next)
         return print_and_close(fd[0]);
     cmd->output = fd[0];
-	out_redir = get_output_redir(cmd);
+	/*out_redir = get_output_redir(cmd);
 	if (out_redir)
-		cmd->output = open_file(out_redir->redirected, cmd->redirections->flags & APPEND);    
+		cmd->output = open_file(out_redir->redirected, cmd->redirections->flags & APPEND); */   
 }
 
 void	execute(t_command *cmds)
