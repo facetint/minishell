@@ -6,7 +6,7 @@
 /*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/22 00:46:44 by fatmanurcet      ###   ########.fr       */
+/*   Updated: 2024/03/22 02:16:11 by fatmanurcet      ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -60,7 +60,7 @@ void	handle_invalid_input(t_token *lexical_data)
 {
 	if (lexical_data->next)
 		{
-			printf("minishell: syntax error near unexpected token" "\n");
+			ft_putstr_fd("minishell: syntax error near unexpected token\n" , 2);
  			*get_exit_status() = 258;
 		}
 	uninit_tokens(lexical_data);
