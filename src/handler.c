@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 21:26:46 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/22 00:46:44 by fatmanurcet      ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../includes/minishell.h"
 #include "../libft/libft.h"
@@ -58,7 +58,11 @@ int	handle_heredocs(t_command *cur)
 
 void	handle_invalid_input(t_token *lexical_data)
 {
-	ft_putstr_fd("\033[91mInvalid input\n\033[39m", 2);
+	if (lexical_data->next)
+		{
+			printf("minishell: syntax error near unexpected token" "\n");
+ 			*get_exit_status() = 258;
+		}
 	uninit_tokens(lexical_data);
 }
 

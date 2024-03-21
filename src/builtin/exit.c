@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:04:14 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 18:45:30 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/22 00:35:41 by fatmanurcet      ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/minishell.h"
 #include <stdio.h>
@@ -16,7 +16,7 @@
 #include "../../libft/libft.h"
 #include "stdbool.h"
 
-static bool    is_numeric(char *s)
+static  bool is_numeric(char *s)
 {
     while ((9 <= *s && *s <= 13) || *s == 32)
         s++;
@@ -33,24 +33,30 @@ static bool    is_numeric(char *s)
 void    builtin_exit(t_command *cmd)
 {
     bool    status;
-    int     exit_value;
+    int     exit_status;
 
-    exit_value = 0;
+    exit_status = 0;
     if (!(cmd->args[1]))
+    {
+        ft_putstr_fd("exit\n", 1);
         exit(EXIT_SUCCESS);
+    }
     status = is_numeric((cmd->args[1]));
     if (status == false)
     {
-        printf("bash: %s: numeric argument required\n", cmd->args[0]);
-        exit_value = 255;
+        ft_putstr_fd("exit\n", 1);
+        printf("minishell: exit: %s: numeric argument required\n", cmd->args[1]);
+        exit_status = 255;
     }
-    else if (!cmd->args[1])
-        exit_value = ft_atoi((cmd->args[0]));
-    else
+    else if (!cmd->args[2] && status == true)
+        exit_status = ft_atoi((cmd->args[1]));
+    else if (cmd->args[2])
     {
-        printf("bash: exit: too many arguments\n");
+        ft_putstr_fd("exit\n", 1);
+        ft_putstr_fd("minishell: exit: too many arguments\n", 2);
         *get_exit_status() = 1;
         return ;
     }
-    exit(exit_value);
+    *get_exit_status() = exit_status;
+    exit(exit_status);
 }
