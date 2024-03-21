@@ -6,7 +6,7 @@
 /*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:04:14 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/22 00:32:40 by fatmanurcet      ###   ########.fr       */
+/*   Updated: 2024/03/22 00:35:41 by fatmanurcet      ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -16,7 +16,7 @@
 #include "../../libft/libft.h"
 #include "stdbool.h"
 
-static bool    is_numeric(char *s)
+static  bool is_numeric(char *s)
 {
     while ((9 <= *s && *s <= 13) || *s == 32)
         s++;
