@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 11:48:16 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 18:42:32 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/22 01:00:06 by fatmanurcet      ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include <stdio.h>
 #include "../../includes/minishell.h"
@@ -69,12 +69,12 @@ void    change_pwd(t_command *cmd)
 
 void    execute_cd(char *str, t_command *cmd)
 {
-    char    *home;
+    char    *get_home;
 
     change_old(str);
     chdir(find_env("HOME"));
-    home = find_env("HOME");
-    if(!home)
+    get_home = find_env("HOME");
+    if(!get_home)
     {
         ft_putstr_fd("cd: HOME not set\n", 2);
         *get_exit_status() = 1;
@@ -94,7 +94,6 @@ void    builtin_cd(t_command *cmd)
         perror("getcwd");
         return;
     }
-
     if (cmd->args[1])
     {
         if (chdir(cmd->args[1]) == 0)
