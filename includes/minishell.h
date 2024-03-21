@@ -45,7 +45,8 @@ typedef struct s_command
 	int				output;
 	int				pid;
 	t_redirection	*redirections;
-	struct s_command *next; /* output->input redirected command */
+	struct s_command *next;
+	struct s_command *prev;
 } t_command;
 
 typedef struct s_token

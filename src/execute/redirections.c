@@ -18,7 +18,7 @@ void create_file(char *file)
 {
 	int fd;
 
-	fd = open(file, O_CREAT); //todo - handle error
+	fd = open(file, O_CREAT, 0644); //todo - handle error
 	close(fd);
 }
 
@@ -36,7 +36,7 @@ t_redirection *get_output_redir(t_command *cmd)
 	result = NULL;
 	while (cmd) 
 	{
-		if (!(cmd->redirections->flags & INPUT))
+		if (cmd->redirections->redirected && !(cmd->redirections->flags & INPUT))
 			result = cmd->redirections;
 		cmd = cmd->next;
 	}
@@ -50,7 +50,7 @@ t_redirection *get_input_redir(t_command *cmd)
 	result = NULL;
 	while (cmd) 
 	{
-		if (cmd->redirections->flags & INPUT)
+		if (cmd->redirections->redirected && cmd->redirections->flags & INPUT)
 			result = cmd->redirections;
 		cmd = cmd->next;
 	}

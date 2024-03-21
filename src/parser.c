@@ -121,7 +121,7 @@ int count_cmd_redirections(t_token *lexer_data)
 	return redirection_count;
 }
 
-void init_command(t_token *lexer_data, t_command **command)
+void init_command(t_token *lexer_data, t_command **command, t_command *prev)
 {
 	int arg_count;
 	int redir_count;
@@ -131,6 +131,7 @@ void init_command(t_token *lexer_data, t_command **command)
 	(*command) = ft_calloc(1, sizeof(t_command));
 	(*command)->args = ft_calloc(arg_count + 1, sizeof(char *));
 	(*command)->redirections = ft_calloc(redir_count + 1, sizeof(t_redirection));
+	(*command)->prev = prev;
 }
 
 parser_state decide_next_state(t_token **cur_token)
@@ -153,7 +154,7 @@ t_command *parse(t_token *lexer_data)
 	t_command *result;
 
 	t_token *cur_token = lexer_data;
-	init_command(lexer_data, &cur_cmd);
+	init_command(lexer_data, &cur_cmd, NULL);
 	result = cur_cmd;
 	while (1)
 	{
@@ -164,7 +165,7 @@ t_command *parse(t_token *lexer_data)
 		if (cur_token && cur_token->type == PIPE)
 		{
 		    cur_token = cur_token->next;
-			init_command(cur_token, &cur_cmd->next);
+			init_command(cur_token, &cur_cmd->next, cur_cmd);
 			cur_cmd = cur_cmd->next;
 		}
 	}
