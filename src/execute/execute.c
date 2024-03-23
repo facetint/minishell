@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/22 00:40:25 by fatmanurcet      ###   ########.fr       */
+/*   Updated: 2024/03/23 17:23:37 by hcoskun          ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
@@ -17,134 +17,108 @@
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
 #include "../../includes/env.h"
+#include "../../memory-allocator/allocator.h"
 #include <fcntl.h>
 
-void    run_by_type(t_command *cmd, char *path_cmd)
+int should_run_in_child(t_command *cmd)
 {
-    if (isbuiltin(cmd->args[0]))
-    {
-        int new_fd[2];
-        new_fd[1] = 1;
-        handle_builtin(cmd, new_fd);
-        exit(0);
-    }
-    else
-    {
-        execve(path_cmd, cmd->args, to_arr(get_global_env()));
-        exit(127);
-    }
+	return cmd->prev || cmd->next || !isbuiltin(cmd->args[0]);
 }
 
-t_redirection	*get_heredoc_redir(t_command *cmd)
+void handle_command(int input_fd, int output_fd, t_command *cmd)
 {
-	t_redirection *result;
-	int i;
+	int pid;
+	char			*path_cmd;
 
-	i = 0;
-	result = NULL;
-	while (cmd->redirections[i].redirected)
-	{
-		if (cmd->redirections[i].flags & HEREDOC)
-			result = &cmd->redirections[i];
-		i++;
-	}
-	return result;
-}
-
-void	execute_command(t_command *cmd, t_command *prev, int fd[2])
-{
-	t_redirection *heredoc;
-    t_redirection *in_redir;
-	char	*path_cmd;
-    int		pid;
-
-    in_redir = get_input_redir(cmd);
-	heredoc = get_heredoc_redir(cmd);
-    pid = fork();
-    if (pid == -1)
-        return ft_putstr_fd("Fork error!", 2); //todo exit
-    if (pid != 0) {
-		if (heredoc)
-			close(heredoc->input_fd);
-		if (prev)
-			close(prev->output);
+	pid = 0;
+	if (should_run_in_child(cmd))
+		pid = fork(); //handle error
+	if (pid < 0)
+		return ft_putstr_fd("Fork error!", 2); //todo exit
+		
+	if (pid > 0) {
 		cmd->pid = pid;
-        return ;
+		return;
 	}
-	path_cmd = find_path(cmd->args[0]);
-	if (!path_cmd)
-    {
-        ft_putstr_fd("minishell: ", 2);
-        ft_putstr_fd(cmd->args[0], 2);
-        ft_putstr_fd(": command not found\n", 2);
-        exit(127);
-    }
-	if (heredoc)
-	{
-		if (prev)
-			close(prev->output);
-		dup2(heredoc->input_fd, STDIN_FILENO);
-		close(heredoc->input_fd);
+	
+	if (isbuiltin(cmd->args[0])) {
+		handle_builtin(cmd, (int[]){input_fd, output_fd});
+	} else {
+		dup2(input_fd, STDIN_FILENO);
+		dup2(output_fd, STDOUT_FILENO);
+
+		path_cmd = find_path(cmd->args[0]);
+		if (!path_cmd)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(cmd->args[0], 2);
+			ft_putstr_fd(": command not found\n", 2);
+			exit(127);
+		}
+		execve(path_cmd, cmd->args, to_arr(get_global_env()));
+		exit(127);
 	}
-    if (in_redir)
-    {
-        int input_fd = open(in_redir->redirected, O_RDWR);
-        dup2(input_fd, STDIN_FILENO);
-        close(input_fd);
-    }
-    else if (prev)
-    {
-        dup2(prev->output, STDIN_FILENO);
-        close(prev->output);
-    }
-    else if (prev)
-    {
-        dup2(prev->output, STDIN_FILENO);
-        close(prev->output);
-    }
-    close(fd[0]);
-    dup2(fd[1], STDOUT_FILENO);
-    close(fd[1]);
-    run_by_type(cmd, path_cmd);
 }
 
-void	handle_command(t_command *prev, t_command *cmd)
+int	get_input_fd(int *pipe, t_command *cmd)
 {
-	int	fd[2];
+	if (cmd->input != STDIN_FILENO)
+		return cmd->input;
+	if (pipe == NULL)
+		return STDIN_FILENO;
+	return pipe[0];
+}
 
-    if (pipe(fd) == -1)
-        return ft_putstr_fd("Pipe error!", 2); //todo exit
-	execute_command(cmd, prev, fd);
-    close(fd[1]);
-    if (prev)
-       close(prev->output);
-    if (!cmd->next)
-        return print_and_close(fd[0]);
-    cmd->output = fd[0];
-	/*out_redir = get_output_redir(cmd);
-	if (out_redir)
-		cmd->output = open_file(out_redir->redirected, cmd->redirections->flags & APPEND); */   
+int	get_output_fd(int *pipe, t_command *cmd)
+{
+	if (cmd->output != STDIN_FILENO)
+		return cmd->output;
+	if (pipe == NULL)
+		return STDOUT_FILENO;
+	return pipe[1];
 }
 
 void	execute(t_command *cmds)
 {
 	t_command	*cur;
-	t_command	*prev;
+	t_command	*latest;
 	int			exit_status;
+	int			*before_pipe = NULL;
+	int			*next_pipe = NULL;
 
-	if (!cmds->next && cmds->args[0] && isbuiltin(cmds->args[0]))
-		return handle_builtin(cmds, (int[]){0, 1});
+	*get_exit_status() = 0;
+	cur = cmds;
+	latest = NULL;
+	while (cur)
+	{
+		if (before_pipe) {
+			close(before_pipe[0]);
+			close(before_pipe[1]);
+		}
+		before_pipe = next_pipe;
+		if (cur->next){
+			next_pipe = safe_malloc(sizeof(int) * 2);
+			pipe(next_pipe);
+		} else if (next_pipe) {
+			close(next_pipe[0]);
+			close(next_pipe[1]);
+			next_pipe = NULL;
+		}
 
-    cur = cmds;
-    prev = NULL;
-    while (cur)
-    {
-        handle_command(prev, cur);
-        prev = cur;
-        cur = cur->next;
-    }
+		handle_command(get_input_fd(before_pipe, cur), get_output_fd(next_pipe, cur), cur);
+		
+		latest = cur;
+		cur = cur->next;
+	}
 
-	waitpid(prev->pid, &exit_status, 0);
-	*get_exit_status() = exit_status >> 8;
+	if (latest->pid == 0)
+	{
+		*get_exit_status() = 0;
+		return;
+	}
+
+	waitpid(latest->pid, &exit_status, 0);
+	if (!*get_exit_status())
+		*get_exit_status() = exit_status >> 8;
 	while(wait(NULL) > 0);
 }
