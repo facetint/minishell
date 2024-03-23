@@ -263,6 +263,10 @@ cat << file | cat << file
 echo facetint | cat << file << file2 << file3
 ```
 
+``` 
+exit 234
+```
+
 ## Installation
 
 ### Clone the repository:

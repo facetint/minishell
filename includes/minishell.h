@@ -19,7 +19,8 @@ typedef enum e_signal_type
 {
     IN_HEREDOC,
     WAITING_HEREDOC,
-	RUNNING_COMMAND,
+	RUNNING_COMMANDS,
+	EXECUTING_CMD_IN_CHILD,
     PROMPT,
 } t_signal_type;
 
@@ -35,7 +36,7 @@ extern t_signal_type signal_type;
 typedef struct s_redirection
 {
 	char *redirected; /* non-null */
-	int input_fd;
+	int redir_fd;
 	int flags;
 } t_redirection;
 
@@ -43,6 +44,7 @@ typedef struct s_command
 {
 	char			**args;
 	int				output;
+	int				input;
 	int				pid;
 	t_redirection	*redirections;
 	struct s_command *next;
@@ -108,7 +110,7 @@ char *ft_str_arr_join(char **str_list, unsigned int str_count);
 
 // executer
 void	execute(t_command *cmds);
-void    handle_command(t_command *prev, t_command *cmd);
+void    handle_command(int input_fd, int output_fd, t_command *cmd);
 char	*find_path(char *cmd);
 void	print_and_close(int fd);
 void    run_by_type(t_command *cmd, char *path_cmd);

@@ -6,7 +6,7 @@
 /*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:44 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 13:43:35 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/23 13:33:29 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,9 +162,11 @@ int is_internal_field_sep(char *str, int index) {
 
 char *get_prompt()
 {
-	char	*path;
+	return ft_str_arr_join((char *[]){ft_itoa(*get_exit_status()), " > "}, 2);
+	/*char	*path;
 	char	*prompt;
 	char	*username;
+
 
 	path = get_cur_folder_name();
 	username = getenv("USER");
@@ -172,7 +174,7 @@ char *get_prompt()
 		prompt = ft_str_arr_join((char *[]){username, "@", path, "$ "}, 4);
 	else
 		prompt = ft_str_arr_join((char *[]){path, "$ "}, 2);
-	return prompt;
+	return prompt;*/
 }
 
 void unexpected_token_error(t_token *token)

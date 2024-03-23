@@ -6,7 +6,7 @@
 /*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 17:49:12 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/23 13:34:09 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,12 @@ int main(int ac, char **av, char **envp)
 		char *input = readline(prompt);
 		safe_free(prompt);
 		if (!input)
-			exit(EXIT_SUCCESS);
+			exit(*get_exit_status());
 
 		if (*input && ft_strcmp(input, "^C"))
 		{
 			add_history(input);
 			handle_input(input);
-			add_history(input); //todo - move it up. and may it break something?
 		}
 		free(input);
 		free_memory();
