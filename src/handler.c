@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/23 17:40:42 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/24 21:11:25 by fatmanurcet      ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include <stdio.h>
 #include "../includes/minishell.h"
@@ -149,7 +149,7 @@ void	handle_file_redirections(t_command *cur)
 
 void	handle_invalid_input(t_token *lexical_data)
 {
-	if (lexical_data->next)
+	if (lexical_data)
 	{
 			ft_putstr_fd("minishell: syntax error near unexpected token\n" , 2);
  			*get_exit_status() = 2;
