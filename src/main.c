@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/23 13:34:09 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/24 21:26:53 by fatmanurcet      ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include <stdio.h>
 #include <readline/readline.h>
@@ -42,7 +42,7 @@ int main(int ac, char **av, char **envp)
 		char *input = readline(prompt);
 		safe_free(prompt);
 		if (!input)
-			exit(*get_exit_status());
+			exit(*get_exit_status() % 256);
 
 		if (*input && ft_strcmp(input, "^C"))
 		{
@@ -51,4 +51,5 @@ int main(int ac, char **av, char **envp)
 		}
 		free(input);
 		free_memory();
-	}}
+	}
+}
