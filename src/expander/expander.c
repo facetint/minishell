@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:39 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 15:35:21 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/25 15:00:37 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../../libft/libft.h"
 #include "../../includes/char_classification.h"
 #include "../../memory-allocator/allocator.h"
+#include "../../includes/env.h"
 
 /**
  * replaces the string at input with replacement.
@@ -67,7 +68,7 @@ int	expand_variable(char **input, int index)
 	varname_len = count_len(&str[index + 1], is_a_name_char);
 	varname = ft_substr(str, index + 1, varname_len);
 	result = (int) ft_strlen(str);
-	new = replace_string(str, index, varname_len, getenv(varname));
+	new = replace_string(str, index, varname_len, find_env(varname));
 	*input = new;
 	safe_free(varname);
 	safe_free(str);
