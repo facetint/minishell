@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/24 21:45:20 by fatmanurcet      ###   ########.fr       */
+/*   Updated: 2024/03/25 15:01:17 by facetint         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include <stdio.h>
 #include "../includes/minishell.h"
@@ -180,6 +180,7 @@ void	handle_input(char *input)
 void	handle_memory_error(void)
 {
 	ft_putstr_fd("Insufficent memory! Minishell aborting...", 2);
-	free_list(get_global_env());
+	free_list(*get_global_env());
 	exit(1);
 }
+
