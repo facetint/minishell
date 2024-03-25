@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/25 15:01:29 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/25 20:16:45 by fatmanurcet      ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include <stdio.h>
 #include <readline/readline.h>
@@ -42,7 +42,7 @@ int main(int ac, char **av, char **envp)
 		char *input = readline(prompt);
 		safe_free(prompt);
 		if (!input)
-			exit(*get_exit_status() % 256);
+			exit(*get_exit_status());
 
 		if (*input && ft_strcmp(input, "^C"))
 		{
