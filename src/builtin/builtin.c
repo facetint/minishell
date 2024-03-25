@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:04:26 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/23 17:11:57 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/25 14:58:45 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void    handle_builtin(t_command *cmd, int fd[2])
     else if (ft_strcmp(cmd->args[0], "export") == 0)
         builtin_export(cmd, fd);
     else if (ft_strcmp(cmd->args[0], "env") == 0)
-        builtin_env(get_global_env(), fd);
+        builtin_env(*get_global_env(), fd);
     else if (ft_strcmp(cmd->args[0], "exit") == 0)
         builtin_exit(cmd);
     else if (ft_strcmp(cmd->args[0], "pwd") == 0)

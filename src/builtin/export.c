@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:01:40 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/17 07:57:07 by hcoskun42        ###   ########.tr       */
+/*   Updated: 2024/03/25 15:03:01 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void    builtin_export(t_command *cmd, int fd[2])
 	args_count = str_arr_size(cmd->args);
 	if (args_count == 1)
 	{
-		print_exports(get_global_env(), fd);
+		print_exports(*get_global_env(), fd);
 		return;
 	}
 
@@ -87,7 +87,7 @@ void    builtin_export(t_command *cmd, int fd[2])
 			i++;
 			continue;
 		}
-		set_export(get_global_env(), node);
+		set_export(*get_global_env(), node);
 		i++;
 	}
 }
