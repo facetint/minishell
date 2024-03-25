@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 11:48:16 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/22 01:00:06 by fatmanurcet      ###   ########.fr       */
+/*   Updated: 2024/03/25 14:56:13 by facetint         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include <stdio.h>
 #include "../../includes/minishell.h"
@@ -22,7 +22,7 @@ void    change_old(char *str)
     t_list   *env;
     t_entry   *node;
 
-    env = get_global_env();
+    env = *get_global_env();
     while (env)
     {
         node = env->content;
@@ -36,20 +36,34 @@ void    change_old(char *str)
         env = env->next;
     }
 }
+
+char	*ft_unsafe_strdup(const char *str)
+{
+	char	*res;
+	size_t	size;
+
+	size = ft_strlen(str) + 1;
+	res = malloc(sizeof(char) * size);
+	if (!res)
+		return (NULL);
+	ft_strlcpy(res, str, size);
+	return (res);
+}
+
 void    change_pwd(t_command *cmd)
 {
     t_list   *env;
     t_entry   *node;
 
-    env = get_global_env();
+    env = *get_global_env();
     while (env)
     {
         node = env->content;
-        if (!ft_strcmp(node->key, "PWD") && (cmd->args[0] || ft_strcmp(cmd->args[1], "~") == 0))
+        if (!ft_strcmp(node->key, "PWD") && (!cmd->args[1] || ft_strcmp(cmd->args[1], "~") == 0))
         {
 			if (node->value)
 				free(node->value);
-            node->value = find_env("HOME");
+            node->value = ft_unsafe_strdup(find_env("HOME"));
         }
         else if (!ft_strcmp(node->key, "PWD"))
         {
@@ -73,6 +87,7 @@ void    execute_cd(char *str, t_command *cmd)
 
     change_old(str);
     chdir(find_env("HOME"));
+    perror("chdir");
     get_home = find_env("HOME");
     if(!get_home)
     {
