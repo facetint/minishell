@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/25 17:07:35 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/25 23:19:54 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ void handle_command(int input_fd, int output_fd, t_command *cmd, int *prev_pipe,
 {
 	int		pid;
 	char	*path_cmd;
+
+	if (input_fd == -1 || output_fd == -1)
+		return;
 
 	pid = 0;
 	if (should_run_in_child(cmd))
