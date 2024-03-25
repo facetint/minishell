@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:39 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/25 15:00:37 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/25 23:28:22 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	expand_variable(char **input, int index)
 
 	str = *input;
 	varname_len = count_len(&str[index + 1], is_a_name_char);
+	if (varname_len == 0)
+		return index + 1;
 	varname = ft_substr(str, index + 1, varname_len);
 	result = (int) ft_strlen(str);
 	new = replace_string(str, index, varname_len, find_env(varname));
