@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:19:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/03 17:58:20 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:56:39 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,28 @@
 
 void    builtin_unset(t_command *cmd, int fd[2])
 {
+	(void)fd;
+	unset_env(cmd->args[1]);
+}
+
+void unset_env(char *varname)
+{
 	t_list *cur;
 	t_list *prev;
 
-	(void)fd; //todo will we use it?
-	cur = get_global_env();
+	cur = *get_global_env();
 	prev = NULL;
 	while (cur)
 	{
-		if (ft_strcmp(((t_entry *)cur->content)->key, cmd->args[1]) == 0)
+		if (ft_strcmp(((t_entry *)cur->content)->key, varname) == 0)
 		{
-			if (prev) {
+			if (prev)
 				prev->next = cur->next;
-			}
-			else
-			{
-				printf("this env could not unset\n"); // fixme
-				return;
-			}
+			else 
+			*get_global_env() = cur->next;
 			free(((t_entry *)cur->content)->key);
 			free(((t_entry *)cur->content)->value);
+			cur->content = NULL;
 			free(cur->content);
 			free(cur);
 			return;
