@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:46:34 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 17:54:02 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/25 14:59:43 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 #include "../../includes/env.h"
 #include "../../get_next_line/get_next_line.h"
 
-t_list	*get_global_env()
+t_list	**get_global_env()
 {
-	static	t_list env = (t_list){0};
+	static	t_list *env = NULL;
 	return (&env);
 }
 

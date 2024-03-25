@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:05:06 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 17:55:43 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/25 15:05:35 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ char *find_env(char *key)
 	t_list *lst;
 	t_entry *entry;
 	
-	lst = get_global_env();
-	if (!lst->content)
+	lst = *get_global_env();
+	if (!lst || !lst->content)
 		return NULL;
 	while (lst)
 	{
