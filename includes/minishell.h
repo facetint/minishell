@@ -110,14 +110,13 @@ char *ft_str_arr_join(char **str_list, unsigned int str_count);
 
 // executer
 void	execute(t_command *cmds);
-void    handle_command(int input_fd, int output_fd, t_command *cmd);
+void    handle_command(int input_fd, int output_fd, t_command *cmd, int *prev_pipe, int *next_pipe);
 char	*find_path(char *cmd);
 void	print_and_close(int fd);
 void    run_by_type(t_command *cmd, char *path_cmd);
 
 // builtin
 
-int		ft_strcmp(const char *s1, const char *s2);
 void    handle_builtin(t_command *cmd, int fd[2]);
 int		isbuiltin(char *cmd);
 void	builtin_exit(t_command *cmd);
@@ -125,6 +124,7 @@ void	builtin_echo(t_command *cmd, int fd[2]);
 void    builtin_pwd(t_command *cmd);
 void    builtin_export(t_command *cmd, int fd[2]);
 void    builtin_unset(t_command *cmd, int fd[2]);
+int 	ft_strcmp(char *s1, char *s2);
 
 // cd
 void    builtin_cd(t_command *cmd);
