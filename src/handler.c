@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/25 15:01:17 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:40:57 by fatmanurcet      ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include <stdio.h>
 #include "../includes/minishell.h"
@@ -113,7 +113,12 @@ void	handle_file_redirections(t_command *cur)
 					close(cur->input);
 				cur->redirections[i].redir_fd = read_heredoc_input(cur->redirections[i].redirected);
 				if (cur->redirections[i].redir_fd == -1)
-					return; // todo handle errors
+				{
+					ft_putstr_fd("minishell: ", 2);
+					perror(cur->redirections[i].redirected);
+					*get_exit_status() = 1;
+					return;
+				}
 				cur->input = cur->redirections[i].redir_fd;
 
 			}
@@ -122,6 +127,13 @@ void	handle_file_redirections(t_command *cur)
 				if (cur->input != STDIN_FILENO)
 					close(cur->input);
 				cur->redirections[i].redir_fd = open(cur->redirections[i].redirected, O_RDWR, 0644);
+				if (cur->redirections[i].redir_fd == -1)
+				{
+					ft_putstr_fd("minishell: ", 2);
+					perror(cur->redirections[i].redirected);
+					*get_exit_status() = 1;
+					return;
+				}
 				cur->input = cur->redirections[i].redir_fd;
 			}
 			else if (cur->redirections->flags & APPEND)
@@ -129,6 +141,13 @@ void	handle_file_redirections(t_command *cur)
 				if (cur->output != STDOUT_FILENO)
 					close(cur->output);
 				cur->redirections[i].redir_fd = open(cur->redirections[i].redirected, O_CREAT | O_APPEND | O_WRONLY, 0644);
+				if (cur->redirections[i].redir_fd == -1)
+				{
+					ft_putstr_fd("minishell: ", 2);
+					perror(cur->redirections[i].redirected);
+					*get_exit_status() = 1;
+					return;
+				}
 				cur->output = cur->redirections[i].redir_fd;
 			}
 			else
@@ -136,11 +155,21 @@ void	handle_file_redirections(t_command *cur)
 				if (cur->output != STDOUT_FILENO)
 					close(cur->output);
 				cur->redirections[i].redir_fd = open(cur->redirections[i].redirected, O_CREAT | O_WRONLY, 0644);
+				if (cur->redirections[i].redir_fd == -1)
+				{
+					ft_putstr_fd("minishell: ", 2);
+					perror(cur->redirections[i].redirected);
+					*get_exit_status() = 1;
+					return;
+				}
 				cur->output = cur->redirections[i].redir_fd;
 			}
 			if (cur->redirections[i].redir_fd < 0)
+			{
+				ft_putstr_fd("minishell: ", 2);
+				perror(cur->redirections[i].redirected);
 				return; //todo handle error
-		
+			}
 			i++;
 		}
 		cur = cur->next;
@@ -183,4 +212,3 @@ void	handle_memory_error(void)
 	free_list(*get_global_env());
 	exit(1);
 }
-
