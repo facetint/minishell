@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/23 17:23:37 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/25 14:59:56 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int should_run_in_child(t_command *cmd)
 	return cmd->prev || cmd->next || !isbuiltin(cmd->args[0]);
 }
 
-void handle_command(int input_fd, int output_fd, t_command *cmd)
+void handle_command(int input_fd, int output_fd, t_command *cmd, int *prev_pipe, int *next_pipe)
 {
-	int pid;
-	char			*path_cmd;
+	int		pid;
+	char	*path_cmd;
 
 	pid = 0;
 	if (should_run_in_child(cmd))
@@ -40,13 +40,27 @@ void handle_command(int input_fd, int output_fd, t_command *cmd)
 		cmd->pid = pid;
 		return;
 	}
-	
 	if (isbuiltin(cmd->args[0])) {
 		handle_builtin(cmd, (int[]){input_fd, output_fd});
 	} else {
 		dup2(input_fd, STDIN_FILENO);
+		if (input_fd != STDIN_FILENO)
+			close(input_fd);
 		dup2(output_fd, STDOUT_FILENO);
-
+		if (output_fd != STDOUT_FILENO)
+			close(output_fd);
+		if (prev_pipe)
+		{
+			if (input_fd != prev_pipe[0])
+				close(prev_pipe[0]);
+			close(prev_pipe[1]);
+		}
+		if (next_pipe)
+		{
+			close(next_pipe[0]);
+			if (output_fd != next_pipe[1])
+				close(next_pipe[1]);
+		}
 		path_cmd = find_path(cmd->args[0]);
 		if (!path_cmd)
 		{
@@ -55,7 +69,7 @@ void handle_command(int input_fd, int output_fd, t_command *cmd)
 			ft_putstr_fd(": command not found\n", 2);
 			exit(127);
 		}
-		execve(path_cmd, cmd->args, to_arr(get_global_env()));
+		execve(path_cmd, cmd->args, to_arr(*get_global_env()));
 		exit(127);
 	}
 }
@@ -71,7 +85,7 @@ int	get_input_fd(int *pipe, t_command *cmd)
 
 int	get_output_fd(int *pipe, t_command *cmd)
 {
-	if (cmd->output != STDIN_FILENO)
+	if (cmd->output != STDOUT_FILENO)
 		return cmd->output;
 	if (pipe == NULL)
 		return STDOUT_FILENO;
@@ -100,15 +114,16 @@ void	execute(t_command *cmds)
 			next_pipe = safe_malloc(sizeof(int) * 2);
 			pipe(next_pipe);
 		} else if (next_pipe) {
-			close(next_pipe[0]);
-			close(next_pipe[1]);
 			next_pipe = NULL;
 		}
-
-		handle_command(get_input_fd(before_pipe, cur), get_output_fd(next_pipe, cur), cur);
-		
+		handle_command(get_input_fd(before_pipe, cur), get_output_fd(next_pipe, cur), cur, before_pipe, next_pipe);
 		latest = cur;
 		cur = cur->next;
+	}
+	if (before_pipe)
+	{
+		close(before_pipe[0]);
+		close(before_pipe[1]);
 	}
 
 	if (latest->pid == 0)
