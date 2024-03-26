@@ -114,6 +114,9 @@ void    handle_command(int input_fd, int output_fd, t_command *cmd, int *prev_pi
 char	*find_path(char *cmd);
 void	print_and_close(int fd);
 void    run_by_type(t_command *cmd, char *path_cmd);
+void	pid_error(int pid, int *prev_pipe, int *next_pipe);
+void	dup2_and_close(int input_fd, int output_fd, int *prev_pipe, int *next_pipe);
+void	path_error(t_command *cmd);
 
 // builtin
 
