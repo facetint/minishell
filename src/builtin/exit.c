@@ -1,20 +1,22 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:04:14 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/22 00:35:41 by fatmanurcet      ###   ########.fr       */
+/*   Updated: 2024/03/26 12:36:19 by facetint         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "../../libft/libft.h"
 #include "stdbool.h"
+#include "../../memory-allocator/allocator.h"
+#include "../../includes/env.h"
 
 static  bool is_numeric(char *s)
 {
@@ -39,6 +41,7 @@ void    builtin_exit(t_command *cmd)
     if (!(cmd->args[1]))
     {
         ft_putstr_fd("exit\n", 1);
+        abort_function();
         exit(EXIT_SUCCESS);
     }
     status = is_numeric((cmd->args[1]));
