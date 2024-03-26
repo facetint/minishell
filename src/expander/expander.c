@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:39 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/26 07:12:43 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/26 11:14:33 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	expand_variable(char **input, int index)
 
 	str = *input;
 	varname_len = count_len(&str[index + 1], is_a_name_char);
+	if (varname_len == 0)
+		return index;
 	varname = ft_substr(str, index + 1, varname_len);
 	str_len = (int) ft_strlen(str);
 	new = replace_string(str, index, varname_len, find_env(varname));
@@ -110,7 +112,14 @@ void	expand_all_variables(char **string)
 	}
 	*string = str;
 }
-
+/*
+ * Expandable variable but its name length is zero.
+ * Example: $"USER" -> USER 
+*/
+int is_empty_variable(t_token *token)
+{
+	return ft_strcmp(token->value, "$") == 0 && token->next && is_word(token->next->type);
+}
 void	expand(t_token **head)
 {
 	t_token *token;
@@ -124,8 +133,9 @@ void	expand(t_token **head)
 		if (token->type == UNQUOTED_WORD || token->type == DOUBLE_QUOTED_WORD)
 		{
 			/* do not expand single $ */
-			if (ft_strcmp(token->value, "$") || (token->next && is_word(token->next->type)))
-			{
+			if (is_empty_variable(token)) {
+				token->value = ft_strdup("");
+			} else {
 				expand_all_variables(&token->value);
 				/* only unquoted words are not protected for the split */
 				if (token->type == UNQUOTED_WORD)
