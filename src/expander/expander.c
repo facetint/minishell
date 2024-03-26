@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:39 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/25 23:28:22 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/26 07:12:43 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../../includes/char_classification.h"
 #include "../../memory-allocator/allocator.h"
 #include "../../includes/env.h"
+#include <stdio.h>
 
 /**
  * replaces the string at input with replacement.
@@ -34,7 +35,7 @@ char	*replace_string(char *input, int p_start, int p_len, char *replacement)
 	head = ft_substr(input, 0, p_start);
 	tail = ft_substr(input, p_start + p_len + 1, ft_strlen(input) - p_start - p_len);
 	if (replacement == NULL)
-		result = ft_str_arr_join((char *[]) {head, "", tail}, 3);
+		result = ft_str_arr_join((char *[]) {head, tail}, 2);
 	else
 		result = ft_str_arr_join((char *[]) {head, replacement, tail}, 3);
 	safe_free(head);
@@ -61,20 +62,18 @@ int	expand_variable(char **input, int index)
 	char	*str;
 	char	*varname;
 	char	*new;
-	int 	result;
+	int 	str_len;
 	int		varname_len;
 
 	str = *input;
 	varname_len = count_len(&str[index + 1], is_a_name_char);
-	if (varname_len == 0)
-		return index + 1;
 	varname = ft_substr(str, index + 1, varname_len);
-	result = (int) ft_strlen(str);
+	str_len = (int) ft_strlen(str);
 	new = replace_string(str, index, varname_len, find_env(varname));
 	*input = new;
 	safe_free(varname);
 	safe_free(str);
-	return index + varname_len + (int) ft_strlen(new) - result;
+	return index + varname_len + (int) ft_strlen(new) - str_len;
 }
 
 int expand_exit_status(char **input, int index)
@@ -103,7 +102,7 @@ void	expand_all_variables(char **string)
 		if (str[index] == '$')
 		{
 			if (str[index + 1] == '?')
-				index = expand_exit_status(&str, index);
+				index = expand_exit_status(&str, index);	
 			else
 				index = expand_variable(&str, index);
 		}
@@ -124,10 +123,14 @@ void	expand(t_token **head)
 		/* only unquoted word and double-quoted word tokens are expandable. */
 		if (token->type == UNQUOTED_WORD || token->type == DOUBLE_QUOTED_WORD)
 		{
-			expand_all_variables(&token->value);
-			/* only unquoted words are not protected for the split */
-			if (token->type == UNQUOTED_WORD)
-				internal_field_split(next_ptr);
+			/* do not expand single $ */
+			if (ft_strcmp(token->value, "$") || (token->next && is_word(token->next->type)))
+			{
+				expand_all_variables(&token->value);
+				/* only unquoted words are not protected for the split */
+				if (token->type == UNQUOTED_WORD)
+					internal_field_split(next_ptr);
+			}
 		}
 		next_ptr = &token->next;
 		token = token->next;
