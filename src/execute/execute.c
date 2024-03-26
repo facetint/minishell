@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/25 23:19:54 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/26 12:42:31 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 int should_run_in_child(t_command *cmd)
 {
-	return cmd->prev || cmd->next || !isbuiltin(cmd->args[0]);
+	return cmd->prev || cmd->next;
 }
 
 void handle_command(int input_fd, int output_fd, t_command *cmd, int *prev_pipe, int *next_pipe)
@@ -38,8 +38,19 @@ void handle_command(int input_fd, int output_fd, t_command *cmd, int *prev_pipe,
 	if (should_run_in_child(cmd))
 		pid = fork(); //handle error
 	if (pid < 0)
-		return ft_putstr_fd("Fork error!", 2); //todo exit
-		
+	{
+		if (prev_pipe)
+		{
+			close(prev_pipe[0]);
+			close(prev_pipe[1]);
+		}
+		if (next_pipe)
+		{
+			close(next_pipe[0]);
+			close(next_pipe[1]);
+		}
+		exit(0);
+	}	
 	if (pid > 0) {
 		cmd->pid = pid;
 		return;
