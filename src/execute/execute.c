@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/26 12:42:31 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:24:32 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 int should_run_in_child(t_command *cmd)
 {
-	return cmd->prev || cmd->next;
+	return cmd->prev || cmd->next || !isbuiltin(cmd->args[0]);
 }
 
 void handle_command(int input_fd, int output_fd, t_command *cmd, int *prev_pipe, int *next_pipe)
