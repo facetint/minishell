@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:19:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/25 14:56:39 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:15:34 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void unset_env(char *varname)
 			*get_global_env() = cur->next;
 			free(((t_entry *)cur->content)->key);
 			free(((t_entry *)cur->content)->value);
-			cur->content = NULL;
 			free(cur->content);
 			free(cur);
 			return;

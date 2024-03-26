@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:40:58 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 14:47:45 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/26 12:35:36 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void    free_list(t_list *lst)
 {
     t_entry *env;
     t_list *tmp;
-    int first = 1;
 
     tmp = lst;
     while (tmp)
@@ -75,11 +74,14 @@ void    free_list(t_list *lst)
         free(env->key);
         free(env->value);
         free(env);
-        if (first)
-            first = 0;
-        else
-            free(lst);
+        free(lst);
     }
+}
+
+void	abort_function()
+{
+	free_list(*get_global_env());
+	free_memory(); 
 }
 
 int ft_strcmp(char *s1, char *s2)
