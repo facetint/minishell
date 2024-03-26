@@ -30,7 +30,7 @@ test: $(TEST_PATH) $(NAME)
 	./$(TEST_PATH)/tests ; rm -f __test_file*
 
 $(LIBFT_PATH):
-	@make bonus -C $(LIBFT_DIR)
+	@make bonus -C $(LIBFT_DIR) FLAGS="$(FLAGS)"
 
 $(NAME): $(LIBFT_PATH) $(MINISHELL_OBJECTS)
 	@$(CC) $(FLAGS) -o $(NAME) $(MINISHELL_OBJECTS) $(LIBFT_PATH) -L/usr/local/lib -I/usr/local/include -lreadline
