@@ -11,5 +11,4 @@ int is_internal_field_sep(char *str, int index);
 char	**str_split(char const *str, int(*is_delimiter)(char *, int));
 int count_len(const char *str, int (*is_valid)(char));
 int str_arr_size(char **strings);
-char	**free_string_arr(char **result);
 #endif
