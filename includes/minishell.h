@@ -92,7 +92,7 @@ void unexpected_token_error(t_token *token);
 void expand(t_token **head);
 void internal_field_split(t_token **token);
 void insert_uword_tokens(t_token **token_ptr, char **strings);
-void	expand_all_variables(char **string);
+void	expand_string(char **string);
 
 // parser
 t_command *parse(t_token *lexer_data);

@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:39 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/26 11:14:33 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/26 11:21:04 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int expand_exit_status(char **input, int index)
 	return index + 1 + ((int) ft_strlen(new)) - input_len;
 }
 
-void	expand_all_variables(char **string)
+void	expand_string(char **string)
 {
 	int index;
 	char *str;
@@ -136,7 +136,7 @@ void	expand(t_token **head)
 			if (is_empty_variable(token)) {
 				token->value = ft_strdup("");
 			} else {
-				expand_all_variables(&token->value);
+				expand_string(&token->value);
 				/* only unquoted words are not protected for the split */
 				if (token->type == UNQUOTED_WORD)
 					internal_field_split(next_ptr);
