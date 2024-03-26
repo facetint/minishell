@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/26 15:24:32 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:14:20 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include "../../memory-allocator/allocator.h"
 #include "../../get_next_line/get_next_line.h"
 #include <fcntl.h>
+#include <errno.h>
 
 int should_run_in_child(t_command *cmd)
 {
@@ -33,54 +34,19 @@ void handle_command(int input_fd, int output_fd, t_command *cmd, int *prev_pipe,
 
 	if (input_fd == -1 || output_fd == -1)
 		return;
-
 	pid = 0;
 	if (should_run_in_child(cmd))
-		pid = fork(); //handle error
+		pid = fork();
 	if (pid < 0)
-	{
-		if (prev_pipe)
-		{
-			close(prev_pipe[0]);
-			close(prev_pipe[1]);
-		}
-		if (next_pipe)
-		{
-			close(next_pipe[0]);
-			close(next_pipe[1]);
-		}
-		exit(0);
-	}	
+		pid_error(pid, prev_pipe, next_pipe);
 	if (pid > 0) {
 		cmd->pid = pid;
 		return;
 	}
-	dup2(input_fd, STDIN_FILENO);
-	if (input_fd != STDIN_FILENO)
-		close(input_fd);
-	dup2(output_fd, STDOUT_FILENO);
-	if (output_fd != STDOUT_FILENO)
-		close(output_fd);
-	if (prev_pipe)
-	{
-		if (input_fd != prev_pipe[0])
-			close(prev_pipe[0]);
-		close(prev_pipe[1]);
-	}
-	if (next_pipe)
-	{
-		close(next_pipe[0]);
-		if (output_fd != next_pipe[1])
-			close(next_pipe[1]);
-	}
+	dup2_and_close(input_fd, output_fd, prev_pipe, next_pipe);
 	path_cmd = find_path(cmd->args[0]);
 	if (!path_cmd)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd->args[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
-		exit(127);
-	}
+		path_error(cmd);
 	execve(path_cmd, cmd->args, to_arr(*get_global_env()));
 	exit(127);
 }
