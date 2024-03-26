@@ -26,7 +26,7 @@ $(TEST_PATH):
 	@mkdir $(TEST_PATH)
 
 test: $(TEST_PATH) $(NAME)
-	$(CC) $(SOURCES:.c=.o) $(LIBFT_PATH) $(TEST_SOURCES) -o $(TEST_PATH)/tests -lcriterion -L/usr/local/lib -I/usr/local/include -lreadline
+	$(CC) $(FLAGS) $(SOURCES:.c=.o) $(LIBFT_PATH) $(TEST_SOURCES) -o $(TEST_PATH)/tests -lcriterion -L/usr/local/lib -I/usr/local/include -lreadline
 	./$(TEST_PATH)/tests ; rm -f __test_file*
 
 $(LIBFT_PATH):
