@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/25 21:40:57 by fatmanurcet      ###   ########.fr       */
+/*   Updated: 2024/03/25 23:19:54 by hamza            ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include <stdio.h>
 #include "../includes/minishell.h"
@@ -112,63 +112,62 @@ void	handle_file_redirections(t_command *cur)
 				if (cur->input != STDIN_FILENO)
 					close(cur->input);
 				cur->redirections[i].redir_fd = read_heredoc_input(cur->redirections[i].redirected);
+				cur->input = cur->redirections[i].redir_fd;
 				if (cur->redirections[i].redir_fd == -1)
 				{
 					ft_putstr_fd("minishell: ", 2);
 					perror(cur->redirections[i].redirected);
 					*get_exit_status() = 1;
-					return;
+					break;
 				}
-				cur->input = cur->redirections[i].redir_fd;
-
 			}
 			else if (cur->redirections[i].flags & INPUT)
 			{	
 				if (cur->input != STDIN_FILENO)
 					close(cur->input);
 				cur->redirections[i].redir_fd = open(cur->redirections[i].redirected, O_RDWR, 0644);
+				cur->input = cur->redirections[i].redir_fd;
 				if (cur->redirections[i].redir_fd == -1)
 				{
 					ft_putstr_fd("minishell: ", 2);
 					perror(cur->redirections[i].redirected);
 					*get_exit_status() = 1;
-					return;
+					break;
 				}
-				cur->input = cur->redirections[i].redir_fd;
 			}
 			else if (cur->redirections->flags & APPEND)
 			{
 				if (cur->output != STDOUT_FILENO)
 					close(cur->output);
 				cur->redirections[i].redir_fd = open(cur->redirections[i].redirected, O_CREAT | O_APPEND | O_WRONLY, 0644);
+				cur->output = cur->redirections[i].redir_fd;
 				if (cur->redirections[i].redir_fd == -1)
 				{
 					ft_putstr_fd("minishell: ", 2);
 					perror(cur->redirections[i].redirected);
 					*get_exit_status() = 1;
-					return;
+					break;
 				}
-				cur->output = cur->redirections[i].redir_fd;
 			}
 			else
 			{
 				if (cur->output != STDOUT_FILENO)
 					close(cur->output);
 				cur->redirections[i].redir_fd = open(cur->redirections[i].redirected, O_CREAT | O_WRONLY, 0644);
+				cur->output = cur->redirections[i].redir_fd;
 				if (cur->redirections[i].redir_fd == -1)
 				{
 					ft_putstr_fd("minishell: ", 2);
 					perror(cur->redirections[i].redirected);
 					*get_exit_status() = 1;
-					return;
+					break;
 				}
-				cur->output = cur->redirections[i].redir_fd;
 			}
 			if (cur->redirections[i].redir_fd < 0)
 			{
 				ft_putstr_fd("minishell: ", 2);
 				perror(cur->redirections[i].redirected);
-				return; //todo handle error
+				break; //todo handle error
 			}
 			i++;
 		}
@@ -180,8 +179,8 @@ void	handle_invalid_input(t_token *lexical_data)
 {
 	if (lexical_data)
 	{
-			ft_putstr_fd("minishell: syntax error near unexpected token\n" , 2);
- 			*get_exit_status() = 258;
+		ft_putstr_fd("minishell: syntax error near unexpected token\n" , 2);
+		*get_exit_status() = 258;
 	}
 	uninit_tokens(lexical_data);
 }
@@ -197,7 +196,7 @@ void	handle_input(char *input)
 	expand(&lexer_data);
 	unquote(lexer_data);
 	parser_data = parse(lexer_data);
-	handle_file_redirections(parser_data);
+	handle_file_redirections(parser_data); 
 
 	//debug(lexer_data, parser_data);
 	signal_type = RUNNING_COMMANDS;

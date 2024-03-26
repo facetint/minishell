@@ -26,11 +26,11 @@ $(TEST_PATH):
 	@mkdir $(TEST_PATH)
 
 test: $(TEST_PATH) $(NAME)
-	$(CC) $(SOURCES:.c=.o) $(LIBFT_PATH) $(TEST_SOURCES) -o $(TEST_PATH)/tests -lcriterion -L/usr/local/lib -I/usr/local/include -lreadline
+	$(CC) $(FLAGS) $(SOURCES:.c=.o) $(LIBFT_PATH) $(TEST_SOURCES) -o $(TEST_PATH)/tests -lcriterion -L/usr/local/lib -I/usr/local/include -lreadline
 	./$(TEST_PATH)/tests ; rm -f __test_file*
 
 $(LIBFT_PATH):
-	@make bonus -C $(LIBFT_DIR)
+	@make bonus -C $(LIBFT_DIR) FLAGS="$(FLAGS)"
 
 $(NAME): $(LIBFT_PATH) $(MINISHELL_OBJECTS)
 	@$(CC) $(FLAGS) -o $(NAME) $(MINISHELL_OBJECTS) $(LIBFT_PATH) -L/usr/local/lib -I/usr/local/include -lreadline
