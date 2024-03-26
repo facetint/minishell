@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   splitter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:32 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 15:55:17 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/26 05:55:36 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,9 @@ static int	word_count(char const *str, int(*is_delimiter)(char *, int))
 		while (str[i] && !is_delimiter((char *)str, i))
 			i++;
 	}
+	if (count == 0)
+		count = 1;
 	return (count);
-}
-
-char	**free_string_arr(char **result)
-{
-	int	i;
-
-	i = 0;
-	while (result[i])
-	{
-		safe_free(result[i]);
-		i++;
-	}
-	safe_free(result);
-	return (NULL);
 }
 
 /**
@@ -80,7 +68,7 @@ char	**str_split(char const *str, int(*is_delimiter)(char *, int))
 	result = (char **) ft_calloc(sizeof(char *),  i + 1);
 	if (!result)
 		return (NULL);
-	if (i == 0)
+	if (i == 1)
 	{
 		result[0] = ft_strdup(str);
 		return (result);
@@ -95,8 +83,7 @@ char	**str_split(char const *str, int(*is_delimiter)(char *, int))
 			break ;
 		len = wlen(str + i, is_delimiter);
 		result[word_index] = ft_substr(str, i, len);
-		if (!result[word_index++])
-			return (free_string_arr(result));
+		word_index++;
 		i += len;
 	}
 	return (result);
