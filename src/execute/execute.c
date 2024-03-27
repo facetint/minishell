@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/26 17:14:20 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/27 13:44:35 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	execute(t_command *cmds)
 
 	if (latest->pid == 0)
 	{
-		*get_exit_status() = 0;
+		*get_exit_status() = 1;
 		return;
 	}
 	waitpid(latest->pid, &exit_status, 0);
