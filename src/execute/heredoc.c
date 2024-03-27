@@ -15,7 +15,7 @@ void heredoc_to_fd(char *delimiter, int output_fd)
 		if (!*line)
 			line = ft_strdup("\n");
 		else
-			expand_all_variables(&line);
+			expand_string(&line);
 		ft_putstr_fd(line, output_fd);
 		ft_putstr_fd("\n", output_fd);
 		free(line);
