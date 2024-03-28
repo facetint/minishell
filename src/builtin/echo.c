@@ -6,13 +6,12 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 11:48:26 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 14:51:47 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:21:42 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
-#include <stdio.h>
 
 int	is_n_option(char *str)
 {

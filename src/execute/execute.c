@@ -6,44 +6,39 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 17:10:15 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:15:40 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <stdio.h>
 #include <sys/wait.h>
-#include <stdlib.h>
 #include "../../includes/minishell.h"
-#include "../../libft/libft.h"
 #include "../../includes/env.h"
 #include "../../memory-allocator/allocator.h"
-#include "../../get_next_line/get_next_line.h"
-#include <fcntl.h>
-#include <errno.h>
 
 int should_run_in_child(t_command *cmd)
 {
 	return cmd->prev || cmd->next || !isbuiltin(cmd->args[0]);
 }
 
-void handle_command(int input_fd, int output_fd, t_command *cmd, int *prev_p, int *next_p)
+void handle_command(int inp_fd, int out_fd, t_command *cmd, int *prev_p, int *next_p)
 {
 	int		pid;
 	char	*path_cmd;
 
-	if (input_fd == -1 || output_fd == -1)
-		return;
+	if (inp_fd == -1 || out_fd == -1)
+		return ;
 	pid = 0;
 	if (should_run_in_child(cmd))
 		pid = fork();
 	if (pid < 0)
 		pid_error(pid, prev_p, next_p);
-	if (pid > 0) {
+	if (pid > 0) 
+	{
 		cmd->pid = pid;
-		return;
+		return ;
 	}
-	dup2_and_close(input_fd, output_fd, prev_p, next_p);
+	dup2_and_close(inp_fd, out_fd, prev_p, next_p);
 	path_cmd = find_path(cmd->args[0]);
 	if (!path_cmd)
 		path_error(cmd);
@@ -54,10 +49,10 @@ void handle_command(int input_fd, int output_fd, t_command *cmd, int *prev_p, in
 int	get_input_fd(int *pipe, t_command *cmd)
 {
 	if (cmd->input != STDIN_FILENO)
-		return cmd->input;
+		return (cmd->input);
 	if (pipe == NULL)
-		return STDIN_FILENO;
-	return pipe[0];
+		return (STDIN_FILENO);
+	return (pipe[0]);
 }
 
 int	get_output_fd(int *pipe, t_command *cmd)

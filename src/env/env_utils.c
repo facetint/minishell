@@ -6,11 +6,10 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:40:58 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 16:16:11 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:26:11 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdio.h"
 #include "../../includes/env.h"
 #include <stdlib.h>
 #include "../../memory-allocator/allocator.h"

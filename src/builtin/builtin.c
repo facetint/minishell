@@ -6,14 +6,11 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:04:26 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 12:55:29 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:20:27 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "../../includes/minishell.h"
-#include "../../libft/libft.h"
-#include "../../memory-allocator/allocator.h"
 #include "../../includes/env.h"
 
 int	isbuiltin(char *cmd)

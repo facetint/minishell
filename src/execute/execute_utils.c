@@ -6,19 +6,16 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:46:34 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 15:55:34 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:18:40 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include <unistd.h>
-#include <stdio.h>
 #include <sys/wait.h>
-#include <stdlib.h>
 #include "../../libft/libft.h"
 #include "../../memory-allocator/allocator.h"
 #include "../../includes/env.h"
-#include "../../get_next_line/get_next_line.h"
 
 t_list	**get_global_env()
 {
