@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:39 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 17:01:30 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:29:46 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "../../includes/char_classification.h"
 #include "../../memory-allocator/allocator.h"
 #include "../../includes/env.h"
-#include <stdio.h>
 
 char	*replace_string(char *input, int p_start, int p_len, char *replacement)
 {
