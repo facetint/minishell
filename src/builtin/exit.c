@@ -6,16 +6,14 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:04:14 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/27 14:42:28 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:22:33 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include "../../libft/libft.h"
 #include "stdbool.h"
-#include "../../memory-allocator/allocator.h"
 #include "../../includes/env.h"
 
 static  bool is_numeric(char *s)
