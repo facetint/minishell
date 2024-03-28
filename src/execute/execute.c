@@ -6,21 +6,15 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 17:13:31 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:15:40 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <stdio.h>
 #include <sys/wait.h>
-#include <stdlib.h>
 #include "../../includes/minishell.h"
-#include "../../libft/libft.h"
 #include "../../includes/env.h"
 #include "../../memory-allocator/allocator.h"
-#include "../../get_next_line/get_next_line.h"
-#include <fcntl.h>
-#include <errno.h>
 
 int should_run_in_child(t_command *cmd)
 {
