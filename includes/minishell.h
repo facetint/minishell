@@ -112,8 +112,6 @@ char *ft_str_arr_join(char **str_list, unsigned int str_count);
 void	execute(t_command *cmds);
 void    handle_command(int input_fd, int output_fd, t_command *cmd, int *prev_pipe, int *next_pipe);
 char	*find_path(char *cmd);
-void	print_and_close(int fd);
-void    run_by_type(t_command *cmd, char *path_cmd);
 void	pid_error(int pid, int *prev_pipe, int *next_pipe);
 void	dup2_and_close(int inp_fd, int out_fd, int *prev_p, int *next_p);
 void	path_error(t_command *cmd);
@@ -138,8 +136,6 @@ void    change_old(char *str);
 
 // heredocs
 int		read_heredoc_input(char *delimiter);
-int		handle_heredocs(t_command *cur);
-void	link_heredoc_input(t_command *cmd);
 
 //signal
 void register_signal_handler();
