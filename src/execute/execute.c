@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/27 13:44:35 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:10:15 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int should_run_in_child(t_command *cmd)
 	return cmd->prev || cmd->next || !isbuiltin(cmd->args[0]);
 }
 
-void handle_command(int input_fd, int output_fd, t_command *cmd, int *prev_pipe, int *next_pipe)
+void handle_command(int input_fd, int output_fd, t_command *cmd, int *prev_p, int *next_p)
 {
 	int		pid;
 	char	*path_cmd;
@@ -38,12 +38,12 @@ void handle_command(int input_fd, int output_fd, t_command *cmd, int *prev_pipe,
 	if (should_run_in_child(cmd))
 		pid = fork();
 	if (pid < 0)
-		pid_error(pid, prev_pipe, next_pipe);
+		pid_error(pid, prev_p, next_p);
 	if (pid > 0) {
 		cmd->pid = pid;
 		return;
 	}
-	dup2_and_close(input_fd, output_fd, prev_pipe, next_pipe);
+	dup2_and_close(input_fd, output_fd, prev_p, next_p);
 	path_cmd = find_path(cmd->args[0]);
 	if (!path_cmd)
 		path_error(cmd);
@@ -74,8 +74,8 @@ void	execute(t_command *cmds)
 	t_command	*cur;
 	t_command	*latest;
 	int			exit_status;
-	int			*before_pipe = NULL;
-	int			*next_pipe = NULL;
+	int			*prev_p = NULL;
+	int			*next_p = NULL;
 
 	if (!cmds->next && isbuiltin(cmds->args[0]) && cmds->args[0])
 		return (handle_builtin(cmds, (int[]){STDIN_FILENO, STDOUT_FILENO}));
@@ -84,25 +84,25 @@ void	execute(t_command *cmds)
 	latest = NULL;
 	while (cur)
 	{
-		if (before_pipe) {
-			close(before_pipe[0]);
-			close(before_pipe[1]);
+		if (prev_p) {
+			close(prev_p[0]);
+			close(prev_p[1]);
 		}
-		before_pipe = next_pipe;
+		prev_p = next_p;
 		if (cur->next){
-			next_pipe = safe_malloc(sizeof(int) * 2);
-			pipe(next_pipe);
-		} else if (next_pipe) {
-			next_pipe = NULL;
+			next_p = safe_malloc(sizeof(int) * 2);
+			pipe(next_p);
+		} else if (next_p) {
+			next_p = NULL;
 		}
-		handle_command(get_input_fd(before_pipe, cur), get_output_fd(next_pipe, cur), cur, before_pipe, next_pipe);
+		handle_command(get_input_fd(prev_p, cur), get_output_fd(next_p, cur), cur, prev_p, next_p);
 		latest = cur;
 		cur = cur->next;
 	}
-	if (before_pipe)
+	if (prev_p)
 	{
-		close(before_pipe[0]);
-		close(before_pipe[1]);
+		close(prev_p[0]);
+		close(prev_p[1]);
 	}
 
 	if (latest->pid == 0)
@@ -112,6 +112,6 @@ void	execute(t_command *cmds)
 	}
 	waitpid(latest->pid, &exit_status, 0);
 	if (!*get_exit_status())
-		*get_exit_status() = exit_status >> 8;
+		*get_exit_status() = exit_status >> 8;;
 	while(wait(NULL) > 0);
 }

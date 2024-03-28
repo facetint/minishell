@@ -110,7 +110,7 @@ char *ft_str_arr_join(char **str_list, unsigned int str_count);
 
 // executer
 void	execute(t_command *cmds);
-void    handle_command(int input_fd, int output_fd, t_command *cmd, int *prev_pipe, int *next_pipe);
+void 	handle_command(int input_fd, int output_fd, t_command *cmd, int *prev_p, int *next_p);
 char	*find_path(char *cmd);
 void	pid_error(int pid, int *prev_pipe, int *next_pipe);
 void	dup2_and_close(int inp_fd, int out_fd, int *prev_p, int *next_p);
