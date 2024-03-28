@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   splitter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:32 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/26 05:55:36 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/28 16:59:30 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,6 @@ static int	word_count(char const *str, int(*is_delimiter)(char *, int))
 	return (count);
 }
 
-/**
- * @brief a string split function which allows you to specify a delimiter function.
- * to provide advanced splitting.
- *
- * Used for word splitting. See manual: 3.5.7 Word Splitting
- *
- * @param str			string to split
- * @param is_delimiter	function which returns 1 if the char at index is a delimiter
- * @return array of split strings
- */
 char	**str_split(char const *str, int(*is_delimiter)(char *, int))
 {
 	char	**result;

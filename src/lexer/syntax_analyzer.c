@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_analyzer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:35 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/14 22:01:21 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/28 16:58:07 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,6 @@ int is_word(t_token_type type)
 		   type == DOUBLE_QUOTED_WORD;
 }
 
-/**
- * check if the token is an operator (redirection operator or pipe)
- * @param type the token type
- * @return 1 if the token is an operator, 0 otherwise
- */
 int is_operator(t_token_type type)
 {
 	return type == HEREDOC_REDIRECTION ||
