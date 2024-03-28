@@ -6,18 +6,12 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:03:20 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 15:48:14 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:29:09 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <stdio.h>
-#include <sys/wait.h>
-#include <stdlib.h>
 #include "../../includes/minishell.h"
-#include "../../libft/libft.h"
-#include "../../includes/env.h"
-#include "../../memory-allocator/allocator.h"
 
 void	dup2_and_close(int inp_fd, int out_fd, int *prev_p, int *next_p)
 {
