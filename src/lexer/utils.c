@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:44 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/23 13:33:29 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/28 16:53:49 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 #include "../../includes/char_classification.h"
 #include "../../memory-allocator/allocator.h"
 
-char *ft_str_arr_join(char **str_list, unsigned int str_count) {
+char *ft_str_arr_join(char **str_list, unsigned int str_count)
+{
 	unsigned int total_len;
 	unsigned int result_len;
 	unsigned int i;
@@ -63,7 +64,8 @@ char *get_cur_folder_name()
 	return result;
 }
 
-int skip_white_spaces(const char *str) {
+int skip_white_spaces(const char *str)
+{
 	int i;
 
 	if (!str)
@@ -74,13 +76,8 @@ int skip_white_spaces(const char *str) {
 	return i;
 }
 
-/**
- * @brief counts the length of the string until the first invalid char.
- * @param str the string to count
- * @param is_valid function which returns 1 if the char is valid, 0 otherwise.
- * @return length of the string until the first invalid char. (if str is NULL, return -1)
- */
-int count_len(const char *str, int (*is_valid)(char)) {
+int count_len(const char *str, int (*is_valid)(char))
+{
 	int i;
 
 	if (!str)
@@ -91,16 +88,6 @@ int count_len(const char *str, int (*is_valid)(char)) {
 	return i;
 }
 
-/**
- * @brief check is a char is escaped or not.
- *
- * we just check if there is a backslash before the char but we
- * have to ensure that the backslash is not escaped.
- *
- * @param input the input string
- * @param index the index of the char to check
- * @return 1 if the char is escaped, 0 otherwise.
- */
 int is_escaped(char *input, unsigned int index)
 {
 	if (index == 0)
@@ -114,17 +101,8 @@ int is_escaped(char *input, unsigned int index)
 	return 0;
 }
 
-/**
- * @brief finds char in string and return index of char.
- * and ignores escaped chars.
- *
- * it used to get index distance of any searched char.
- * e.g. if we find a quote, and we want to know how many
- * chars we should skip to find the next quote.
- *
- * @return index of char if found, -1 otherwise.
- */
-int find_char(const char *str, char looking_for) {
+int find_char(const char *str, char looking_for)
+{
 	int i;
 
 	if (!str)
@@ -147,12 +125,13 @@ int str_arr_size(char **strings)
 	return i;
 }
 
-int is_a_name_char(char c) {
+int	is_a_name_char(char c) 
+{
 	return is_name_char(c);
 }
 
-// here is 1000-point question. do you see different behavior than the bash ?
-int is_internal_field_sep(char *str, int index) {
+int	is_internal_field_sep(char *str, int index)
+{
 	if (is_escaped(str, index))
 		return 0;
 	if (is_field_terminator(str[index]))
@@ -160,7 +139,7 @@ int is_internal_field_sep(char *str, int index) {
 	return 0;
 }
 
-char *get_prompt()
+char	*get_prompt()
 {
 	return ft_str_arr_join((char *[]){ft_itoa(*get_exit_status()), " > "}, 2);
 	/*char	*path;
@@ -177,7 +156,7 @@ char *get_prompt()
 	return prompt;*/
 }
 
-void unexpected_token_error(t_token *token)
+void	unexpected_token_error(t_token *token)
 {
 	if (token == NULL)
 		return ft_putstr_fd("syntax error occurred, null token found.\n", 2);
