@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:52 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/16 21:27:15 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:58:20 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@
 #include "../../includes/utils.h"
 #include "../../includes/char_classification.h"
 
-/**
- * get token type from meta character
- * @param input the input string
- * @return the token type
- */
 t_token_type get_meta_token_type(const char *input)
 {
 	if (!input || !*input)
@@ -71,24 +66,6 @@ lexer_state word_state(t_token **lexer_data, char *input, int *const index)
 	return ((lexer_state) delimiter_state);
 }
 
-/**
- * state for operators
- * Example:
- * 		cmd arg1 | cmd2
- * 				 ^
- *		cmd arg1 > outfile
- *			 	 ^
- *		cmd < infile
- *			^
- *		cmd << heredoc
- *			^
- *		cmd arg1 >> outfile
- *		 		 ^
- * @param lexer_data the lexer data to append new token
- * @param input the input string
- * @param index the index of the first char of the a operator
- * @return the next state
- */
 lexer_state operator_state_l(t_token **lexer_data, char *input, int *const index)
 {
 	int length;
