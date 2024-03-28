@@ -6,11 +6,10 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:19:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 15:04:28 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:25:47 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <printf.h>
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
 #include "../../includes/env.h"
