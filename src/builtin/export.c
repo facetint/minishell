@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:01:40 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/25 15:03:01 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:33:32 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	print_exports(t_list *node, int fd[2])
 {
-	t_entry *entry;
+	t_entry	*entry;
 
 	while (node)
 	{
@@ -31,10 +31,10 @@ void	print_exports(t_list *node, int fd[2])
 	}
 }
 
-t_list *find_node(t_list *env, char *key)
+t_list	*find_node(t_list *env, char *key)
 {
-	t_list *tmp;
-	t_entry *entry;
+	t_list	*tmp;
+	t_entry	*entry;
 
 	tmp = env;
 	while (tmp)
@@ -49,15 +49,14 @@ t_list *find_node(t_list *env, char *key)
 
 void	set_export(t_list *env, t_list *node)
 {
-	t_list *existing_node;
+	t_list	*existing_node;
 
 	existing_node = find_node(env, ((t_entry *)node->content)->key);
 	if (!existing_node)
 	{
 		ft_lstadd_back(&env, node);
-		return;
+		return ;
 	}
-
 	free(((t_entry *)existing_node->content)->key);
 	free(((t_entry *)existing_node->content)->value);
 	free(existing_node->content);
@@ -65,27 +64,27 @@ void	set_export(t_list *env, t_list *node)
 	free(node);
 }
 
-void    builtin_export(t_command *cmd, int fd[2])
+void	builtin_export(t_command *cmd, int fd[2])
 {
-    t_list *node;
-	int args_count;
-	int	i;
+	t_list	*node;
+	int		args_count;
+	int		i;
 
-    (void)cmd;
+	(void)cmd;
 	args_count = str_arr_size(cmd->args);
 	if (args_count == 1)
 	{
 		print_exports(*get_global_env(), fd);
-		return;
+		return ;
 	}
-
 	i = 1;
-	while (cmd->args[i]) {
+	while (cmd->args[i])
+	{
 		node = to_node(cmd->args[i]);
 		if (!node)
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		set_export(*get_global_env(), node);
 		i++;
