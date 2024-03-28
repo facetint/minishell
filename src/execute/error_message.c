@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:07:09 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/26 17:19:59 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:54:34 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	pid_error(int pid, int *prev_pipe, int *next_pipe)
 	ft_putstr_fd("minishell: fork: ", 2);
 	ft_putstr_fd(strerror(errno), 2);
 	ft_putstr_fd("\n", 2);
-	if (prev_pipe)
+		if (prev_pipe)
 	{
 		close(prev_pipe[0]);
 		close(prev_pipe[1]);
