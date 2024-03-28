@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/25 20:16:45 by fatmanurcet      ###   ########.fr       */
+/*   Updated: 2024/03/28 16:06:00 by facetint         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include <stdio.h>
 #include <readline/readline.h>
@@ -19,18 +19,23 @@
 #include "../memory-allocator/allocator.h"
 #include "../includes/env.h"
 
-void set_env(char **envp) {
-	t_list *lst = to_list(envp);
+void	set_env(char **envp)
+{
+	t_list	*lst;
+
+	lst = to_list(envp);
 	if (!lst)
-		return;
+		return ;
 	*get_global_env() = lst;
 }
 
-int main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
+	char	*prompt;
+	char	*input;
+
 	(void)ac;
 	(void)av;
-
 	set_env(envp);
 	unset_env("OLDPWD");
 	register_post_abort_func(handle_memory_error);
@@ -38,12 +43,11 @@ int main(int ac, char **av, char **envp)
 	while (1)
 	{
 		signal_type = PROMPT;
-		char *prompt = get_prompt();
-		char *input = readline(prompt);
+		prompt = get_prompt();
+		input = readline(prompt);
 		safe_free(prompt);
 		if (!input)
 			exit(*get_exit_status());
-
 		if (*input && ft_strcmp(input, "^C"))
 		{
 			add_history(input);
