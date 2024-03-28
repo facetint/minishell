@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:46:34 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/25 14:59:43 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:55:34 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,6 @@ t_list	**get_global_env()
 {
 	static	t_list *env = NULL;
 	return (&env);
-}
-
-void	print_and_close(int fd)
-{
-	char	*line;
-
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (line == NULL)
-			break;
-		ft_putstr_fd(line, 1);
-		safe_free(line);
-	}
-	close(fd);
 }
 
 char    *find_path(char *cmd)
