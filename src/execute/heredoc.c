@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:58:39 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 16:00:10 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/30 02:38:33 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ int	read_heredoc_input(char *delimiter)
 	int	pipe_fd[2];
 
 	pipe(pipe_fd);
-	signal_type = WAITING_HEREDOC;
+	g_signal_type = WAITING_HEREDOC;
 	pid = fork();
 	if (pid < 0)
 		return (-1);
 	if (pid == 0)
 	{
 		close(pipe_fd[0]);
-		signal_type = IN_HEREDOC;
+		g_signal_type = IN_HEREDOC;
 		heredoc_to_fd(delimiter, pipe_fd[1]);
 		exit(0);
 	}

@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 00:57:50 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/30 02:38:33 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ void	handle_input(char *input)
 	unquote(lexer_data);
 	parser_data = parse(lexer_data);
 	handle_file_redirections(parser_data); 
-	signal_type = RUNNING_COMMANDS;
+	g_signal_type = RUNNING_COMMANDS;
 	execute(parser_data);
-	signal_type = PROMPT;
+	g_signal_type = PROMPT;
 	uninit_tokens(lexer_data);
 }

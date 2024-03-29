@@ -24,7 +24,7 @@ typedef enum e_signal_type
     PROMPT,
 } t_signal_type;
 
-extern t_signal_type signal_type;
+extern t_signal_type g_signal_type;
 
 /* if 1 input, otherwise, output */
 # define INPUT (1 << 0)

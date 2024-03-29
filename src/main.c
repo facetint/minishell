@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/29 23:21:33 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/30 02:38:33 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int ac, char **av, char **envp)
 	register_signal_handler();
 	while (1)
 	{
-		signal_type = PROMPT;
+		g_signal_type = PROMPT;
 		prompt = get_prompt();
 		input = readline(prompt);
 		safe_free(prompt);

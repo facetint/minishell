@@ -1,27 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/30 02:37:53 by hamza             #+#    #+#             */
+/*   Updated: 2024/03/30 02:38:33 by hamza            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <signal.h>
 #include <stdio.h>
 #include "../includes/minishell.h"
 #include <readline/readline.h>
 #include <stdlib.h>
 
-t_signal_type signal_type;
+t_signal_type	g_signal_type;
 
 void	handle_signal(int signum)
 {
 	(void) signum;
-
 	*get_exit_status() = 1;
-	if (signal_type == PROMPT) {
+	if (g_signal_type == PROMPT)
+	{
 		printf("%s%s  \n", get_prompt(), rl_line_buffer);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-	} else if (signal_type == RUNNING_COMMANDS) {
+	}
+	else if (g_signal_type == RUNNING_COMMANDS)
+	{
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		*get_exit_status() = 128 + signum;
-	} else if (signal_type == IN_HEREDOC) {
+	}
+	else if (g_signal_type == IN_HEREDOC)
+	{
 		printf("> %s  \n", rl_line_buffer);
 		rl_replace_line("", 0);
 		rl_on_new_line();
@@ -29,8 +45,7 @@ void	handle_signal(int signum)
 	}
 }
 
-
-void register_signal_handler() 
+void register_signal_handler(void) 
 {
 	signal(SIGINT,  handle_signal);
 }
