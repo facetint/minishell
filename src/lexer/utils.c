@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:44 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 16:53:49 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:18:50 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,11 +154,4 @@ char	*get_prompt()
 	else
 		prompt = ft_str_arr_join((char *[]){path, "$ "}, 2);
 	return prompt;*/
-}
-
-void	unexpected_token_error(t_token *token)
-{
-	if (token == NULL)
-		return ft_putstr_fd("syntax error occurred, null token found.\n", 2);
-	ft_putstr_fd("syntax error. lol.\n", 2);
 }
