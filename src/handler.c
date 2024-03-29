@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/29 17:19:29 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/30 00:57:50 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,15 @@ void	handle_file_redirections(t_command *cur)
 	}
 }
 
+int is_empty(t_token *token)
+{
+	if (!token)
+		return (1);
+	if (token->type == DELIMITER && token->next == NULL)
+		return (1);
+	return (0);
+}
+
 void	handle_input(char *input)
 {
 	t_token *lexer_data;
@@ -110,6 +119,8 @@ void	handle_input(char *input)
 	lexer_data = lex(input); 
 	if (!is_valid(lexer_data))
 		return handle_invalid_input(lexer_data);
+	if (is_empty(lexer_data))
+		return;
 	expand(&lexer_data);
 	unquote(lexer_data);
 	parser_data = parse(lexer_data);
