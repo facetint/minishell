@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 00:04:05 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/30 00:05:04 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	handle_command(t_command *cmd, int *prev_p, int *next_p)
 	}
 	if (isbuiltin(cmd->args[0]))
 	{
-		handle_builtin(cmd, (int[]){inp_fd, out_fd});
+		execute_builtin(cmd, (int[]){inp_fd, out_fd});
 		if (should_run_in_child(cmd))
 			exit(0);
 		return;

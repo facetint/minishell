@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:04:26 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 17:20:27 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/30 00:05:04 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	isbuiltin(char *cmd)
 	return (0);
 }
 
-void	handle_builtin(t_command *cmd, int fd[2])
+void	execute_builtin(t_command *cmd, int fd[2])
 {
 	if (ft_strcmp(cmd->args[0], "echo") == 0)
 		builtin_echo(cmd, fd);

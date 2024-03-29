@@ -126,7 +126,7 @@ void	path_error(t_command *cmd);
 
 // builtin
 
-void    handle_builtin(t_command *cmd, int fd[2]);
+void    execute_builtin(t_command *cmd, int fd[2]);
 int		isbuiltin(char *cmd);
 void	builtin_exit(t_command *cmd);
 void	builtin_echo(t_command *cmd, int fd[2]);
