@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 00:05:04 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/30 00:12:11 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,24 @@ int	get_output_fd(int *pipe, t_command *cmd)
 	return (pipe[1]);
 }
 
+void	handle_builtin(t_command *cmd, int inp_fd, int out_fd)
+{
+	execute_builtin(cmd, (int[]){inp_fd, out_fd});
+	if (should_run_in_child(cmd))
+		exit(0);
+}
+
+void	handle_external(t_command *cmd)
+{
+	char *path_cmd;
+	
+	path_cmd = find_path(cmd->args[0]);
+	if (!path_cmd)
+		path_error(cmd);
+	execve(path_cmd, cmd->args, to_arr(*get_global_env()));
+	exit(127);
+}
+
 void	handle_command(t_command *cmd, int *prev_p, int *next_p)
 {
 	int		pid;
@@ -56,25 +74,13 @@ void	handle_command(t_command *cmd, int *prev_p, int *next_p)
 	if (should_run_in_child(cmd))
 		pid = fork();
 	if (pid < 0)
-		pid_error(pid, prev_p, next_p);
+		return pid_error(pid, prev_p, next_p);
 	if (pid > 0)
-	{
-		cmd->pid = pid;
-		return ;
-	}
+		return (cmd->pid = pid, (void)0);
 	if (isbuiltin(cmd->args[0]))
-	{
-		execute_builtin(cmd, (int[]){inp_fd, out_fd});
-		if (should_run_in_child(cmd))
-			exit(0);
-		return;
-	}
+		return handle_builtin(cmd, inp_fd, out_fd);
 	dup2_and_close(inp_fd, out_fd, prev_p, next_p);
-	path_cmd = find_path(cmd->args[0]);
-	if (!path_cmd)
-		path_error(cmd);
-	execve(path_cmd, cmd->args, to_arr(*get_global_env()));
-	exit(127);
+	handle_external(cmd);
 }
 
 void close_pipe(int *pipe)
