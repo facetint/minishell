@@ -59,7 +59,7 @@ typedef struct s_token
 } t_token;
 
 
-#define LEXER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, char *input, int *const index
+#define LEXER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, char *input, int *const i
 
 typedef void *(*lexer_state)(LEXER_STATE_FUNCTION_PARAMETERS); //todo rename as t_lexer...
 
@@ -87,6 +87,8 @@ int is_in_single_quote(char *input, int index);
 int is_word(t_token_type type);
 int is_operator(t_token_type type);
 void unexpected_token_error(t_token *token);
+int is_there_lack_of_word(t_token *token);
+int validate_pipes(t_token *token);
 
 // expander
 void expand(t_token **head);
