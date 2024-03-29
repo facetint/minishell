@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:01:40 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/29 22:51:38 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/29 23:20:58 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,16 @@ int is_valid_export(char *str)
 	return (1);
 }
 
+void export_env(char *format)
+{
+	t_list	*node;
+	
+	node = to_node(format);
+	if (!node)
+		node = create_node(ft_unsafe_strdup(format), NULL);
+	set_export(*get_global_env(), node);
+}
+
 void	builtin_export(t_command *cmd, int fd[2])
 {
 	t_list	*node;
@@ -105,11 +115,7 @@ void	builtin_export(t_command *cmd, int fd[2])
 	while (cmd->args[i])
 	{
 		if (is_valid_export(cmd->args[i])) {
-			node = to_node(cmd->args[i]);
-			if (!node)
-				node = create_node(ft_unsafe_strdup(cmd->args[i]), NULL);
-
-			set_export(*get_global_env(), node);
+			export_env(cmd->args[i]);
 		} else {
 			ft_putstr_fd("minishell: export: `", fd[1]);
 			ft_putstr_fd(cmd->args[i], fd[1]);
