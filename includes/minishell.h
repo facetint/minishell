@@ -156,5 +156,5 @@ int *get_exit_status();
 void	abort_function();
 
 char	*ft_unsafe_strdup(const char *str);
-
+void	export_env(char *format);
 #endif

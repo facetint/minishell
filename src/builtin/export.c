@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:01:40 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/29 23:20:58 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/30 00:00:12 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,13 @@ void	print_exports(t_list *node, int fd[2])
 		entry = node->content;
 		ft_putstr_fd("declare -x ", fd[1]);
 		ft_putstr_fd(entry->key, fd[1]);
-		ft_putstr_fd("=\"", fd[1]);
-		ft_putstr_fd(entry->value, fd[1]);
-		ft_putstr_fd("\"\n", fd[1]);
+		if (ft_strcmp(entry->value, ""))
+		{
+			ft_putstr_fd("=\"", fd[1]);
+			ft_putstr_fd(entry->value, fd[1]);
+			ft_putstr_fd("\"", fd[1]);
+		}
+		ft_putstr_fd("\n", fd[1]);
 		node = node->next;
 	}
 }
@@ -72,19 +76,13 @@ int is_valid_export(char *str)
 	if (!ft_isalpha(str[i]) && str[i] != '_')
 		return (0);
 	i++;
-	if (str[i] == '\0')
-		return (1);
-	if (str[i] != '=')
-		return (0);
-	i++;
-	if (str[i] == '\0')
-		return (0);
-	while (str[i])
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
-			return (0);
+	while (str[i] && str[i] != '=')
 		i++;
-	}
+	if (str[i])
+		return (1);
+	i++;
+	if (str[i])
+		return (0);
 	return (1);
 }
 
@@ -94,7 +92,7 @@ void export_env(char *format)
 	
 	node = to_node(format);
 	if (!node)
-		node = create_node(ft_unsafe_strdup(format), NULL);
+		node = create_node(ft_unsafe_strdup(format), ft_unsafe_strdup(""));
 	set_export(*get_global_env(), node);
 }
 
