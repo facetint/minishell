@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:41 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/29 16:49:39 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/29 16:59:26 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 int	count_escapes(char *str)
 {
-	int				count;
 	unsigned int	i;
+	int				count;
 
 	i = 0;
 	count = 0;
