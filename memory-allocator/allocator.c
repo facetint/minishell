@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   allocator.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 15:13:21 by hamza             #+#    #+#             */
-/*   Updated: 2023/12/17 15:22:52 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/25 15:35:20 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	append_memory_block(void *ptr)
 
 	if (!ptr)
 		return (BAD_EXIT);
-	new = ALLOCATE_MEMORY(sizeof(t_memory_block));
+	new = malloc(sizeof(t_memory_block));
 	if (!new)
 		return (BAD_EXIT);
 	*new = (t_memory_block){.ptr = ptr, .next = NULL};
@@ -76,7 +76,7 @@ int	remove_memory_block(void *ptr)
 		if (cur->ptr == ptr)
 		{
 			prev->next = cur->next;
-			FREE_MEMORY(cur);
+			free(cur);
 			return (GOOD_EXIT);
 		}
 		prev = cur;
@@ -100,7 +100,7 @@ void	*safe_malloc(int size)
 {
 	void	*ptr;
 
-	ptr = ALLOCATE_MEMORY(size);
+	ptr = malloc(size);
 	if (!ptr)
 	{
 		abort_memory();
@@ -108,7 +108,7 @@ void	*safe_malloc(int size)
 	}
 	if (!append_memory_block(ptr))
 	{
-		FREE_MEMORY(ptr);
+		free(ptr);
 		abort_memory();
 		return (NULL);
 	}
@@ -122,7 +122,7 @@ void	*safe_malloc(int size)
 void	safe_free(void *ptr)
 {
 	if (!ptr)
-		return;
+		return ;
 	remove_memory_block(ptr);
-	FREE_MEMORY(ptr);
+	free(ptr);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aborter.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 15:14:08 by hamza             #+#    #+#             */
-/*   Updated: 2023/12/17 13:46:15 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/25 15:35:05 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 * @brief frees all memory blocks which allocated by using safe_malloc
 * function but does not call abort functions.
 */
-void free_memory(void)
+void	free_memory(void)
 {
 	t_memory_block	*memory_blocks;
 	t_memory_block	*next;
@@ -26,8 +26,8 @@ void free_memory(void)
 	while (memory_blocks != NULL)
 	{
 		next = memory_blocks->next;
-		FREE_MEMORY(memory_blocks->ptr);
-		FREE_MEMORY(memory_blocks);
+		free(memory_blocks->ptr);
+		free(memory_blocks);
 		memory_blocks = next;
 	}
 	get_memory_blocks()->next = NULL;
