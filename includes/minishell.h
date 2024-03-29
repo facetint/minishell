@@ -89,6 +89,7 @@ int is_operator(t_token_type type);
 void unexpected_token_error(t_token *token);
 int is_there_lack_of_word(t_token *token);
 int validate_pipes(t_token *token);
+void handle_invalid_input(t_token *lexer_data);
 
 // expander
 void expand(t_token **head);
@@ -98,6 +99,11 @@ void	expand_string(char **string);
 
 // parser
 t_command *parse(t_token *lexer_data);
+int count_cmd_args(t_token *lexer_data);
+int count_cmd_redirections(t_token *lexer_data);
+parser_state decide_next_state(t_token **cur_token);
+t_redirection create_redirection_data(t_token **lexer_data);
+void join_all_composed_words(t_token **cur_token, char **string_ptr);
 
 // main
 char *get_prompt();
