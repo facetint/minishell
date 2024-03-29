@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:01:40 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 16:33:32 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/29 22:51:38 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,30 @@ void	set_export(t_list *env, t_list *node)
 	free(node);
 }
 
+int is_valid_export(char *str)
+{
+	int i;
+
+	i = 0;
+	if (!ft_isalpha(str[i]) && str[i] != '_')
+		return (0);
+	i++;
+	if (str[i] == '\0')
+		return (1);
+	if (str[i] != '=')
+		return (0);
+	i++;
+	if (str[i] == '\0')
+		return (0);
+	while (str[i])
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void	builtin_export(t_command *cmd, int fd[2])
 {
 	t_list	*node;
@@ -80,13 +104,18 @@ void	builtin_export(t_command *cmd, int fd[2])
 	i = 1;
 	while (cmd->args[i])
 	{
-		node = to_node(cmd->args[i]);
-		if (!node)
-		{
-			i++;
-			continue ;
+		if (is_valid_export(cmd->args[i])) {
+			node = to_node(cmd->args[i]);
+			if (!node)
+				node = create_node(ft_unsafe_strdup(cmd->args[i]), NULL);
+
+			set_export(*get_global_env(), node);
+		} else {
+			ft_putstr_fd("minishell: export: `", fd[1]);
+			ft_putstr_fd(cmd->args[i], fd[1]);
+			ft_putstr_fd("': not a valid identifier\n", fd[1]);
+			*get_exit_status() = 1;
 		}
-		set_export(*get_global_env(), node);
 		i++;
 	}
 }
