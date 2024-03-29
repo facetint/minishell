@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/29 23:57:54 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/30 00:04:05 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,14 @@ void close_pipe(int *pipe)
 void wait_children(t_command *latest)
 {
 	int			exit_status;
+	
 	if (latest->pid == 0)
 		return ;
 	waitpid(latest->pid, &exit_status, 0);
 	if (!*get_exit_status())
 		*get_exit_status() = exit_status >> 8;
-	while (wait(NULL) > 0);
+	while (wait(NULL) > 0)
+		;
 }
 
 void	execute(t_command *cur)
@@ -104,10 +106,8 @@ void	execute(t_command *cur)
 	int			*next_p;
 
 	*get_exit_status() = 0;
-		
 	prev_p = NULL;
 	next_p = NULL;
-	latest = NULL;
 	while (cur)
 	{
 		close_pipe(prev_p);
