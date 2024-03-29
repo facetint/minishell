@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 16:06:00 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/29 22:35:28 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "../memory-allocator/allocator.h"
 #include "../includes/env.h"
 
-void	set_env(char **envp)
+void	init_env(char **envp)
 {
 	t_list	*lst;
 
@@ -36,7 +36,7 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
-	set_env(envp);
+	init_env(envp);
 	unset_env("OLDPWD");
 	register_post_abort_func(handle_memory_error);
 	register_signal_handler();
