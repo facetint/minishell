@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 16:06:39 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:19:29 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,6 @@ void	handle_file_redirections(t_command *cur)
 	}
 }
 
-void	handle_invalid_input(t_token *lexical_data)
-{
-	if (lexical_data)
-	{
-		ft_putstr_fd("minishell: syntax error near unexpected token\n" , 2);
-		*get_exit_status() = 258;
-	}
-	uninit_tokens(lexical_data);
-}
-
 void	handle_input(char *input)
 {
 	t_token *lexer_data;
@@ -128,11 +118,4 @@ void	handle_input(char *input)
 	execute(parser_data);
 	signal_type = PROMPT;
 	uninit_tokens(lexer_data);
-}
-
-void	handle_memory_error(void)
-{
-	ft_putstr_fd("Insufficent memory! Minishell aborting...", 2);
-	free_list(*get_global_env());
-	exit(1);
 }
