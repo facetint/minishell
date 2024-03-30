@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 04:36:48 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/30 14:27:13 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ int	get_output_fd(int *pipe, t_command *cmd)
 void	handle_builtin(t_command *cmd, int inp_fd, int out_fd)
 {
 	execute_builtin(cmd, (int[]){inp_fd, out_fd});
-	if (should_run_in_child(cmd))
-		exit(0);
 }
 
 void	handle_external(t_command *cmd)
@@ -66,32 +64,36 @@ void	handle_command(t_command *cmd, int *prev_p, int *next_p)
 
 	inp_fd = get_input_fd(prev_p, cmd);
 	out_fd = get_output_fd(next_p, cmd);
-	printf("%s -> inp_fd: %d out_fd: %d\n", cmd->args[0], inp_fd, out_fd);
 	if (inp_fd < 0 || out_fd < 0)
 		return ;
 	pid = 0;
 	if (should_run_in_child(cmd))
 		pid = fork();
 	if (pid < 0)
-		return pid_error(pid, prev_p, next_p);
+		return pid_error(prev_p, next_p);
 	cmd->pid = pid;
 	if (pid > 0)
 	{
-		if (inp_fd != STDIN_FILENO && inp_fd != prev_p[0])
+		if (inp_fd != STDIN_FILENO && (!prev_p || inp_fd != prev_p[0]))
 			close(inp_fd);
-		if (out_fd != STDOUT_FILENO && out_fd != next_p[1])
+		if (out_fd != STDOUT_FILENO && (!next_p || out_fd != next_p[1]))
 			close(out_fd);
 		return ;
 	}
 	if (isbuiltin(cmd->args[0]))
+	{
 		handle_builtin(cmd, inp_fd, out_fd);
+		close_fds(inp_fd, out_fd, prev_p, next_p);
+		if (should_run_in_child(cmd))
+			exit(0);
+	}
 	else
 	{
 		dup2(inp_fd, STDIN_FILENO);
 		dup2(out_fd, STDOUT_FILENO);
+		close_fds(inp_fd, out_fd, prev_p, next_p);
 		handle_external(cmd);
 	}
-	close_fds(inp_fd, out_fd, prev_p, next_p);
 }
 
 void close_pipe(int *pipe)
