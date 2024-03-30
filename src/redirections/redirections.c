@@ -34,7 +34,7 @@ int get_flags(t_redirection *redir)
 	if (redir->flags & INPUT)
 		flags |= O_RDONLY;
 	else 
-		flags |= O_WRONLY | O_CREAT;
+		flags |= O_WRONLY | O_CREAT | O_TRUNC;
 	
 	if (redir->flags & APPEND)
 		flags |= O_APPEND;
