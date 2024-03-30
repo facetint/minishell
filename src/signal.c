@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 02:37:53 by hamza             #+#    #+#             */
-/*   Updated: 2024/03/30 02:38:33 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/30 02:39:51 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	handle_signal(int signum)
 	}
 }
 
-void register_signal_handler(void) 
+void	register_signal_handler(void)
 {
-	signal(SIGINT,  handle_signal);
+	signal(SIGINT, handle_signal);
 }

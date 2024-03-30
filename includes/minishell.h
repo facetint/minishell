@@ -121,7 +121,7 @@ void	execute(t_command *cmds);
 void	handle_command(t_command *cmd, int *prev_p, int *next_p);
 char	*find_path(char *cmd);
 void	pid_error(int pid, int *prev_pipe, int *next_pipe);
-void	dup2_and_close(int inp_fd, int out_fd, int *prev_p, int *next_p);
+void	close_fds(int inp_fd, int out_fd, int *prev_p, int *next_p);
 void	path_error(t_command *cmd);
 
 // builtin
@@ -157,4 +157,5 @@ void	abort_function();
 
 char	*ft_unsafe_strdup(const char *str);
 void	export_env(char *format);
+void	handle_file_redirections(t_command *cur);
 #endif
