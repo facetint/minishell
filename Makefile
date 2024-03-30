@@ -4,7 +4,7 @@ LIBFT_DIR = ./libft
 LIBFT_PATH = $(LIBFT_DIR)/libft.a
 
 CC = gcc
-CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 
 MEMORY_ALLOCATOR_SOURCES = memory-allocator/aborter.c memory-allocator/allocator.c
 SOURCES = src/execute/execute_utils.c src/builtin/cd.c src/builtin/exit.c src/builtin/export.c src/builtin/echo.c \
@@ -12,7 +12,9 @@ SOURCES = src/execute/execute_utils.c src/builtin/cd.c src/builtin/exit.c src/bu
  src/expander/expander_nonvariables.c src/env/env_utils.c src/lexer/utils.c src/handler.c src/env/env.c\
  src/lexer/lexer.c src/lexer/unquote.c src/lexer/lexer_utils.c src/execute/execute.c \
  src/lexer/lexer_error_message.c src/lexer/is_valid.c src/execute/error_message.c src/execute/dup2.c \
- src/parser/parser.c src/parser/parser_state.c src/parser/parser_utils.c src/execute/heredoc.c src/expander/expander.c src/splitter.c src/lexer/syntax_analyzer.c src/signal.c $(MEMORY_ALLOCATOR_SOURCES)
+ src/parser/parser.c src/parser/parser_state.c src/parser/parser_utils.c src/execute/heredoc.c \
+ src/expander/expander.c src/splitter.c src/lexer/syntax_analyzer.c src/signal.c $(MEMORY_ALLOCATOR_SOURCES) \
+ src/redirections/redirections.c
 
 MINISHELL_SOURCES = src/main.c $(SOURCES)
 MINISHELL_OBJECTS = $(MINISHELL_SOURCES:.c=.o)
@@ -27,7 +29,7 @@ $(TEST_PATH):
 	@mkdir $(TEST_PATH)
 
 test: $(TEST_PATH) $(NAME)
-	$(CC) $(CFLAGS) $(SOURCES:.c=.o) $(LIBFT_PATH) $(TEST_SOURCES) -o $(TEST_PATH)/tests -lcriterion -L/usr/local/lib -I/usr/local/include -lreadline
+	$(CC) $(FLAGS) $(SOURCES:.c=.o) $(LIBFT_PATH) $(TEST_SOURCES) -o $(TEST_PATH)/tests -lcriterion -L/usr/local/lib -I/usr/local/include -lreadline
 	./$(TEST_PATH)/tests ; rm -f __test_file*
 
 $(LIBFT_PATH):

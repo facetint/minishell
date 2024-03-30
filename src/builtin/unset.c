@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:19:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 17:25:47 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/29 22:34:35 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	unset_env(char *varname)
 		{
 			if (prev)
 				prev->next = cur->next;
-			*get_global_env() = cur->next;
+			else
+				*get_global_env() = cur->next;
 			free(((t_entry *)cur->content)->key);
 			free(((t_entry *)cur->content)->value);
 			free(cur->content);

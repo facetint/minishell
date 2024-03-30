@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:44 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/29 17:18:50 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/30 15:21:28 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int find_char(const char *str, char looking_for)
 {
 	int i;
 
-	if (!str)
+	if (!str || !*str)
 		return -1;
 	i = 0;
 	while (str[i] && (str[i] != looking_for || is_escaped((char *)str, i)))

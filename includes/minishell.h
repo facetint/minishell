@@ -24,7 +24,7 @@ typedef enum e_signal_type
     PROMPT,
 } t_signal_type;
 
-extern t_signal_type signal_type;
+extern t_signal_type g_signal_type;
 
 /* if 1 input, otherwise, output */
 # define INPUT (1 << 0)
@@ -118,15 +118,15 @@ char *ft_str_arr_join(char **str_list, unsigned int str_count);
 
 // executer
 void	execute(t_command *cmds);
-void handle_command(int inp_fd, int out_fd, t_command *cmd, int *prev_p, int *next_p);
+void	handle_command(t_command *cmd, int *prev_p, int *next_p);
 char	*find_path(char *cmd);
-void	pid_error(int pid, int *prev_pipe, int *next_pipe);
-void	dup2_and_close(int inp_fd, int out_fd, int *prev_p, int *next_p);
+void	pid_error(int *prev_pipe, int *next_pipe);
+void	close_fds(int inp_fd, int out_fd, int *prev_p, int *next_p);
 void	path_error(t_command *cmd);
 
 // builtin
 
-void    handle_builtin(t_command *cmd, int fd[2]);
+void    execute_builtin(t_command *cmd, int fd[2]);
 int		isbuiltin(char *cmd);
 void	builtin_exit(t_command *cmd);
 void	builtin_echo(t_command *cmd, int fd[2]);
@@ -154,4 +154,8 @@ int *get_exit_status();
 
 // abort
 void	abort_function();
+
+char	*ft_unsafe_strdup(const char *str);
+void	export_env(char *format);
+void	handle_file_redirections(t_command *cur);
 #endif
