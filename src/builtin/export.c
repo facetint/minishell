@@ -6,7 +6,7 @@
 /*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:01:40 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 13:32:05 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/30 15:24:37 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,10 @@ int is_valid_export(char *str)
 	if (!ft_isalpha(str[i]) && str[i] != '_')
 		return (0);
 	i++;
-	while (str[i] && str[i] != '=')
+	while (is_a_name_char(str[i]) && str[i] != '=')
 		i++;
-	if (str[i])
+	if (str[i] == '=')
 		return (1);
-	i++;
 	if (str[i])
 		return (0);
 	return (1);
@@ -89,7 +88,7 @@ int is_valid_export(char *str)
 void export_env(char *format)
 {
 	t_list	*node;
-	
+
 	node = to_node(format);
 	if (!node)
 		node = create_node(ft_unsafe_strdup(format), ft_unsafe_strdup(""));
