@@ -120,7 +120,7 @@ char *ft_str_arr_join(char **str_list, unsigned int str_count);
 void	execute(t_command *cmds);
 void	handle_command(t_command *cmd, int *prev_p, int *next_p);
 char	*find_path(char *cmd);
-void	pid_error(int pid, int *prev_pipe, int *next_pipe);
+void	pid_error(int *prev_pipe, int *next_pipe);
 void	close_fds(int inp_fd, int out_fd, int *prev_p, int *next_p);
 void	path_error(t_command *cmd);
 

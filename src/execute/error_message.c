@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_message.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:07:09 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 15:54:34 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/30 13:32:40 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <errno.h>
 #include <string.h>
 
-void	pid_error(int pid, int *prev_pipe, int *next_pipe)
+void	pid_error(int *prev_pipe, int *next_pipe)
 {
 	ft_putstr_fd("minishell: fork: ", 2);
 	ft_putstr_fd(strerror(errno), 2);
