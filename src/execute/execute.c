@@ -6,7 +6,7 @@
 /*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 14:27:13 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/30 14:48:22 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,18 @@ int	get_input_fd(int *pipe, t_command *cmd)
 {
 	if (cmd->input != STDIN_FILENO)
 		return (cmd->input);
-	if (pipe == NULL)
-		return (STDIN_FILENO);
-	return (pipe[0]);
+	if (pipe)
+		return (pipe[0]);
+	return (STDIN_FILENO);
 }
 
 int	get_output_fd(int *pipe, t_command *cmd)
 {
 	if (cmd->output != STDOUT_FILENO)
 		return (cmd->output);
-	if (pipe == NULL)
-		return (STDOUT_FILENO);
-	return (pipe[1]);
+	if (pipe)
+		return (pipe[1]);
+	return (STDOUT_FILENO);
 }
 
 void	handle_builtin(t_command *cmd, int inp_fd, int out_fd)
@@ -51,9 +51,17 @@ void	handle_external(t_command *cmd)
 	
 	path_cmd = find_path(cmd->args[0]);
 	if (!path_cmd)
-		path_error(cmd); //todo exit?
+		return (path_error(cmd));
 	execve(path_cmd, cmd->args, to_arr(*get_global_env()));
 	exit(127);
+}
+
+void	close_redirections(int inp_fd, int out_fd, int *prev_p, int *next_p)
+{
+	if (inp_fd != STDIN_FILENO && (!prev_p || inp_fd != prev_p[0]))
+		close(inp_fd);
+	if (out_fd != STDOUT_FILENO && (!next_p || out_fd != next_p[1]))
+		close(out_fd);
 }
 
 void	handle_command(t_command *cmd, int *prev_p, int *next_p)
@@ -65,35 +73,27 @@ void	handle_command(t_command *cmd, int *prev_p, int *next_p)
 	inp_fd = get_input_fd(prev_p, cmd);
 	out_fd = get_output_fd(next_p, cmd);
 	if (inp_fd < 0 || out_fd < 0)
-		return ;
+		return ; 
 	pid = 0;
 	if (should_run_in_child(cmd))
 		pid = fork();
 	if (pid < 0)
-		return pid_error(prev_p, next_p);
+		return (pid_error(prev_p, next_p));
 	cmd->pid = pid;
 	if (pid > 0)
-	{
-		if (inp_fd != STDIN_FILENO && (!prev_p || inp_fd != prev_p[0]))
-			close(inp_fd);
-		if (out_fd != STDOUT_FILENO && (!next_p || out_fd != next_p[1]))
-			close(out_fd);
-		return ;
-	}
+		return (close_redirections(inp_fd, out_fd, prev_p, next_p));
 	if (isbuiltin(cmd->args[0]))
 	{
 		handle_builtin(cmd, inp_fd, out_fd);
 		close_fds(inp_fd, out_fd, prev_p, next_p);
 		if (should_run_in_child(cmd))
 			exit(0);
+		return ;
 	}
-	else
-	{
-		dup2(inp_fd, STDIN_FILENO);
-		dup2(out_fd, STDOUT_FILENO);
-		close_fds(inp_fd, out_fd, prev_p, next_p);
-		handle_external(cmd);
-	}
+	dup2(inp_fd, STDIN_FILENO);
+	dup2(out_fd, STDOUT_FILENO);
+	close_fds(inp_fd, out_fd, prev_p, next_p);
+	handle_external(cmd);
 }
 
 void close_pipe(int *pipe)
@@ -112,7 +112,7 @@ void wait_children(t_command *latest)
 	if (latest->pid == 0)
 		return ;
 	waitpid(latest->pid, &exit_status, 0);
-	if (!*get_exit_status())
+	if (*get_exit_status() == 0)
 		*get_exit_status() = exit_status >> 8;
 	while (wait(NULL) > 0)
 		;
@@ -135,9 +135,8 @@ void	execute(t_command *cur)
 		{
 			next_p = safe_malloc(sizeof(int) * 2);
 			pipe(next_p);
-			printf("pipe: [0]%d [1]%d\n", next_p[0], next_p[1]);
 		}
-		else if (next_p)
+		else
 			next_p = NULL;
 		handle_command(cur, prev_p, next_p);
 		latest = cur;
