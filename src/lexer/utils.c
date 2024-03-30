@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:44 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 15:21:28 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/30 16:35:51 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,27 @@
 #include "../../includes/char_classification.h"
 #include "../../memory-allocator/allocator.h"
 
-char *ft_str_arr_join(char **str_list, unsigned int str_count)
+char	*ft_str_arr_join(char **str_list, unsigned int str_count)
 {
-	unsigned int total_len;
-	unsigned int result_len;
-	unsigned int i;
-	char *result;
+	unsigned int	total_len;
+	unsigned int	result_len;
+	unsigned int	i;
+	char			*result;
 
 	i = 0;
 	total_len = 0;
 	if (!str_list)
-		return NULL;
+		return (NULL);
 	while (i < str_count)
 	{
 		total_len += ft_strlen(str_list[i]);
 		i++;
 	}
 	if (total_len == 0)
-		return ft_strdup("");
+		return (ft_strdup(""));
 	result = (char *)safe_malloc(sizeof(char) * (total_len + 1));
 	if (!result)
-		return NULL;
+		return (NULL);
 	i = 0;
 	result_len = 0;
 	while (i < str_count)
@@ -46,10 +46,10 @@ char *ft_str_arr_join(char **str_list, unsigned int str_count)
 		result_len += ft_strlcpy(&result[result_len], str_list[i], UINT_MAX);
 		i++;
 	}
-	return result;
+	return (result);
 }
 
-char *get_cur_folder_name()
+char	*get_cur_folder_name(void)
 {
 	char	*result;
 	char	*full_path;
@@ -61,82 +61,82 @@ char *get_cur_folder_name()
 		i--;
 	result = ft_strdup(&full_path[i + 1]);
 	safe_free(full_path);
-	return result;
+	return (result);
 }
 
-int skip_white_spaces(const char *str)
+int	skip_white_spaces(const char *str)
 {
-	int i;
+	int	i;
 
 	if (!str)
-		return -1;
+		return (-1);
 	i = 0;
 	while (str[i] && is_whitespace(str[i]))
 		i++;
-	return i;
+	return (i);
 }
 
-int count_len(const char *str, int (*is_valid)(char))
+int	count_len(const char *str, int (*is_valid)(char))
 {
-	int i;
+	int	i;
 
 	if (!str)
-		return -1;
+		return (-1);
 	i = 0;
 	while (str[i] && is_valid(str[i]))
 		i++;
-	return i;
+	return (i);
 }
 
-int is_escaped(char *input, unsigned int index)
+int	is_escaped(char *input, unsigned int index)
 {
 	if (index == 0)
-		return 0;
+		return (0);
 	if (input[index - 1] == '\\')
 	{
 		if (index >= 2 && input[index - 2] == '\\')
-			return 0;
-		return 1;
+			return (0);
+		return (1);
 	}
-	return 0;
+	return (0);
 }
 
-int find_char(const char *str, char looking_for)
+int	find_char(const char *str, char looking_for)
 {
-	int i;
+	int	i;
 
 	if (!str || !*str)
-		return -1;
+		return (-1);
 	i = 0;
 	while (str[i] && (str[i] != looking_for || is_escaped((char *)str, i)))
 		i++;
-	return i;
+	return (i);
 }
 
-int str_arr_size(char **strings)
+int	str_arr_size(char **strings)
 {
-	int i;
+	int	i;
 
 	if (!strings)
-		return -1;
+		return (-1);
 	i = 0;
 	while (strings[i])
 		i++;
-	return i;
+	return (i);
 }
 
 int	is_a_name_char(char c) 
 {
-	return is_name_char(c);
+	return (is_name_char(c));
 }
 
 int	is_internal_field_sep(char *str, int index)
 {
 	if (is_escaped(str, index))
-		return 0;
+		return (0);
 	if (is_field_terminator(str[index]))
-		return 1;
-	return 0;
+		return (1);
+	return (0);
 }
 
 char	*get_prompt()

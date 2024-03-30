@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_message.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:07:09 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 13:32:40 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/30 17:09:42 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	pid_error(int *prev_pipe, int *next_pipe)
 	ft_putstr_fd("minishell: fork: ", 2);
 	ft_putstr_fd(strerror(errno), 2);
 	ft_putstr_fd("\n", 2);
-		if (prev_pipe)
+	if (prev_pipe)
 	{
 		close(prev_pipe[0]);
 		close(prev_pipe[1]);
@@ -34,10 +34,10 @@ void	pid_error(int *prev_pipe, int *next_pipe)
 	exit(0);
 }
 
-void	path_error(t_command *cmd)
+void	path_error(char *cmd)
 {
 	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd->args[0], 2);
+	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": command not found\n", 2);
 	exit(127);
 }

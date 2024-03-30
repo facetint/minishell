@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 14:48:22 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/30 17:08:07 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,98 +17,56 @@
 #include "../../memory-allocator/allocator.h"
 #include <stdio.h>
 
-int	should_run_in_child(t_command *cmd)
+void	handle_builtin(t_command *cmd, t_file_descriptors fds)
 {
-	return (cmd->prev || cmd->next || !isbuiltin(cmd->args[0]));
+	execute_builtin(cmd, (int []){fds.inp_fd, fds.out_fd});
+	close_fds(fds);
+	if (should_run_in_child(cmd))
+		exit(0);
 }
 
-int	get_input_fd(int *pipe, t_command *cmd)
-{
-	if (cmd->input != STDIN_FILENO)
-		return (cmd->input);
-	if (pipe)
-		return (pipe[0]);
-	return (STDIN_FILENO);
-}
-
-int	get_output_fd(int *pipe, t_command *cmd)
-{
-	if (cmd->output != STDOUT_FILENO)
-		return (cmd->output);
-	if (pipe)
-		return (pipe[1]);
-	return (STDOUT_FILENO);
-}
-
-void	handle_builtin(t_command *cmd, int inp_fd, int out_fd)
-{
-	execute_builtin(cmd, (int[]){inp_fd, out_fd});
-}
-
-void	handle_external(t_command *cmd)
+void	handle_external(t_command *cmd, t_file_descriptors fds)
 {
 	char	*path_cmd;
-	
+
+	dup2(fds.inp_fd, STDIN_FILENO);
+	dup2(fds.out_fd, STDOUT_FILENO);
+	close_fds(fds);
 	path_cmd = find_path(cmd->args[0]);
-	if (!path_cmd)
-		return (path_error(cmd));
 	execve(path_cmd, cmd->args, to_arr(*get_global_env()));
 	exit(127);
 }
 
-void	close_redirections(int inp_fd, int out_fd, int *prev_p, int *next_p)
-{
-	if (inp_fd != STDIN_FILENO && (!prev_p || inp_fd != prev_p[0]))
-		close(inp_fd);
-	if (out_fd != STDOUT_FILENO && (!next_p || out_fd != next_p[1]))
-		close(out_fd);
-}
-
 void	handle_command(t_command *cmd, int *prev_p, int *next_p)
 {
-	int		pid;
-	int		inp_fd;
-	int		out_fd;
+	int					pid;
+	int					inp_fd;
+	int					out_fd;
+	t_file_descriptors	fds;
 
 	inp_fd = get_input_fd(prev_p, cmd);
 	out_fd = get_output_fd(next_p, cmd);
 	if (inp_fd < 0 || out_fd < 0)
-		return ; 
+		return ;
+	fds = (t_file_descriptors){inp_fd, out_fd, prev_p, next_p};
 	pid = 0;
 	if (should_run_in_child(cmd))
 		pid = fork();
+	cmd->pid = pid;
 	if (pid < 0)
 		return (pid_error(prev_p, next_p));
-	cmd->pid = pid;
 	if (pid > 0)
-		return (close_redirections(inp_fd, out_fd, prev_p, next_p));
+		return (close_redirections(fds));
 	if (isbuiltin(cmd->args[0]))
-	{
-		handle_builtin(cmd, inp_fd, out_fd);
-		close_fds(inp_fd, out_fd, prev_p, next_p);
-		if (should_run_in_child(cmd))
-			exit(0);
-		return ;
-	}
-	dup2(inp_fd, STDIN_FILENO);
-	dup2(out_fd, STDOUT_FILENO);
-	close_fds(inp_fd, out_fd, prev_p, next_p);
-	handle_external(cmd);
+		handle_builtin(cmd, fds);
+	else
+		handle_external(cmd, fds);
 }
 
-void close_pipe(int *pipe)
-{
-	if (pipe)
-	{
-		close(pipe[0]);
-		close(pipe[1]);
-	}
-}
-
-void wait_children(t_command *latest)
+void	wait_children(t_command *latest)
 {
 	int			exit_status;
-	
+
 	if (latest->pid == 0)
 		return ;
 	waitpid(latest->pid, &exit_status, 0);
