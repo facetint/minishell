@@ -4,7 +4,7 @@ LIBFT_DIR = ./libft
 LIBFT_PATH = $(LIBFT_DIR)/libft.a
 
 CC = gcc
-FLAGS = -g -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -g -Wall -Wextra -Werror
 
 MEMORY_ALLOCATOR_SOURCES = memory-allocator/aborter.c memory-allocator/allocator.c
 SOURCES = src/execute/execute_utils.c src/builtin/cd.c src/builtin/exit.c src/builtin/export.c src/builtin/export_utils.c \

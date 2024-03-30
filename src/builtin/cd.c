@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 11:48:16 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 16:51:55 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/30 17:40:13 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	change_pwd(t_command *cmd)
 		{
 			if (node->value)
 				free(node->value);
-			node->value = malloc(sizeof(char) * 4097); // todo
+			node->value = safe_malloc(sizeof(char) * 4097); // todo
 			if (getcwd(node->value, 4097) == NULL)
 			{
 				perror("getcwd");

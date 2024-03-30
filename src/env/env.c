@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:05:06 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 16:05:16 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/30 17:43:45 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_list	*to_node(char *env)
 	if (!eq_ptr)
 		return (NULL); // todo - error handling
 	eq_index = (int)(eq_ptr - env);
-	key = ft_unsafe_substr(env, 0, eq_index);
-	value = ft_unsafe_substr(env, eq_index + 1, ft_strlen(env) - eq_index - 1);
+	key = ft_substr(env, 0, eq_index);
+	value = ft_substr(env, eq_index + 1, ft_strlen(env) - eq_index - 1);
 	return (create_node(key, value));
 }
 

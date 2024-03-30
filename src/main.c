@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 02:38:33 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/30 17:37:57 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,5 @@ int	main(int ac, char **av, char **envp)
 			handle_input(input);
 		}
 		free(input);
-		free_memory();
 	}
 }
