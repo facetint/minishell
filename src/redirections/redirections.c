@@ -1,3 +1,15 @@
+/******************************************************************************/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirections.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/30 21:55:43 by fatmanurcet       #+#    #+#             */
+/*   Updated: 2024/03/30 21:57:29 by fatmanurcet      ###   ########.fr       */
+/*                                                                            */
+/******************************************************************************/
+
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
 #include <fcntl.h>
@@ -13,12 +25,12 @@ int	redirect(t_redirection *redir, int *addr, int fd)
 		ft_putstr_fd("minishell: ", 2);
 		perror(redir->redirected);
 		*get_exit_status() = 1;
-		return 1;
+		return (1);
 	}
-	return 0;
+	return (0);
 }
 
-void close_old_fd(t_command *cur, t_redirection redir)
+void	close_old_fd(t_command *cur, t_redirection redir)
 {
 	if (redir.flags & INPUT && cur->input != STDIN_FILENO)
 		close(cur->input);
@@ -26,19 +38,18 @@ void close_old_fd(t_command *cur, t_redirection redir)
 		close(cur->output);
 }
 
-int get_flags(t_redirection *redir)
+int	get_flags(t_redirection *redir)
 {
-	int flags;
+	int	flags;
 
 	flags = 0;
 	if (redir->flags & INPUT)
 		flags |= O_RDONLY;
-	else 
+	else
 		flags |= O_WRONLY | O_CREAT | O_TRUNC;
-	
 	if (redir->flags & APPEND)
 		flags |= O_APPEND;
-	return flags;
+	return (flags);
 }
 
 void	handle_redirections(t_command *cur)
@@ -53,26 +64,23 @@ void	handle_redirections(t_command *cur)
 	{
 		redir = cur->redirections[i];
 		close_old_fd(cur, redir);
-		
 		if (redir.flags & HEREDOC)
 			fd = read_heredoc_input(redir.redirected);
 		else
 			fd = open(redir.redirected, get_flags(&redir), 0644);
-		
 		if (redir.flags & INPUT)
 			fd_addr = &cur->input;
 		else
 			fd_addr = &cur->output;
-
 		if (redirect(&redir, fd_addr, fd))
-			return;
+			return ;
 		i++;
 	}
 }
 
 void	handle_file_redirections(t_command *cur)
 {
-	while(cur)
+	while (cur)
 	{
 		cur->output = STDOUT_FILENO;
 		cur->input = STDIN_FILENO;
