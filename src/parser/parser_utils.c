@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:36:24 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/29 17:37:43 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/30 21:52:16 by fatmanurcet      ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../libft/libft.h"
 #include "../../includes/minishell.h"
@@ -16,10 +16,10 @@
 #include "../../memory-allocator/allocator.h"
 #include <stdio.h>
 
-void join_all_composed_words(t_token **cur_token, char **string_ptr)
+void	join_all_composed_words(t_token **cur_token, char **string_ptr)
 {
-	char *new_name;
-	t_token *lexer_data;
+	char	*new_name;
+	t_token	*lexer_data;
 
 	lexer_data = *cur_token;
 	if (lexer_data->type == DELIMITER)
@@ -35,11 +35,11 @@ void join_all_composed_words(t_token **cur_token, char **string_ptr)
 	*cur_token = lexer_data;
 }
 
-t_redirection create_redirection_data(t_token **lexer_data)
+t_redirection	create_redirection_data(t_token **lexer_data)
 {
-    t_redirection redirection;
+	t_redirection	redirection;
 
-   	redirection = (t_redirection){0};
+	redirection = (t_redirection){0};
 	if ((*lexer_data)->type == INPUT_REDIRECTION)
 		redirection.flags = INPUT;
 	else if ((*lexer_data)->type == HEREDOC_REDIRECTION)
@@ -48,11 +48,12 @@ t_redirection create_redirection_data(t_token **lexer_data)
 		redirection.flags = APPEND;
 	*lexer_data = (*lexer_data)->next;
 	join_all_composed_words(lexer_data, &redirection.redirected);
-	return redirection;
+	return (redirection);
 }
 
-int count_cmd_args(t_token *lexer_data) {
-    int arg_count;
+int	count_cmd_args(t_token *lexer_data)
+{
+	int	arg_count;
 
 	arg_count = 0;
 	while (lexer_data && lexer_data->type != PIPE)
@@ -63,25 +64,25 @@ int count_cmd_args(t_token *lexer_data) {
 				lexer_data = lexer_data->next;
 			if (lexer_data)
 				lexer_data = lexer_data->next;
-			continue;
+			continue ;
 		}
 		if (lexer_data->type == DELIMITER)
 			lexer_data = lexer_data->next;
 		if (lexer_data && is_word(lexer_data->type))
 		{
-		    while (lexer_data && is_word(lexer_data->type))
+			while (lexer_data && is_word(lexer_data->type))
 				lexer_data = lexer_data->next;
 			arg_count++;
 		}
 		if (lexer_data)
-		  lexer_data = lexer_data->next;
+			lexer_data = lexer_data->next;
 	}
-	return arg_count;
+	return (arg_count);
 }
 
-int count_cmd_redirections(t_token *lexer_data)
+int	count_cmd_redirections(t_token *lexer_data)
 {
-	int redirection_count;
+	int	redirection_count;
 
 	redirection_count = 0;
 	while (lexer_data && lexer_data->type != PIPE)
@@ -90,5 +91,5 @@ int count_cmd_redirections(t_token *lexer_data)
 			redirection_count++;
 		lexer_data = lexer_data->next;
 	}
-	return redirection_count;
+	return (redirection_count);
 }
