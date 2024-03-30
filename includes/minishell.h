@@ -58,6 +58,13 @@ typedef struct s_token
 	struct s_token *next;
 } t_token;
 
+typedef struct s_file_descriptors
+{
+	int	inp_fd;
+	int	out_fd;
+	int	*prev_p;
+	int	*next_p;
+} t_file_descriptors;
 
 #define LEXER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, char *input, int *const i
 
@@ -96,6 +103,9 @@ void expand(t_token **head);
 void internal_field_split(t_token **token);
 void insert_uword_tokens(t_token **token_ptr, char **strings);
 void	expand_string(char **string);
+char	*replace_string(char *input, int p_start, int p_len, char *replacement);
+int is_empty_variable(t_token *token);
+
 
 // parser
 t_command *parse(t_token *lexer_data);
@@ -121,19 +131,25 @@ void	execute(t_command *cmds);
 void	handle_command(t_command *cmd, int *prev_p, int *next_p);
 char	*find_path(char *cmd);
 void	pid_error(int *prev_pipe, int *next_pipe);
-void	close_fds(int inp_fd, int out_fd, int *prev_p, int *next_p);
-void	path_error(t_command *cmd);
+void	close_fds(t_file_descriptors fds);
+void	close_redirections(t_file_descriptors fds);
+int		get_input_fd(int *pipe, t_command *cmd);
+int		get_output_fd(int *pipe, t_command *cmd);
+void	close_pipe(int *pipe);
+
+void	path_error(char	*cmd);
 
 // builtin
 
-void    execute_builtin(t_command *cmd, int fd[2]);
+void	execute_builtin(t_command *cmd, int fd[2]);
 int		isbuiltin(char *cmd);
 void	builtin_exit(t_command *cmd);
 void	builtin_echo(t_command *cmd, int fd[2]);
-void    builtin_pwd(t_command *cmd);
-void    builtin_export(t_command *cmd, int fd[2]);
-void    builtin_unset(t_command *cmd, int fd[2]);
-int 	ft_strcmp(char *s1, char *s2);
+void	builtin_pwd(t_command *cmd);
+void	builtin_export(t_command *cmd, int fd[2]);
+void	builtin_unset(t_command *cmd, int fd[2]);
+int		ft_strcmp(char *s1, char *s2);
+int		should_run_in_child(t_command *cmd);
 
 // cd
 void    builtin_cd(t_command *cmd);

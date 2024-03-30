@@ -23,4 +23,5 @@ t_list		*create_node(char *key, char *value);
 void		free_list(t_list *lst);
 char		*find_env(char *key);
 void		unset_env(char *varname);
+t_list		*find_node(t_list *env, char *key);
 #endif

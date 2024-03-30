@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:01:40 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 15:24:37 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/30 15:36:23 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,9 @@ t_list	*find_node(t_list *env, char *key)
 	return (NULL);
 }
 
-void	set_export(t_list *env, t_list *node)
+int	is_valid_export(char *str)
 {
-	t_list	*existing_node;
-
-	existing_node = find_node(env, ((t_entry *)node->content)->key);
-	if (!existing_node)
-	{
-		ft_lstadd_back(&env, node);
-		return ;
-	}
-	free(((t_entry *)existing_node->content)->key);
-	free(((t_entry *)existing_node->content)->value);
-	free(existing_node->content);
-	existing_node->content = node->content;
-	free(node);
-}
-
-int is_valid_export(char *str)
-{
-	int i;
+	int	i;
 
 	i = 0;
 	if (!ft_isalpha(str[i]) && str[i] != '_')
@@ -83,16 +66,6 @@ int is_valid_export(char *str)
 	if (str[i])
 		return (0);
 	return (1);
-}
-
-void export_env(char *format)
-{
-	t_list	*node;
-
-	node = to_node(format);
-	if (!node)
-		node = create_node(ft_unsafe_strdup(format), ft_unsafe_strdup(""));
-	set_export(*get_global_env(), node);
 }
 
 void	builtin_export(t_command *cmd, int fd[2])
@@ -110,9 +83,10 @@ void	builtin_export(t_command *cmd, int fd[2])
 	i = 1;
 	while (cmd->args[i])
 	{
-		if (is_valid_export(cmd->args[i])) {
+		if (is_valid_export(cmd->args[i]))
 			export_env(cmd->args[i]);
-		} else {
+		else
+		{
 			ft_putstr_fd("minishell: export: `", fd[1]);
 			ft_putstr_fd(cmd->args[i], fd[1]);
 			ft_putstr_fd("': not a valid identifier\n", fd[1]);

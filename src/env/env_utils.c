@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:40:58 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 17:26:11 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/30 17:38:53 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,17 @@
 #include <stdlib.h>
 #include "../../memory-allocator/allocator.h"
 
-/*
- * this function is the standard substr function but it does not use safe_malloc.
- */
-char	*ft_unsafe_substr(char const *s, unsigned int start, size_t len)
-{
-	size_t	i;
-	char	*result;
-
-	i = len;
-	if (!s)
-		return (NULL);
-	if (start >= ft_strlen(s) || len == 0)
-	{
-		result = malloc(sizeof(char));
-		result[0] = '\0';
-		return (result);
-	}
-	if (len > ft_strlen(s + start))
-		i = ft_strlen(s + start);
-	result = (char *) malloc(sizeof(char) * (i + 1));
-	if (!result)
-		return (NULL);
-	ft_strlcpy(result, s + start, i + 1);
-	return (result);
-}
-
 t_list	*create_node(char *key, char *value)
 {
 	t_entry	*node;
 	t_list	*lst;
 
-	node = malloc(sizeof(t_entry));
+	node = safe_malloc(sizeof(t_entry));
 	if (!node)
 		return (NULL);
 	node->key = key;
 	node->value = value;
-	lst = (t_list *) malloc(sizeof(t_list));
-	//printf("%p malloced for %s\n", lst, key);
+	lst = (t_list *) safe_malloc(sizeof(t_list));
 	if (!lst)
 		return (NULL);
 	lst -> content = node;
@@ -79,7 +52,6 @@ void	free_list(t_list *lst)
 
 void	abort_function(void)
 {
-	free_list(*get_global_env());
 	free_memory();
 }
 
