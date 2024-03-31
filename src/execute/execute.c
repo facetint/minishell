@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 17:08:07 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/31 07:43:17 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	handle_command(t_command *cmd, int *prev_p, int *next_p)
 	int					out_fd;
 	t_file_descriptors	fds;
 
+	if (!cmd->args[0])
+		return ;
 	inp_fd = get_input_fd(prev_p, cmd);
 	out_fd = get_output_fd(next_p, cmd);
 	if (inp_fd < 0 || out_fd < 0)

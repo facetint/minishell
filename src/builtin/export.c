@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:01:40 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 15:36:23 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/31 07:34:51 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/env.h"
 #include "../../includes/utils.h"
+#include "../../includes/char_classification.h"
 #include <unistd.h>
 
 void	print_exports(t_list *node, int fd[2])
@@ -59,7 +60,7 @@ int	is_valid_export(char *str)
 	if (!ft_isalpha(str[i]) && str[i] != '_')
 		return (0);
 	i++;
-	while (is_a_name_char(str[i]) && str[i] != '=')
+	while (is_name_char(str[i]) && str[i] != '=')
 		i++;
 	if (str[i] == '=')
 		return (1);

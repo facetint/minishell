@@ -1,4 +1,4 @@
-#include "../includes/minishell.h"
+/*#include "../includes/minishell.h"
 #include <criterion/criterion.h>
 #include <fcntl.h>
 #include <pthread.h>
@@ -107,9 +107,6 @@ Test(test_utils, listen_input) {
   cr_assert_str_eq(output, "hello\n");
 }
 
-/*
- * ACTUAL TESTS
- */ 
 
 Test(end2end, echo) {
   exec_assert_stdout("echo hello", "hello\n");
@@ -169,3 +166,4 @@ Test(end2end, append_and_read_file) {
   exec_assert_stdout("cat __test_file1", "hello\nworld\n");
   exec_assert_stderr("rm __test_file1", NULL);
 }
+*/

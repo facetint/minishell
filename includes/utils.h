@@ -3,7 +3,6 @@
 
 char *get_cur_folder_name();
 char *ft_str_arr_join(char **str_list, unsigned int str_count);
-int is_a_name_char(char c);
 int skip_white_spaces(const char *str);
 int find_char(const char *str, char looking_for);
 int is_escaped(char *input, unsigned int index);

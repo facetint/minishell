@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:52 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 06:43:06 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/31 07:39:43 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ lexer_state	word_state(t_token **lexer_data, char *input, int *const i)
 	else
 	{
 		token.type = UNQUOTED_WORD;
-		while ((is_unquoted_word_char(input[*i])
-				|| is_escaped(input, *i)))
+		while (is_unquoted_word_char(input[*i]) || is_escaped(input, *i))
 			(*i)++;
 		(*i)--;
 	}
