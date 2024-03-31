@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 12:40:58 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 17:38:53 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/31 14:14:25 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	free_list(t_list *lst)
 		lst = tmp;
 		tmp = tmp->next;
 		env = lst->content;
-		free(env->key);
-		free(env->value);
-		free(env);
-		free(lst);
+		safe_free(env->key);
+		safe_free(env->value);
+		safe_free(env);
+		safe_free(lst);
 	}
 }
 

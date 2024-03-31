@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 15:35:28 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 17:48:01 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/31 14:16:32 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../../includes/env.h"
 #include "../../includes/utils.h"
 #include <unistd.h>
+#include "../../memory-allocator/allocator.h"
 
 void	set_export(t_list *env, t_list *node)
 {
@@ -25,11 +26,11 @@ void	set_export(t_list *env, t_list *node)
 		ft_lstadd_back(&env, node);
 		return ;
 	}
-	free(((t_entry *)existing_node->content)->key);
-	free(((t_entry *)existing_node->content)->value);
-	free(existing_node->content);
+	safe_free(((t_entry *)existing_node->content)->key);
+	safe_free(((t_entry *)existing_node->content)->value);
+	safe_free(existing_node->content);
 	existing_node->content = node->content;
-	free(node);
+	safe_free(node);
 }
 
 void	export_env(char *format)
