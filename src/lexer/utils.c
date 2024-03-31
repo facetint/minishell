@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:44 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 07:14:32 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/31 08:58:10 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	str_arr_size(char **strings)
 		i++;
 	return (i);
 }
-
 
 int	is_internal_field_sep(char *str, int index)
 {

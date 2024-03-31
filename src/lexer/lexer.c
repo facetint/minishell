@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:52 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 08:36:04 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/31 08:57:56 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ t_lexer_state	word_state(t_token **lexer_data, char *input, int *const i)
 	return ((t_lexer_state) delimiter_state);
 }
 
-t_lexer_state	operator_state_l(t_token **lexer_data, char *input, int *const i)
+t_lexer_state	operator_state_l(t_token **lexer_data,
+	char *input, int *const i)
 {
 	int		length;
 	t_token	token;
@@ -112,8 +113,8 @@ t_lexer_state	delimiter_state(t_token **lexer_data, char *input, int *const i)
 
 t_token	*lex(char *input)
 {
-	int			i;
-	t_token		*token;
+	int				i;
+	t_token			*token;
 	t_lexer_state	next_state;
 
 	next_state = (t_lexer_state) word_state;

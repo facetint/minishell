@@ -68,7 +68,7 @@ typedef struct s_file_descriptors
 
 #define LEXER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, char *input, int *const i
 
-typedef void *(*t_lexer_state)(LEXER_STATE_FUNCTION_PARAMETERS); //todo rename as t_lexer...
+typedef void *(*t_lexer_state)(LEXER_STATE_FUNCTION_PARAMETERS);
 
 t_lexer_state word_state(LEXER_STATE_FUNCTION_PARAMETERS);
 t_lexer_state operator_state_l(LEXER_STATE_FUNCTION_PARAMETERS);
@@ -76,7 +76,7 @@ t_lexer_state delimiter_state(LEXER_STATE_FUNCTION_PARAMETERS);
 
 #define PARSER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, t_command *command
 
-typedef void *(*t_parser_state)(PARSER_STATE_FUNCTION_PARAMETERS);//todo rename as t_parser...
+typedef void *(*t_parser_state)(PARSER_STATE_FUNCTION_PARAMETERS);
 
 void argument_state(PARSER_STATE_FUNCTION_PARAMETERS);
 void operator_state_p(PARSER_STATE_FUNCTION_PARAMETERS);
