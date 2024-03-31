@@ -92,7 +92,3 @@ Test(expander, insert_words_in_middle)
 	cr_assert_str_eq(token->next->next->next->next->next->next->next->next->value, "d");
 	cr_assert_str_eq(token->next->next->next->next->next->next->next->next->next->next->value, "thing");
 }
-
-//todo wild card test (echo ***, echo *.*, echo *.c)
-//todo tilda test (echo ~, echo ~/Desktop, echo ~user, echo ~user/Desktop, echo ~~)
-//todo $? test
