@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/31 15:52:07 by facetint          #+#    #+#             */
+/*   Updated: 2024/03/31 16:10:29 by hcoskun          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
@@ -33,11 +45,8 @@ void	change_pwd(t_command *cmd)
 	while (env)
 	{
 		node = env->content;
-		if (!ft_strcmp(node->key, "PWD") && (!cmd->args[1]
-				|| ft_strcmp(cmd->args[1], "~") == 0))
-		{
+		if (!ft_strcmp(node->key, "PWD") && (!cmd->args[1]))
 			node->value = ft_unsafe_strdup(find_env("HOME"));
-		}
 		else if (!ft_strcmp(node->key, "PWD"))
 		{
 			node->value = getcwd(NULL, 0);
@@ -80,7 +89,8 @@ void	builtin_cd(t_command *cmd)
 		}
 		else
 		{
-			safe_free(str);
+			if (str)
+				free(str);
 			*get_exit_status() = 1;
 			perror("cd");
 		}

@@ -6,7 +6,7 @@
 /*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:19:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 15:00:38 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/31 16:08:08 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "../../includes/char_classification.h"
 #include "../../memory-allocator/allocator.h"
 
-int		is_valid_unset(char *str)
+int	is_valid_unset(char *str)
 {
 	int	i;
 
@@ -33,7 +33,7 @@ int		is_valid_unset(char *str)
 
 void	builtin_unset(t_command *cmd, int fd[2])
 {
-	int i;
+	int	i;
 
 	(void)fd;
 	i = 0;
