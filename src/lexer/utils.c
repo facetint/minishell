@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:44 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 09:09:04 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/31 15:22:57 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_str_arr_join(char **str_list, unsigned int str_count)
 		return (NULL);
 	i = -1;
 	result_len = 0;
-	while (++i < str_count)
+	while (++i < str_count && str_list[i])
 		result_len += ft_strlcpy(&result[result_len], str_list[i], UINT_MAX);
 	return (result);
 }
@@ -53,7 +53,9 @@ char	*get_cur_folder_name(void)
 	char	*full_path;
 	int		i;
 
-	full_path = getwd(NULL);
+	full_path = getcwd(NULL, 0);
+	if (!full_path)
+		return (NULL);
 	i = (int) ft_strlen(full_path) - 1;
 	while (i >= 0 && full_path[i] != '/')
 		i--;
@@ -90,6 +92,8 @@ char	*get_prompt(void)
 	char	*username;
 
 	path = get_cur_folder_name();
+	if (!path)
+		return (ft_strdup("$"));
 	username = find_env("USER");
 	if (username)
 		prompt = ft_str_arr_join((char *[]){username, "@", path, "$ "}, 4);
