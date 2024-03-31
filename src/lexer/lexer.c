@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:52 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 07:39:43 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/31 08:36:04 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_token_type	get_meta_token_type(const char *input)
 	return (UNKNOWN);
 }
 
-lexer_state	word_state(t_token **lexer_data, char *input, int *const i)
+t_lexer_state	word_state(t_token **lexer_data, char *input, int *const i)
 {
 	t_token	token;
 	int		start_i;
@@ -63,10 +63,10 @@ lexer_state	word_state(t_token **lexer_data, char *input, int *const i)
 	token.value = ft_substr(input, start_i, *i - start_i + 1);
 	if (ft_strlen(token.value) > 0)
 		lexer_data_append(lexer_data, lexer_data_new(token));
-	return ((lexer_state) delimiter_state);
+	return ((t_lexer_state) delimiter_state);
 }
 
-lexer_state	operator_state_l(t_token **lexer_data, char *input, int *const i)
+t_lexer_state	operator_state_l(t_token **lexer_data, char *input, int *const i)
 {
 	int		length;
 	t_token	token;
@@ -83,10 +83,10 @@ lexer_state	operator_state_l(t_token **lexer_data, char *input, int *const i)
 	*i = *i + length - 1;
 	token.value = NULL;
 	lexer_data_append(lexer_data, lexer_data_new(token));
-	return ((lexer_state) delimiter_state);
+	return ((t_lexer_state) delimiter_state);
 }
 
-lexer_state	delimiter_state(t_token **lexer_data, char *input, int *const i)
+t_lexer_state	delimiter_state(t_token **lexer_data, char *input, int *const i)
 {
 	t_token		token;
 	int			skipped_spaces;
@@ -106,22 +106,22 @@ lexer_state	delimiter_state(t_token **lexer_data, char *input, int *const i)
 	else
 		*i = *i - 1;
 	if (is_meta_char(next_non_whitespace))
-		return ((lexer_state) operator_state_l);
-	return ((lexer_state) word_state);
+		return ((t_lexer_state) operator_state_l);
+	return ((t_lexer_state) word_state);
 }
 
 t_token	*lex(char *input)
 {
 	int			i;
 	t_token		*token;
-	lexer_state	next_state;
+	t_lexer_state	next_state;
 
-	next_state = (lexer_state) word_state;
+	next_state = (t_lexer_state) word_state;
 	token = NULL;
 	i = skip_white_spaces(input);
 	while (next_state && input[i])
 	{
-		next_state = (lexer_state) next_state(&token, input, &i);
+		next_state = (t_lexer_state) next_state(&token, input, &i);
 		i++;
 	}
 	return (token);

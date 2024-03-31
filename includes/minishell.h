@@ -68,15 +68,15 @@ typedef struct s_file_descriptors
 
 #define LEXER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, char *input, int *const i
 
-typedef void *(*lexer_state)(LEXER_STATE_FUNCTION_PARAMETERS); //todo rename as t_lexer...
+typedef void *(*t_lexer_state)(LEXER_STATE_FUNCTION_PARAMETERS); //todo rename as t_lexer...
 
-lexer_state word_state(LEXER_STATE_FUNCTION_PARAMETERS);
-lexer_state operator_state_l(LEXER_STATE_FUNCTION_PARAMETERS);
-lexer_state delimiter_state(LEXER_STATE_FUNCTION_PARAMETERS);
+t_lexer_state word_state(LEXER_STATE_FUNCTION_PARAMETERS);
+t_lexer_state operator_state_l(LEXER_STATE_FUNCTION_PARAMETERS);
+t_lexer_state delimiter_state(LEXER_STATE_FUNCTION_PARAMETERS);
 
 #define PARSER_STATE_FUNCTION_PARAMETERS t_token **lexer_data, t_command *command
 
-typedef void *(*parser_state)(PARSER_STATE_FUNCTION_PARAMETERS);//todo rename as t_parser...
+typedef void *(*t_parser_state)(PARSER_STATE_FUNCTION_PARAMETERS);//todo rename as t_parser...
 
 void argument_state(PARSER_STATE_FUNCTION_PARAMETERS);
 void operator_state_p(PARSER_STATE_FUNCTION_PARAMETERS);
@@ -106,12 +106,11 @@ void	expand_string(char **string);
 char	*replace_string(char *input, int p_start, int p_len, char *replacement);
 int is_empty_variable(t_token *token);
 
-
 // parser
 t_command *parse(t_token *lexer_data);
 int count_cmd_args(t_token *lexer_data);
 int count_cmd_redirections(t_token *lexer_data);
-parser_state decide_next_state(t_token **cur_token);
+t_parser_state decide_next_state(t_token **cur_token);
 t_redirection create_redirection_data(t_token **lexer_data);
 void join_all_composed_words(t_token **cur_token, char **string_ptr);
 
@@ -136,7 +135,6 @@ void	close_redirections(t_file_descriptors fds);
 int		get_input_fd(int *pipe, t_command *cmd);
 int		get_output_fd(int *pipe, t_command *cmd);
 void	close_pipe(int *pipe);
-
 void	path_error(char	*cmd);
 
 // builtin
@@ -156,7 +154,6 @@ void    builtin_cd(t_command *cmd);
 void    execute_cd(char *str, t_command *cmd);
 void    change_pwd(t_command *cmd);
 void    change_old(char *str);
-
 
 // heredocs
 int		read_heredoc_input(char *delimiter);

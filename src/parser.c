@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:28 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 06:15:13 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/31 08:36:18 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,23 +133,23 @@ void	init_command(t_token *lexer_data, t_command **command, t_command *prev)
 	(*command)->prev = prev;
 }
 
-parser_state	decide_next_state(t_token **cur_token)
+t_parser_state	decide_next_state(t_token **cur_token)
 {
 	if (!*cur_token)
 		return (NULL);
 	if ((*cur_token)->type == DELIMITER)
 		*cur_token = (*cur_token)->next;
 	if (is_word((*cur_token)->type))
-		return ((parser_state) argument_state);
+		return ((t_parser_state) argument_state);
 	else if (is_operator((*cur_token)->type))
-		return ((parser_state) operator_state_p);
+		return ((t_parser_state) operator_state_p);
 	return (NULL);
 }
 
 t_command	*parse(t_token *lexer_data)
 {
 	t_command		*cur_cmd;
-	parser_state	next_state;
+	t_parser_state	next_state;
 	t_command		*result;
 	t_token			*cur_token;
 

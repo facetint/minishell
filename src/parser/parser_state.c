@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:34:28 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 06:15:42 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/31 08:36:18 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ void	operator_state_p(t_token **cur_token, t_command *cur_cmd)
 	*cur_token = lexer_data;
 }
 
-parser_state	decide_next_state(t_token **cur_token)
+t_parser_state	decide_next_state(t_token **cur_token)
 {
 	if (!*cur_token)
 		return (NULL);
 	if ((*cur_token)->type == DELIMITER)
 		*cur_token = (*cur_token)->next;
 	if (is_word((*cur_token)->type))
-		return ((parser_state) argument_state);
+		return ((t_parser_state) argument_state);
 	else if (is_operator((*cur_token)->type))
-		return ((parser_state) operator_state_p);
+		return ((t_parser_state) operator_state_p);
 	return (NULL);
 }
