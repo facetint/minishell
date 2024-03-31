@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:44 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 09:07:31 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/31 09:09:04 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,5 @@ char	*get_prompt(void)
 		prompt = ft_str_arr_join((char *[]){username, "@", path, "$ "}, 4);
 	else
 		prompt = ft_str_arr_join((char *[]){path, "$ "}, 2);
-	return prompt;
+	return (prompt);
 }
