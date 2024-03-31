@@ -6,7 +6,7 @@
 /*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 15:35:28 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 14:16:32 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/31 16:02:20 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	set_export(t_list *env, t_list *node)
 	existing_node = find_node(env, ((t_entry *)node->content)->key);
 	if (!existing_node)
 	{
-		ft_lstadd_back(&env, node);
+		ft_lstadd_back(get_global_env(), node);
 		return ;
 	}
 	safe_free(((t_entry *)existing_node->content)->key);
