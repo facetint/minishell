@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 07:43:17 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/31 17:04:16 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <sys/wait.h>
 #include "../../includes/minishell.h"
 #include "../../includes/env.h"
+#include "../../includes/utils.h"
 #include "../../memory-allocator/allocator.h"
 #include <stdio.h>
 
@@ -28,12 +29,19 @@ void	handle_builtin(t_command *cmd, t_file_descriptors fds)
 void	handle_external(t_command *cmd, t_file_descriptors fds)
 {
 	char	*path_cmd;
+	char	**envp;
+	char	**args;
+	char	*path;
 
 	dup2(fds.inp_fd, STDIN_FILENO);
 	dup2(fds.out_fd, STDOUT_FILENO);
 	close_fds(fds);
 	path_cmd = find_path(cmd->args[0]);
-	execve(path_cmd, cmd->args, to_arr(*get_global_env()));
+	path = ft_unsafe_strdup(path_cmd);
+	envp = ft_unsafe_strarrdup(to_arr(*get_global_env()));
+	args = ft_unsafe_strarrdup(cmd->args);
+	abort_function();
+	execve(path, args, envp);
 	exit(127);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:58:39 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 14:16:51 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/03/31 16:26:45 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	read_heredoc_input(char *delimiter)
 		close(pipe_fd[0]);
 		g_signal_type = IN_HEREDOC;
 		heredoc_to_fd(delimiter, pipe_fd[1]);
+		abort_function();
 		exit(0);
 	}
 	else
