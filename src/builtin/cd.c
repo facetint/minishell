@@ -16,8 +16,7 @@ void	change_old(char *str)
 		node = env->content;
 		if (!ft_strcmp(node->key, "OLDPWD"))
 		{
-			if (node->value)
-				free(node->value);
+			safe_free(node->value);
 			node->value = str;
 			break ;
 		}
@@ -81,8 +80,7 @@ void	builtin_cd(t_command *cmd)
 		}
 		else
 		{
-			if (str)
-				free(str);
+			safe_free(str);
 			*get_exit_status() = 1;
 			perror("cd");
 		}
