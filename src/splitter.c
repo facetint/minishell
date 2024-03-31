@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   splitter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:32 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 06:54:05 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/31 13:53:09 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../includes/utils.h"
 #include "../memory-allocator/allocator.h"
+#include <stdio.h>
 
-int	wlen(char const *str, int(*is_delimiter)(char *str, int index))
+int	wlen(char const *str, int (is_delimiter)(char *, int))
 {
 	int	i;
 
@@ -24,7 +25,7 @@ int	wlen(char const *str, int(*is_delimiter)(char *str, int index))
 	return (i);
 }
 
-int	word_count(char const *str, int(*is_delimiter)(char *str, int index))
+int	word_count(char const *str, int (is_delimiter)(char *, int))
 {
 	int	count;
 	int	i;
@@ -54,7 +55,7 @@ char	**single_element_array(char *str)
 	return (result);
 }
 
-char	**str_split(char const *str, int(*is_delimiter)(char *str, int index))
+char	**str_split(char const *str, int (is_delimiter)(char *str, int index))
 {
 	char	**result;
 	int		word_index;
