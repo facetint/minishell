@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 09:14:38 by hamza             #+#    #+#             */
-/*   Updated: 2024/03/31 09:26:44 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/31 14:58:35 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ extern t_signal_type	g_signal_type;
 
 /* if 1 input, otherwise, output */
 /* 1 << 0 */
-# define INPUT (1)
+# define INPUT 1
 /* only valid if IS_INPUT is 1*/
 /* 1 << 1 */
-# define APPEND (2)
+# define APPEND 2
 /* if 1 heredoc text, otherwise, string is a file name */
 /* 1 << 2 */
-# define HEREDOC (4)
+# define HEREDOC 4
 
 typedef struct s_redirection
 {
