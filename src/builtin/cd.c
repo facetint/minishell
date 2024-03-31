@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/03 11:48:16 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 06:09:08 by hamza            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <stdio.h>
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
@@ -53,12 +41,7 @@ void	change_pwd(t_command *cmd)
 		}
 		else if (!ft_strcmp(node->key, "PWD"))
 		{
-			node->value = safe_malloc(sizeof(char) * 4097);
-			if (getcwd(node->value, 4097) == NULL)
-			{
-				perror("getcwd");
-				return ;
-			}
+			node->value = getcwd(NULL, 0);
 			break ;
 		}
 		env = env->next;
@@ -87,9 +70,7 @@ void	builtin_cd(t_command *cmd)
 {
 	char	*str;
 
-	str = safe_malloc(sizeof(char) * 4097);
-	if (getcwd(str, 4097) == NULL)
-		return (perror("getcwd"));
+	str = getcwd(NULL, 0);
 	if (cmd->args[1])
 	{
 		if (chdir(cmd->args[1]) == 0)
