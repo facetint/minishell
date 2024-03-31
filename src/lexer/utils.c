@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:44 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 08:58:10 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/31 09:07:31 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "limits.h"
 #include "../../includes/char_classification.h"
 #include "../../memory-allocator/allocator.h"
+#include "../../includes/env.h"
 
 char	*ft_str_arr_join(char **str_list, unsigned int str_count)
 {
@@ -84,17 +85,15 @@ int	is_internal_field_sep(char *str, int index)
 
 char	*get_prompt(void)
 {
-	return (ft_str_arr_join((char *[]){ft_itoa(*get_exit_status()), " > "}, 2));
-	/*char	*path;
+	char	*path;
 	char	*prompt;
 	char	*username;
 
-
 	path = get_cur_folder_name();
-	username = getenv("USER");
+	username = find_env("USER");
 	if (username)
 		prompt = ft_str_arr_join((char *[]){username, "@", path, "$ "}, 4);
 	else
 		prompt = ft_str_arr_join((char *[]){path, "$ "}, 2);
-	return prompt;*/
+	return prompt;
 }
