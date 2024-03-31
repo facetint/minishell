@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:36:24 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 06:15:31 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/31 15:30:36 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,31 +51,31 @@ t_redirection	create_redirection_data(t_token **lexer_data)
 	return (redirection);
 }
 
-int	count_cmd_args(t_token *lexer_data)
+int	count_cmd_args(t_token *token)
 {
 	int	arg_count;
 
 	arg_count = 0;
-	while (lexer_data && lexer_data->type != PIPE)
+	while (token && token->type != PIPE)
 	{
-		if (is_operator(lexer_data->type))
+		if (is_operator(token->type))
 		{
-			while (lexer_data && !is_word(lexer_data->type))
-				lexer_data = lexer_data->next;
-			if (lexer_data)
-				lexer_data = lexer_data->next;
+			while (token && !is_word(token->type))
+				token = token->next;
+			if (token)
+				token = token->next;
 			continue ;
 		}
-		if (lexer_data->type == DELIMITER)
-			lexer_data = lexer_data->next;
-		if (lexer_data && is_word(lexer_data->type))
+		if (token->type == DELIMITER)
+			token = token->next;
+		if (token && is_word(token->type))
 		{
-			while (lexer_data && is_word(lexer_data->type))
-				lexer_data = lexer_data->next;
+			while (token && is_word(token->type))
+				token = token->next;
 			arg_count++;
 		}
-		if (lexer_data)
-			lexer_data = lexer_data->next;
+		if (token)
+			token = token->next;
 	}
 	return (arg_count);
 }
