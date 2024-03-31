@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 11:48:16 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 17:40:13 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/31 06:09:08 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,11 @@ void	change_pwd(t_command *cmd)
 		if (!ft_strcmp(node->key, "PWD") && (!cmd->args[1]
 				|| ft_strcmp(cmd->args[1], "~") == 0))
 		{
-			if (node->value)
-				free(node->value);
 			node->value = ft_unsafe_strdup(find_env("HOME"));
 		}
 		else if (!ft_strcmp(node->key, "PWD"))
 		{
-			if (node->value)
-				free(node->value);
-			node->value = safe_malloc(sizeof(char) * 4097); // todo
+			node->value = safe_malloc(sizeof(char) * 4097);
 			if (getcwd(node->value, 4097) == NULL)
 			{
 				perror("getcwd");
@@ -91,12 +87,9 @@ void	builtin_cd(t_command *cmd)
 {
 	char	*str;
 
-	str = malloc(sizeof(char) * 4097); // todo
+	str = safe_malloc(sizeof(char) * 4097);
 	if (getcwd(str, 4097) == NULL)
-	{
-		perror("getcwd");
-		return ;
-	}
+		return (perror("getcwd"));
 	if (cmd->args[1])
 	{
 		if (chdir(cmd->args[1]) == 0)

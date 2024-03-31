@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 20:06:35 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 02:20:34 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/31 06:13:55 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	builtin_env(t_list *env, int fd[2])
 	while (env)
 	{
 		node = env->content;
-		if (*node->value)
+		if (node->value && *node->value)
 		{
 			ft_putstr_fd(node->key, fd[1]);
 			ft_putstr_fd("=", fd[1]);

@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 21:44:15 by fatmanurcet       #+#    #+#             */
-/*   Updated: 2024/03/31 06:00:09 by hamza            ###   ########.fr       */
+/*   Updated: 2024/03/31 06:14:52 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 t_list	**get_global_env(void)
 {
 	static t_list	*env = NULL;
+
 	return (&env);
 }

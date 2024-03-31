@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:44 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 16:35:51 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/31 06:18:37 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,10 @@ char	*ft_str_arr_join(char **str_list, unsigned int str_count)
 	result = (char *)safe_malloc(sizeof(char) * (total_len + 1));
 	if (!result)
 		return (NULL);
-	i = 0;
+	i = -1;
 	result_len = 0;
-	while (i < str_count)
-	{
+	while (++i < str_count)
 		result_len += ft_strlcpy(&result[result_len], str_list[i], UINT_MAX);
-		i++;
-	}
 	return (result);
 }
 
@@ -125,7 +122,7 @@ int	str_arr_size(char **strings)
 	return (i);
 }
 
-int	is_a_name_char(char c) 
+int	is_a_name_char(char c)
 {
 	return (is_name_char(c));
 }
@@ -139,9 +136,9 @@ int	is_internal_field_sep(char *str, int index)
 	return (0);
 }
 
-char	*get_prompt()
+char	*get_prompt(void)
 {
-	return ft_str_arr_join((char *[]){ft_itoa(*get_exit_status()), " > "}, 2);
+	return (ft_str_arr_join((char *[]){ft_itoa(*get_exit_status()), " > "}, 2));
 	/*char	*path;
 	char	*prompt;
 	char	*username;
