@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 17:37:57 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/01 06:21:22 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int ac, char **av, char **envp)
 		input = readline(prompt);
 		safe_free(prompt);
 		if (!input)
-			exit(*get_exit_status());
+			exit(*get_exit_status() % 256);
 		if (*input && ft_strcmp(input, "^C"))
 		{
 			add_history(input);
