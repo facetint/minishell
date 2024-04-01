@@ -6,14 +6,14 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 09:28:02 by hamza             #+#    #+#             */
-/*   Updated: 2024/04/01 08:57:03 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 08:58:09 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-typedef struct s_token t_token
+typedef struct s_token t_token;
 
 char	*get_cur_folder_name(void);
 char	*ft_str_arr_join(char **str_list, unsigned int str_count);
