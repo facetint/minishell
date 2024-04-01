@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:36:24 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 08:05:50 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 11:35:11 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	count_cmd_redirections(t_token *lexer_data)
 	return (redirection_count);
 }
 
-t_token *skip_delimiters(t_token *token)
+t_token	*skip_delimiters(t_token *token)
 {
 	while (token && token->type == DELIMITER)
 		token = token->next;

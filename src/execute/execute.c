@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 09:09:19 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 11:35:54 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	handle_command(t_command *cmd, int *prev_p, int *next_p)
 	t_file_descriptors	fds;
 
 	fds = (t_file_descriptors){get_input_fd(prev_p, cmd),
-			get_output_fd(next_p, cmd), prev_p, next_p};
+		get_output_fd(next_p, cmd), prev_p, next_p};
 	pid = 0;
 	if (should_run_in_child(cmd))
 		pid = fork();

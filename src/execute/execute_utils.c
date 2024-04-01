@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:46:34 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 08:25:52 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 11:37:41 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*handle_executable_file(char *path)
 	{
 		print_error(path, "is a directory");
 		exit(126);
-	}	
+	}
 	else if (access(path, F_OK) == 0)
 	{
 		if (access(path, X_OK) == 0)
@@ -65,7 +65,7 @@ char	*find_path(char *cmd)
 	int			counter;
 
 	if (is_path(cmd))
-		return handle_executable_file(cmd);
+		return (handle_executable_file(cmd));
 	path = find_env("PATH");
 	if (!path)
 		return (path_error(cmd), NULL);
