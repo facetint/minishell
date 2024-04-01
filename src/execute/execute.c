@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 07:28:43 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 09:07:50 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 void	handle_builtin(t_command *cmd, t_file_descriptors fds)
 {
 	if (!cmd->args[0])
-		return ;
+		exit(0);
 	execute_builtin(cmd, (int []){fds.inp_fd, fds.out_fd});
 	close_fds(fds);
 	if (should_run_in_child(cmd))
@@ -36,7 +36,7 @@ void	handle_external(t_command *cmd, t_file_descriptors fds)
 	char	*path;
 
 	if (!cmd->args[0] || cmd->args[0][skip_white_spaces(cmd->args[0])] == '\0')
-		return ;
+		exit(0);
 	dup2(fds.inp_fd, STDIN_FILENO);
 	dup2(fds.out_fd, STDOUT_FILENO);
 	close_fds(fds);
@@ -75,6 +75,7 @@ void	handle_command(t_command *cmd, int *prev_p, int *next_p)
 		handle_builtin(cmd, fds);
 	else
 		handle_external(cmd, fds);
+	exit(1);
 }
 
 void	wait_children(t_command *latest)
