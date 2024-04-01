@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 15:13:21 by hamza             #+#    #+#             */
-/*   Updated: 2024/03/30 17:46:06 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/01 17:49:52 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	append_memory_block(void *ptr)
 */
 int	remove_memory_block(void *ptr)
 {
-	t_memory_block	*cur; 
+	t_memory_block	*cur;
 	t_memory_block	*prev;
 
 	if (!ptr)

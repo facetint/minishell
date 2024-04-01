@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_error_message.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:18:11 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/29 17:24:20 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/31 06:44:16 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,16 @@
 void	unexpected_token_error(t_token *token)
 {
 	if (token == NULL)
-		return ft_putstr_fd("syntax error occurred, null token found.\n", 2);
-	ft_putstr_fd("syntax error. lol.\n", 2);
+		ft_putstr_fd("syntax error occurred, null token found.\n", 2);
+	else
+		ft_putstr_fd("syntax error. lol.\n", 2);
 }
 
 void	handle_invalid_input(t_token *lexical_data)
 {
 	if (lexical_data)
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token\n" , 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
 		*get_exit_status() = 258;
 	}
 	uninit_tokens(lexical_data);

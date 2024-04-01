@@ -6,14 +6,14 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:01:40 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 15:36:23 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:40:13 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/env.h"
 #include "../../includes/utils.h"
-#include <unistd.h>
+#include "../../includes/char_classification.h"
 
 void	print_exports(t_list *node, int fd[2])
 {
@@ -59,7 +59,7 @@ int	is_valid_export(char *str)
 	if (!ft_isalpha(str[i]) && str[i] != '_')
 		return (0);
 	i++;
-	while (is_a_name_char(str[i]) && str[i] != '=')
+	while (is_name_char(str[i]) && str[i] != '=')
 		i++;
 	if (str[i] == '=')
 		return (1);
@@ -87,9 +87,9 @@ void	builtin_export(t_command *cmd, int fd[2])
 			export_env(cmd->args[i]);
 		else
 		{
-			ft_putstr_fd("minishell: export: `", fd[1]);
-			ft_putstr_fd(cmd->args[i], fd[1]);
-			ft_putstr_fd("': not a valid identifier\n", fd[1]);
+			ft_putstr_fd("minishell: export: `", 2);
+			ft_putstr_fd(cmd->args[i], 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
 			*get_exit_status() = 1;
 		}
 		i++;

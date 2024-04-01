@@ -1,20 +1,19 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:28 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 21:54:32 by fatmanurcet      ###   ########.fr       */
+/*   Updated: 2024/04/01 15:43:20 by facetint         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../libft/libft.h"
 #include "../../includes/minishell.h"
 #include "../../includes/utils.h"
 #include "../../memory-allocator/allocator.h"
-#include <stdio.h>
 
 void	init_command(t_token *lexer_data, t_command **command, t_command *prev)
 {
@@ -33,7 +32,7 @@ void	init_command(t_token *lexer_data, t_command **command, t_command *prev)
 t_command	*parse(t_token *lexer_data)
 {
 	t_command		*cur_cmd;
-	parser_state	next_state;
+	t_parser_state	next_state;
 	t_command		*result;
 	t_token			*cur_token;
 

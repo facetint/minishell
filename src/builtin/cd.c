@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/03 11:48:16 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 17:40:13 by facetint         ###   ########.fr       */
+/*   Created: 2024/03/31 15:52:07 by facetint          #+#    #+#             */
+/*   Updated: 2024/04/01 15:38:29 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	change_old(char *str)
 		node = env->content;
 		if (!ft_strcmp(node->key, "OLDPWD"))
 		{
-			if (node->value)
-				free(node->value);
+			safe_free(node->value);
 			node->value = str;
 			break ;
 		}
@@ -46,23 +45,11 @@ void	change_pwd(t_command *cmd)
 	while (env)
 	{
 		node = env->content;
-		if (!ft_strcmp(node->key, "PWD") && (!cmd->args[1]
-				|| ft_strcmp(cmd->args[1], "~") == 0))
-		{
-			if (node->value)
-				free(node->value);
+		if (!ft_strcmp(node->key, "PWD") && (!cmd->args[1]))
 			node->value = ft_unsafe_strdup(find_env("HOME"));
-		}
 		else if (!ft_strcmp(node->key, "PWD"))
 		{
-			if (node->value)
-				free(node->value);
-			node->value = safe_malloc(sizeof(char) * 4097); // todo
-			if (getcwd(node->value, 4097) == NULL)
-			{
-				perror("getcwd");
-				return ;
-			}
+			node->value = getcwd(NULL, 0);
 			break ;
 		}
 		env = env->next;
@@ -91,12 +78,7 @@ void	builtin_cd(t_command *cmd)
 {
 	char	*str;
 
-	str = malloc(sizeof(char) * 4097); // todo
-	if (getcwd(str, 4097) == NULL)
-	{
-		perror("getcwd");
-		return ;
-	}
+	str = getcwd(NULL, 0);
 	if (cmd->args[1])
 	{
 		if (chdir(cmd->args[1]) == 0)

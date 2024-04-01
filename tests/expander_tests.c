@@ -4,7 +4,7 @@
 
 Test(expander, expand_variables)
 {
-	setenv("TEST_VAR", "test", 1);
+	handle_input("export TEST_VAR=test");
 	t_token t0 = (t_token) {.value = strdup("$TEST_VAR"), .type = UNQUOTED_WORD};
 	t_token *token = &t0;
  	expand(&token);
@@ -13,22 +13,27 @@ Test(expander, expand_variables)
 
 Test(expander, expand_quoted_word)
 {
-	setenv("TEST_VAR", "test", 1);
-	t_token t0 = (t_token) {.value = strdup("$'TEST_VAR'"), .type = UNQUOTED_WORD};
-	t_token *token = &t0;
+	handle_input("export TEST_VAR=test");
+	t_token t0 = (t_token) {.value = strdup("'TEST_VAR'"), .type = SINGLE_QUOTED_WORD, .next = NULL};
+	t_token t1 = (t_token) {.value = strdup("$"), .type = UNQUOTED_WORD, .next = &t0};
+	t_token *token = &t1;
  	expand(&token);
-	cr_assert_str_eq(token->value, "'TEST_VAR'");
+	cr_assert_str_eq(token->value, "");
+	cr_assert_str_eq(token->next->value, "'TEST_VAR'");
 
-	t0 = (t_token) {.value = strdup("$\"TEST_VAR\""), .type = UNQUOTED_WORD};
+	t0 = (t_token) {.value = strdup("\"TEST_VAR\""), .type = DOUBLE_QUOTED_WORD, .next = NULL};
+	t1 = (t_token) {.value = strdup("$"), .type = UNQUOTED_WORD, .next = &t0};
+	token = &t1;
  	expand(&token);
-	cr_assert_str_eq(token->value, "\"TEST_VAR\"");
+	cr_assert_str_eq(token->value, "");
+	cr_assert_str_eq(token->next->value, "\"TEST_VAR\"");
 
 }
 
 Test(expander, expand_sequence_variables)
 {
-	setenv("ABC", "abc", 1);
-	setenv("DEF", "def", 1);
+	handle_input("export ABC=abc");
+	handle_input("export DEF=def");
 
 	t_token t0 = (t_token) {.value = strdup("$ABC$DEF"), .type = UNQUOTED_WORD};
 	t_token *token = &t0;
@@ -38,7 +43,7 @@ Test(expander, expand_sequence_variables)
 
 Test(expander, ifs_split)
 {
-	setenv("TEST_VAR", "A B C", 1);
+	handle_input("export TEST_VAR='A B C'");
 	t_token t0 = (t_token) {.value = strdup("$TEST_VAR"), .type = UNQUOTED_WORD};
 	t_token *token = &t0;
  	expand(&token);
@@ -92,7 +97,3 @@ Test(expander, insert_words_in_middle)
 	cr_assert_str_eq(token->next->next->next->next->next->next->next->next->value, "d");
 	cr_assert_str_eq(token->next->next->next->next->next->next->next->next->next->next->value, "thing");
 }
-
-//todo wild card test (echo ***, echo *.*, echo *.c)
-//todo tilda test (echo ~, echo ~/Desktop, echo ~user, echo ~user/Desktop, echo ~~)
-//todo $? test

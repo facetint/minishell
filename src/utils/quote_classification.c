@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   quote_classification.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 20:06:35 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 06:13:55 by hamza            ###   ########.fr       */
+/*   Created: 2024/03/31 09:01:11 by hamza             #+#    #+#             */
+/*   Updated: 2024/03/31 09:03:13 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft/libft.h"
-#include "../../includes/env.h"
+#include "../../includes/char_classification.h"
 
-void	builtin_env(t_list *env, int fd[2])
+/**
+ * @brief The manual defines quotes as " and '.
+ * (We don't care about backticks(`))
+ */
+int	is_quote(char c)
 {
-	t_entry	*node;
+	return (c == DOUBLE_QUOTE || c == SINGLE_QUOTE);
+}
 
-	while (env)
-	{
-		node = env->content;
-		if (node->value && *node->value)
-		{
-			ft_putstr_fd(node->key, fd[1]);
-			ft_putstr_fd("=", fd[1]);
-			ft_putstr_fd(node->value, fd[1]);
-			ft_putstr_fd("\n", fd[1]);
-		}
-		env = env->next;
-	}
+int	is_unquoted_word_char(char c)
+{
+	return (!is_meta_char(c)
+		&& !is_quote(c)
+		&& !is_whitespace(c)
+		&& c != '\0');
 }

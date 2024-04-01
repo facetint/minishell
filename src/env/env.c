@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:05:06 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 17:43:45 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/31 17:05:59 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../../includes/env.h"
 #include "../../memory-allocator/allocator.h"
 #include "../../includes/minishell.h"
+#include "../../includes/utils.h"
 
 t_list	*to_node(char *env)
 {
@@ -24,7 +25,7 @@ t_list	*to_node(char *env)
 
 	eq_ptr = ft_strchr(env, '=');
 	if (!eq_ptr)
-		return (NULL); // todo - error handling
+		return (NULL);
 	eq_index = (int)(eq_ptr - env);
 	key = ft_substr(env, 0, eq_index);
 	value = ft_substr(env, eq_index + 1, ft_strlen(env) - eq_index - 1);
@@ -51,6 +52,24 @@ t_list	*to_list(char **env)
 		i++;
 	}
 	return (lst);
+}
+
+char	**ft_unsafe_strarrdup(char **arr)
+{
+	int		size;
+	char	**result;
+	int		i;
+
+	size = str_arr_size(arr);
+	i = 0;
+	result = malloc(sizeof(char *) * (size + 1));
+	while (i < size)
+	{
+		result[i] = ft_unsafe_strdup(arr[i]);
+		i++;
+	}
+	result[i] = NULL;
+	return (result);
 }
 
 char	**to_arr(t_list *lst)

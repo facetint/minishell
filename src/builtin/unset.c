@@ -3,22 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:19:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 17:41:22 by facetint         ###   ########.fr       */
+/*   Updated: 2024/03/31 16:08:08 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
 #include "../../includes/env.h"
+#include "../../includes/char_classification.h"
 #include "../../memory-allocator/allocator.h"
+
+int	is_valid_unset(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(str[i]) && str[i] != '_')
+		return (0);
+	i++;
+	while (is_name_char(str[i]))
+		i++;
+	if (str[i])
+		return (0);
+	return (1);
+}
 
 void	builtin_unset(t_command *cmd, int fd[2])
 {
+	int	i;
+
 	(void)fd;
-	unset_env(cmd->args[1]);
+	i = 0;
+	while (cmd->args[i])
+	{
+		if (is_valid_unset(cmd->args[i]))
+			unset_env(cmd->args[i]);
+		else
+		{
+			ft_putstr_fd("unset: `", 2);
+			ft_putstr_fd(cmd->args[i], 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
+		}
+		i++;
+	}
 }
 
 void	unset_env(char *varname)

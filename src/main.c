@@ -6,14 +6,13 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 17:37:57 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:46:47 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <stdlib.h>
 #include "../libft/libft.h"
 #include "../includes/minishell.h"
 #include "../memory-allocator/allocator.h"
@@ -47,7 +46,7 @@ int	main(int ac, char **av, char **envp)
 		input = readline(prompt);
 		safe_free(prompt);
 		if (!input)
-			exit(*get_exit_status());
+			exit(*get_exit_status() % 256);
 		if (*input && ft_strcmp(input, "^C"))
 		{
 			add_history(input);

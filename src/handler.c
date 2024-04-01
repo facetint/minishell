@@ -1,21 +1,17 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 22:13:20 by fatmanurcet      ###   ########.fr       */
+/*   Updated: 2024/04/01 15:45:46 by facetint         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
-#include <stdio.h>
 #include "../includes/minishell.h"
-#include "../libft/libft.h"
-#include "../includes/env.h"
-#include <fcntl.h>
-#include <unistd.h>
+#include <stdlib.h>
 
 int	*get_exit_status(void)
 {
@@ -44,6 +40,8 @@ void	handle_input(char *input)
 	if (is_empty(lexer_data))
 		return ;
 	expand(&lexer_data);
+	if (!is_valid(lexer_data))
+		return (handle_invalid_input(lexer_data));
 	unquote(lexer_data);
 	parser_data = parse(lexer_data);
 	handle_file_redirections(parser_data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:39 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 16:20:53 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/04/01 17:46:58 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	expand_variable(char **input, int index)
 	int		varname_len;
 
 	str = *input;
-	varname_len = count_len(&str[index + 1], is_a_name_char);
+	varname_len = count_len(&str[index + 1], is_name_char);
 	if (varname_len == 0)
 		return (index);
 	varname = ft_substr(str, index + 1, varname_len);
@@ -76,24 +76,18 @@ void	expand_string(char **string)
 void	expand(t_token **head)
 {
 	t_token	*token;
-	t_token	**next_ptr;
+	t_token	**token_ptr;
+	t_token	**prev_ptr;
 
 	token = *head;
-	next_ptr = head;
+	token_ptr = head;
+	prev_ptr = NULL;
 	while (token)
 	{
 		if (token->type == UNQUOTED_WORD || token->type == DOUBLE_QUOTED_WORD)
-		{
-			if (is_empty_variable(token))
-				token->value = ft_strdup("");
-			else
-			{
-				expand_string(&token->value);
-				if (token->type == UNQUOTED_WORD)
-					internal_field_split(next_ptr);
-			}
-		}
-		next_ptr = &token->next;
+			expand_token(token, head, token_ptr, prev_ptr);
+		prev_ptr = token_ptr;
+		token_ptr = &token->next;
 		token = token->next;
 	}
 }

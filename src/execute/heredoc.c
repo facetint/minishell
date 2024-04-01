@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:58:39 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 02:38:33 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 11:39:07 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
 #include <readline/readline.h>
+#include "../../memory-allocator/allocator.h"
 
 void	heredoc_to_fd(char *delimiter, int output_fd)
 {
@@ -22,7 +23,7 @@ void	heredoc_to_fd(char *delimiter, int output_fd)
 	while (1)
 	{
 		line = readline("> ");
-		if (!line || ft_strncmp(line, delimiter, INT_MAX) == 0)
+		if (!line || ft_strcmp(line, delimiter) == 0)
 			break ;
 		if (!*line)
 			line = ft_strdup("\n");
@@ -30,7 +31,7 @@ void	heredoc_to_fd(char *delimiter, int output_fd)
 			expand_string(&line);
 		ft_putstr_fd(line, output_fd);
 		ft_putstr_fd("\n", output_fd);
-		free(line);
+		safe_free(line);
 	}
 }
 
@@ -50,15 +51,13 @@ int	read_heredoc_input(char *delimiter)
 		close(pipe_fd[0]);
 		g_signal_type = IN_HEREDOC;
 		heredoc_to_fd(delimiter, pipe_fd[1]);
+		abort_function();
 		exit(0);
 	}
-	else
-	{
-		close(pipe_fd[1]);
-		waitpid(pid, &exit_status, 0);
-		exit_status >>= 8;
-		if (exit_status != 0)
-			return (-1);
-		return (pipe_fd[0]);
-	}
+	close(pipe_fd[1]);
+	waitpid(pid, &exit_status, 0);
+	exit_status >>= 8;
+	if (exit_status != 0)
+		return (-1);
+	return (pipe_fd[0]);
 }

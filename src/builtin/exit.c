@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:04:14 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 15:44:22 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/01 00:04:00 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,5 @@ void	builtin_exit(t_command *cmd)
 		return ;
 	}
 	*get_exit_status() = exit_status;
-	exit(exit_status);
+	exit(exit_status % 256);
 }

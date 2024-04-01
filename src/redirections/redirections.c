@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fatmanurcetintas <fatmanurcetintas@stud    +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/30 21:55:43 by fatmanurcet       #+#    #+#             */
-/*   Updated: 2024/03/30 21:57:29 by fatmanurcet      ###   ########.fr       */
+/*   Created: 2024/04/01 11:32:58 by facetint          #+#    #+#             */
+/*   Updated: 2024/04/01 15:44:19 by facetint         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
@@ -22,6 +22,8 @@ int	redirect(t_redirection *redir, int *addr, int fd)
 	*addr = fd;
 	if (redir->redir_fd < 0)
 	{
+		if (redir->flags & HEREDOC)
+			return (1);
 		ft_putstr_fd("minishell: ", 2);
 		perror(redir->redirected);
 		*get_exit_status() = 1;
@@ -42,13 +44,14 @@ int	get_flags(t_redirection *redir)
 {
 	int	flags;
 
-	flags = 0;
 	if (redir->flags & INPUT)
-		flags |= O_RDONLY;
+		flags = O_RDONLY;
 	else
-		flags |= O_WRONLY | O_CREAT | O_TRUNC;
+		flags = O_WRONLY | O_CREAT;
 	if (redir->flags & APPEND)
 		flags |= O_APPEND;
+	else
+		flags |= O_TRUNC;
 	return (flags);
 }
 

@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:32 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/28 16:59:30 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:47:11 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../includes/utils.h"
 #include "../memory-allocator/allocator.h"
 
-static int	wlen(char const *str, int(*is_delimiter)(char *, int))
+int	wlen(char const *str, int (is_delimiter)(char *, int))
 {
 	int	i;
 
@@ -24,10 +24,10 @@ static int	wlen(char const *str, int(*is_delimiter)(char *, int))
 	return (i);
 }
 
-static int	word_count(char const *str, int(*is_delimiter)(char *, int))
+int	word_count(char const *str, int (is_delimiter)(char *, int))
 {
 	int	count;
-	int i;
+	int	i;
 
 	i = 0;
 	count = 0;
@@ -45,7 +45,16 @@ static int	word_count(char const *str, int(*is_delimiter)(char *, int))
 	return (count);
 }
 
-char	**str_split(char const *str, int(*is_delimiter)(char *, int))
+char	**single_element_array(char *str)
+{
+	char	**result;
+
+	result = (char **) ft_calloc(sizeof(char *), 2);
+	result[0] = ft_strdup(str);
+	return (result);
+}
+
+char	**str_split(char const *str, int (is_delimiter)(char *str, int index))
 {
 	char	**result;
 	int		word_index;
@@ -55,14 +64,9 @@ char	**str_split(char const *str, int(*is_delimiter)(char *, int))
 	if (!str)
 		return (NULL);
 	i = word_count(str, is_delimiter);
-	result = (char **) ft_calloc(sizeof(char *),  i + 1);
-	if (!result)
-		return (NULL);
 	if (i == 1)
-	{
-		result[0] = ft_strdup(str);
-		return (result);
-	}
+		return (single_element_array((char *)str));
+	result = (char **)ft_calloc(sizeof(char *), i + 1);
 	word_index = 0;
 	i = 0;
 	while (str[i])

@@ -10,3 +10,4 @@ idea/
 libft/libft.a
 minishell
 tests/tests
+tests/tests.dSYM

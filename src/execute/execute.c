@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 17:08:07 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:40:57 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 #include <sys/wait.h>
 #include "../../includes/minishell.h"
 #include "../../includes/env.h"
+#include "../../includes/utils.h"
 #include "../../memory-allocator/allocator.h"
-#include <stdio.h>
 
 void	handle_builtin(t_command *cmd, t_file_descriptors fds)
 {
-	execute_builtin(cmd, (int []){fds.inp_fd, fds.out_fd});
-	close_fds(fds);
+	if (cmd->args[0])
+	{
+		execute_builtin(cmd, (int []){fds.inp_fd, fds.out_fd});
+		close_fds(fds);
+	}
 	if (should_run_in_child(cmd))
 		exit(0);
 }
@@ -28,27 +31,31 @@ void	handle_builtin(t_command *cmd, t_file_descriptors fds)
 void	handle_external(t_command *cmd, t_file_descriptors fds)
 {
 	char	*path_cmd;
+	char	**envp;
+	char	**args;
+	char	*path;
 
+	if (!cmd->args[0] || cmd->args[0][skip_white_spaces(cmd->args[0])] == '\0')
+		exit(0);
 	dup2(fds.inp_fd, STDIN_FILENO);
 	dup2(fds.out_fd, STDOUT_FILENO);
 	close_fds(fds);
 	path_cmd = find_path(cmd->args[0]);
-	execve(path_cmd, cmd->args, to_arr(*get_global_env()));
+	path = ft_unsafe_strdup(path_cmd);
+	envp = ft_unsafe_strarrdup(to_arr(*get_global_env()));
+	args = ft_unsafe_strarrdup(cmd->args);
+	abort_function();
+	execve(path, args, envp);
 	exit(127);
 }
 
 void	handle_command(t_command *cmd, int *prev_p, int *next_p)
 {
 	int					pid;
-	int					inp_fd;
-	int					out_fd;
 	t_file_descriptors	fds;
 
-	inp_fd = get_input_fd(prev_p, cmd);
-	out_fd = get_output_fd(next_p, cmd);
-	if (inp_fd < 0 || out_fd < 0)
-		return ;
-	fds = (t_file_descriptors){inp_fd, out_fd, prev_p, next_p};
+	fds = (t_file_descriptors){get_input_fd(prev_p, cmd),
+		get_output_fd(next_p, cmd), prev_p, next_p};
 	pid = 0;
 	if (should_run_in_child(cmd))
 		pid = fork();
@@ -57,6 +64,13 @@ void	handle_command(t_command *cmd, int *prev_p, int *next_p)
 		return (pid_error(prev_p, next_p));
 	if (pid > 0)
 		return (close_redirections(fds));
+	if (fds.inp_fd < 0 || fds.out_fd < 0)
+	{
+		if (should_run_in_child(cmd))
+			exit(1);
+		*get_exit_status() = 1;
+		return ;
+	}
 	if (isbuiltin(cmd->args[0]))
 		handle_builtin(cmd, fds);
 	else
