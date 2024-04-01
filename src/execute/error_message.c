@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   error_message.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:07:09 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 17:09:42 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/01 08:20:25 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
+#include "../../includes/utils.h"
 #include <errno.h>
 #include <string.h>
 
@@ -36,8 +37,15 @@ void	pid_error(int *prev_pipe, int *next_pipe)
 
 void	path_error(char *cmd)
 {
+	print_error(cmd, "command not found");
+	exit(127);
+}
+
+void	print_error(char *cmd, char *error)
+{
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(": command not found\n", 2);
-	exit(127);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(error, 2);
+	ft_putstr_fd("\n", 2);
 }
