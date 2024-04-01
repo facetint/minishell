@@ -30,8 +30,10 @@ $(TEST_PATH):
 	@mkdir $(TEST_PATH)
 
 test: $(TEST_PATH) $(NAME)
-	$(CC) $(FLAGS) $(SOURCES:.c=.o) $(LIBFT_PATH) $(TEST_SOURCES) -o $(TEST_PATH)/tests -lcriterion -L/usr/local/lib -I/usr/local/include -lreadline
-	./$(TEST_PATH)/tests ; rm -f __test_file*
+	@printf "$(CLEAN_CAR)$(GREEN_COLOR)[Tests compiling]$(BLUE_COLOR) : $(PURPLE_COLOR)$<$(NO_COLOR)"
+	@$(CC) $(FLAGS) $(SOURCES:.c=.o) $(LIBFT_PATH) $(TEST_SOURCES) -o $(TEST_PATH)/tests -lcriterion -L/usr/local/lib -I/usr/local/include -lreadline
+	@printf "$(CLEAN_CAR)$(GREEN_COLOR)Tests running right now. Please wait.\n$(BLUE_COLOR)$(NO_COLOR)"
+	@./$(TEST_PATH)/tests ; export TEST_RESULT=$$? ; rm -f __test_file* | exit $$TEST_RESULT 
 
 $(LIBFT_PATH):
 	@make bonus -C $(LIBFT_DIR) FLAGS="$(FLAGS)"
