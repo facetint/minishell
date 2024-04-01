@@ -15,7 +15,7 @@ SOURCES = src/execute/execute_utils.c src/builtin/cd.c src/builtin/exit.c src/bu
  src/parser/parser.c src/parser/parser_state.c src/parser/parser_utils.c src/execute/heredoc.c \
  src/expander/expander.c src/splitter.c src/lexer/syntax_analyzer.c src/signal.c $(MEMORY_ALLOCATOR_SOURCES) \
  src/redirections/redirections.c src/env/global_env.c src/utils/unsafe_utils.c src/utils/char_classification.c src/utils/string_utils.c \
- src/utils/quote_classification.c 
+ src/utils/quote_classification.c src/expander/expander_2.c
 
 MINISHELL_SOURCES = src/main.c $(SOURCES)
 MINISHELL_OBJECTS = $(MINISHELL_SOURCES:.c=.o)

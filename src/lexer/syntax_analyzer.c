@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_analyzer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:35 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 08:35:41 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 17:50:37 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,12 @@ int	validate_pipes(t_token *token)
 		token = token->next;
 	}
 	return (1);
+}
+
+void	remove_token(t_token **prev_ptr, t_token **head, t_token *token)
+{
+	if (prev_ptr == NULL)
+		*head = token->next;
+	else
+		(*prev_ptr)->next = token->next;
 }

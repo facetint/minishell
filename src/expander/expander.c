@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:39 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 08:00:15 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 17:46:58 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,23 +85,7 @@ void	expand(t_token **head)
 	while (token)
 	{
 		if (token->type == UNQUOTED_WORD || token->type == DOUBLE_QUOTED_WORD)
-		{
-			if (is_nameless_variable(token))
-				token->value = ft_strdup("");
-			else
-			{
-				expand_string(&token->value);
-				if (is_full_of_spaces(token->value))
-				{
-					if (prev_ptr == NULL)
-						*head = token->next;
-					else
-						(*prev_ptr)->next = token->next;
-				}
-				else if (token->type == UNQUOTED_WORD)
-					internal_field_split(token_ptr);
-			}
-		}
+			expand_token(token, head, token_ptr, prev_ptr);
 		prev_ptr = token_ptr;
 		token_ptr = &token->next;
 		token = token->next;

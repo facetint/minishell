@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 09:14:38 by hamza             #+#    #+#             */
-/*   Updated: 2024/04/01 07:31:02 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 17:49:31 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,5 +184,8 @@ void			abort_function(void);
 char			*ft_unsafe_strdup(const char *str);
 void			export_env(char *format);
 void			handle_file_redirections(t_command *cur);
+
+void			expand_token(t_token *token, t_token **head,
+					t_token **token_ptr, t_token **prev_ptr);
 
 #endif
