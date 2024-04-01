@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 06:44:30 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 08:38:32 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	handle_input(char *input)
 	if (is_empty(lexer_data))
 		return ;
 	expand(&lexer_data);
+	if (!is_valid(lexer_data))
+		return (handle_invalid_input(lexer_data));
 	unquote(lexer_data);
 	parser_data = parse(lexer_data);
 	handle_file_redirections(parser_data);
