@@ -39,6 +39,8 @@ int	is_there_lack_of_word(t_token *token)
 	while (token)
 	{
 		token = skip_delimiters(token);
+		if (!token)
+			break ;
 		if (wait_for_word && !is_word(token->type))
 			return (0);
 		if (is_word(token->type))
