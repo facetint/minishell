@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 06:21:22 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 15:46:47 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <stdlib.h>
 #include "../libft/libft.h"
 #include "../includes/minishell.h"
 #include "../memory-allocator/allocator.h"

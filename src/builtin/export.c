@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:01:40 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 15:26:59 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:40:13 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "../../includes/env.h"
 #include "../../includes/utils.h"
 #include "../../includes/char_classification.h"
-#include <unistd.h>
 
 void	print_exports(t_list *node, int fd[2])
 {

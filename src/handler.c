@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:46 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 08:38:32 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 15:45:46 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "../includes/minishell.h"
-#include "../libft/libft.h"
-#include "../includes/env.h"
-#include <fcntl.h>
-#include <unistd.h>
+#include <stdlib.h>
 
 int	*get_exit_status(void)
 {

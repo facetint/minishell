@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 11:35:54 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:40:57 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "../../includes/env.h"
 #include "../../includes/utils.h"
 #include "../../memory-allocator/allocator.h"
-#include <stdio.h>
 
 void	handle_builtin(t_command *cmd, t_file_descriptors fds)
 {

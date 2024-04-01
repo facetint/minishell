@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:46:34 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 11:37:41 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:40:46 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include "../../memory-allocator/allocator.h"
 #include "../../includes/env.h"
 #include "../../includes/utils.h"
-#include <stdio.h>
 #include <sys/stat.h>
 
 int	is_path(char *str)

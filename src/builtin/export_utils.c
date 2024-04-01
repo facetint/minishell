@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 15:35:28 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 16:02:20 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/04/01 15:39:21 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/env.h"
 #include "../../includes/utils.h"
-#include <unistd.h>
 #include "../../memory-allocator/allocator.h"
 
 void	set_export(t_list *env, t_list *node)
