@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 09:28:02 by hamza             #+#    #+#             */
-/*   Updated: 2024/03/31 17:03:39 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/04/01 08:20:35 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,8 @@ char	**str_split(char const *str, int (is_delimiter)(char *, int));
 int		count_len(const char *str, int (*is_valid)(char c));
 int		str_arr_size(char **strings);
 char	**ft_unsafe_strarrdup(char **arr);
+int		is_full_of_spaces(const char *str);
+t_token	*skip_delimiters(t_token *token);
+void	print_error(char *cmd, char *error);
 
 #endif
