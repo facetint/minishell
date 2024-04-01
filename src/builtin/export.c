@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:01:40 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 15:02:16 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/04/01 15:26:59 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ void	builtin_export(t_command *cmd, int fd[2])
 			export_env(cmd->args[i]);
 		else
 		{
-			ft_putstr_fd("minishell: export: `", fd[1]);
-			ft_putstr_fd(cmd->args[i], fd[1]);
-			ft_putstr_fd("': not a valid identifier\n", fd[1]);
+			ft_putstr_fd("minishell: export: `", 2);
+			ft_putstr_fd(cmd->args[i], 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
 			*get_exit_status() = 1;
 		}
 		i++;
