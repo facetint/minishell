@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 21:55:43 by fatmanurcet       #+#    #+#             */
-/*   Updated: 2024/03/31 06:23:41 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 10:45:35 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,14 @@ int	get_flags(t_redirection *redir)
 {
 	int	flags;
 
-	flags = 0;
 	if (redir->flags & INPUT)
-		flags |= O_RDONLY;
+		flags = O_RDONLY;
 	else
-		flags |= O_WRONLY | O_CREAT | O_TRUNC;
+		flags = O_WRONLY | O_CREAT;
 	if (redir->flags & APPEND)
 		flags |= O_APPEND;
+	else
+		flags |= O_TRUNC;
 	return (flags);
 }
 
