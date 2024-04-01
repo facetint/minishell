@@ -84,7 +84,7 @@ void	expand(t_token **head)
 	{
 		if (token->type == UNQUOTED_WORD || token->type == DOUBLE_QUOTED_WORD)
 		{
-			if (is_empty_variable(token))
+			if (is_nameless_variable(token))
 				token->value = ft_strdup("");
 			else
 			{

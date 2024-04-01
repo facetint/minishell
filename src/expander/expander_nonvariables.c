@@ -39,7 +39,7 @@ void	insert_uword_tokens(t_token **token_ptr, char **strings)
 	lexer_data_insert(token, list);
 }
 
-int	is_empty_variable(t_token *token)
+int	is_nameless_variable(t_token *token)
 {
 	return (ft_strcmp(token->value, "$") == 0
 		&& token->next && is_word(token->next->type));

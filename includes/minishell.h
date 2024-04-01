@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 09:14:38 by hamza             #+#    #+#             */
-/*   Updated: 2024/03/31 14:58:35 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/04/01 07:31:02 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void			insert_uword_tokens(t_token **token_ptr, char **strings);
 void			expand_string(char **string);
 char			*replace_string(char *input, int p_start,
 					int p_len, char *replacement);
-int				is_empty_variable(t_token *token);
+int				is_nameless_variable(t_token *token);
 
 // parser
 t_command		*parse(t_token *lexer_data);
