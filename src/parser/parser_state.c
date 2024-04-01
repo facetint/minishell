@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:34:28 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 08:36:18 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 08:06:15 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ t_parser_state	decide_next_state(t_token **cur_token)
 {
 	if (!*cur_token)
 		return (NULL);
-	if ((*cur_token)->type == DELIMITER)
-		*cur_token = (*cur_token)->next;
+	*cur_token = skip_delimiters(*cur_token);
+	if (!*cur_token)
+		return (NULL);
 	if (is_word((*cur_token)->type))
 		return ((t_parser_state) argument_state);
 	else if (is_operator((*cur_token)->type))

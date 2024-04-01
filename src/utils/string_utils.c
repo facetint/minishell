@@ -6,11 +6,28 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 07:07:07 by hamza             #+#    #+#             */
-/*   Updated: 2024/04/01 05:15:48 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 07:33:22 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/char_classification.h"
+#include "../../includes/utils.h"
+
+int	is_full_of_spaces(const char *str)
+{
+	int	i;
+
+	if (!str)
+		return (1);
+	i = 0;
+	while (str[i])
+	{
+		if (!is_whitespace(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 int	skip_white_spaces(const char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:35 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 06:23:20 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 08:35:41 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,17 @@ int	is_there_lack_of_word(t_token *token)
 	wait_for_word = 0;
 	while (token)
 	{
-		if (token->type == DELIMITER)
-			token = token->next;
+		token = skip_delimiters(token);
 		if (wait_for_word && !is_word(token->type))
 			return (0);
 		if (is_word(token->type))
 			wait_for_word = 0;
+		else if (token->type == PIPE)
+		{
+			token = skip_delimiters(token->next);
+			if (!token)
+				return (0);
+		}
 		else if (is_operator(token->type))
 			wait_for_word = 1;
 		token = token->next;
@@ -63,8 +68,7 @@ int	validate_pipes(t_token *token)
 		else if (is_operator(token->type) && token->type != PIPE)
 		{
 			token = token->next;
-			if (token && token->type == DELIMITER)
-				token = token->next;
+			token = skip_delimiters(token);
 			if (!token || !is_word(token->type))
 				return (0);
 		}

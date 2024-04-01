@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:39 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 07:34:57 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 08:00:15 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,12 @@ void	expand_string(char **string)
 void	expand(t_token **head)
 {
 	t_token	*token;
-	t_token	**next_ptr;
+	t_token	**token_ptr;
+	t_token	**prev_ptr;
 
 	token = *head;
-	next_ptr = head;
+	token_ptr = head;
+	prev_ptr = NULL;
 	while (token)
 	{
 		if (token->type == UNQUOTED_WORD || token->type == DOUBLE_QUOTED_WORD)
@@ -89,11 +91,19 @@ void	expand(t_token **head)
 			else
 			{
 				expand_string(&token->value);
-				if (token->type == UNQUOTED_WORD)
-					internal_field_split(next_ptr);
+				if (is_full_of_spaces(token->value))
+				{
+					if (prev_ptr == NULL)
+						*head = token->next;
+					else
+						(*prev_ptr)->next = token->next;
+				}
+				else if (token->type == UNQUOTED_WORD)
+					internal_field_split(token_ptr);
 			}
 		}
-		next_ptr = &token->next;
+		prev_ptr = token_ptr;
+		token_ptr = &token->next;
 		token = token->next;
 	}
 }

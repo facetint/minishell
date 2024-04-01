@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:36:24 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 15:30:36 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/04/01 08:05:50 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	join_all_composed_words(t_token **cur_token, char **string_ptr)
 	t_token	*lexer_data;
 
 	lexer_data = *cur_token;
-	if (lexer_data->type == DELIMITER)
-		lexer_data = lexer_data->next;
+	lexer_data = skip_delimiters(lexer_data);
 	while (lexer_data && is_word(lexer_data->type))
 	{
 		new_name = ft_strjoin(*string_ptr, lexer_data->value);
@@ -66,8 +65,7 @@ int	count_cmd_args(t_token *token)
 				token = token->next;
 			continue ;
 		}
-		if (token->type == DELIMITER)
-			token = token->next;
+		token = skip_delimiters(token);
 		if (token && is_word(token->type))
 		{
 			while (token && is_word(token->type))
@@ -92,4 +90,11 @@ int	count_cmd_redirections(t_token *lexer_data)
 		lexer_data = lexer_data->next;
 	}
 	return (redirection_count);
+}
+
+t_token *skip_delimiters(t_token *token)
+{
+	while (token && token->type == DELIMITER)
+		token = token->next;
+	return (token);
 }
