@@ -67,6 +67,13 @@ void	handle_command(t_command *cmd, int *prev_p, int *next_p)
 		return (pid_error(prev_p, next_p));
 	if (pid > 0)
 		return (close_redirections(fds));
+	if (fds.inp_fd < 0 || fds.out_fd < 0)
+	{
+		if (should_run_in_child(cmd))
+			exit(1);
+		*get_exit_status() = 1;
+		return ;
+	}
 	if (isbuiltin(cmd->args[0]))
 		handle_builtin(cmd, fds);
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:03:20 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 16:06:29 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/04/01 07:16:56 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@
 void	close_redirections(t_file_descriptors fds)
 {
 	if (fds.inp_fd != STDIN_FILENO
+		&& fds.inp_fd > 0
 		&& (!fds.prev_p || fds.inp_fd != fds.prev_p[0]))
 		close(fds.inp_fd);
 	if (fds.out_fd != STDOUT_FILENO
+		&& fds.inp_fd > 0
 		&& (!fds.next_p || fds.out_fd != fds.next_p[1]))
 		close(fds.out_fd);
 }
