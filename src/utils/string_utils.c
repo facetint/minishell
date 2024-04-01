@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 07:07:07 by hamza             #+#    #+#             */
-/*   Updated: 2024/03/31 07:27:10 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 05:15:48 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,7 @@ int	find_char(const char *str, char looking_for)
 	i = 0;
 	while (str[i] && (str[i] != looking_for || is_escaped((char *)str, i)))
 		i++;
+	if (!str[i])
+		i--;
 	return (i);
 }
