@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 17:04:16 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/04/01 07:28:43 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 void	handle_builtin(t_command *cmd, t_file_descriptors fds)
 {
+	if (!cmd->args[0])
+		return ;
 	execute_builtin(cmd, (int []){fds.inp_fd, fds.out_fd});
 	close_fds(fds);
 	if (should_run_in_child(cmd))
@@ -33,6 +35,8 @@ void	handle_external(t_command *cmd, t_file_descriptors fds)
 	char	**args;
 	char	*path;
 
+	if (!cmd->args[0] || cmd->args[0][skip_white_spaces(cmd->args[0])] == '\0')
+		return ;
 	dup2(fds.inp_fd, STDIN_FILENO);
 	dup2(fds.out_fd, STDOUT_FILENO);
 	close_fds(fds);
@@ -48,17 +52,10 @@ void	handle_external(t_command *cmd, t_file_descriptors fds)
 void	handle_command(t_command *cmd, int *prev_p, int *next_p)
 {
 	int					pid;
-	int					inp_fd;
-	int					out_fd;
 	t_file_descriptors	fds;
 
-	if (!cmd->args[0])
-		return ;
-	inp_fd = get_input_fd(prev_p, cmd);
-	out_fd = get_output_fd(next_p, cmd);
-	if (inp_fd < 0 || out_fd < 0)
-		return ;
-	fds = (t_file_descriptors){inp_fd, out_fd, prev_p, next_p};
+	fds = (t_file_descriptors){get_input_fd(prev_p, cmd),
+			get_output_fd(next_p, cmd), prev_p, next_p};
 	pid = 0;
 	if (should_run_in_child(cmd))
 		pid = fork();
