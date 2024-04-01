@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_state.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:34:28 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 08:06:15 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 15:43:08 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "../../includes/minishell.h"
 #include "../../includes/utils.h"
 #include "../../memory-allocator/allocator.h"
-#include <stdio.h>
 
 void	argument_state(t_token **cur_token, t_command *cur_cmd)
 {

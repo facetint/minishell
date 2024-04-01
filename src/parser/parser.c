@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:28 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 08:36:18 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 15:43:20 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "../../includes/minishell.h"
 #include "../../includes/utils.h"
 #include "../../memory-allocator/allocator.h"
-#include <stdio.h>
 
 void	init_command(t_token *lexer_data, t_command **command, t_command *prev)
 {

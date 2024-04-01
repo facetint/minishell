@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:36:24 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 11:35:11 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:43:13 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "../../includes/minishell.h"
 #include "../../includes/utils.h"
 #include "../../memory-allocator/allocator.h"
-#include <stdio.h>
 
 void	join_all_composed_words(t_token **cur_token, char **string_ptr)
 {

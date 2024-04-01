@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   fd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:03:20 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 07:16:56 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 15:41:08 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "../../includes/minishell.h"
-#include <stdio.h>
 
 void	close_redirections(t_file_descriptors fds)
 {

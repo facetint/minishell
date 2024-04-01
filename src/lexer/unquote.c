@@ -6,11 +6,10 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:41 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/29 16:59:26 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:42:27 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <printf.h>
 #include "../../includes/minishell.h"
 #include "../../libft/libft.h"
 #include "../../memory-allocator/allocator.h"

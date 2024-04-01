@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_nonvariables.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:17:36 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/30 16:22:19 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/04/01 15:41:31 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "../../libft/libft.h"
 #include "../../includes/char_classification.h"
 #include "../../memory-allocator/allocator.h"
-#include <stdio.h>
 
 void	insert_uword_tokens(t_token **token_ptr, char **strings)
 {
