@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 21:55:43 by fatmanurcet       #+#    #+#             */
-/*   Updated: 2024/04/01 10:45:35 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 11:29:00 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	redirect(t_redirection *redir, int *addr, int fd)
 	*addr = fd;
 	if (redir->redir_fd < 0)
 	{
+		if (redir->flags & HEREDOC)
+			return (1);
 		ft_putstr_fd("minishell: ", 2);
 		perror(redir->redirected);
 		*get_exit_status() = 1;
