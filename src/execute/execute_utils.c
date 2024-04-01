@@ -6,7 +6,7 @@
 /*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:46:34 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 06:13:17 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/01 08:25:52 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../../libft/libft.h"
 #include "../../memory-allocator/allocator.h"
 #include "../../includes/env.h"
+#include "../../includes/utils.h"
 #include <stdio.h>
 #include <sys/stat.h>
 
@@ -38,6 +39,24 @@ int	is_directory(char *path)
 	return (S_ISDIR(path_stat.st_mode));
 }
 
+char	*handle_executable_file(char *path)
+{
+	if (is_directory(path))
+	{
+		print_error(path, "is a directory");
+		exit(126);
+	}	
+	else if (access(path, F_OK) == 0)
+	{
+		if (access(path, X_OK) == 0)
+			return (ft_strdup(path));
+		print_error(path, "Permission denied");
+		exit(126);
+	}
+	print_error(path, "No such file or directory");
+	exit(127);
+}
+
 char	*find_path(char *cmd)
 {
 	char		*path;
@@ -45,10 +64,8 @@ char	*find_path(char *cmd)
 	char		*search_path;
 	int			counter;
 
-	if (is_directory(cmd))
-		exit(126);
-	if (is_path(cmd) && access(cmd, F_OK) == 0 && access(cmd, X_OK) == 0)
-		return (ft_strdup(cmd));
+	if (is_path(cmd))
+		return handle_executable_file(cmd);
 	path = find_env("PATH");
 	if (!path)
 		return (path_error(cmd), NULL);
