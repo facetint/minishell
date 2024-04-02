@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 09:14:38 by hamza             #+#    #+#             */
-/*   Updated: 2024/04/01 17:49:31 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/01 18:55:44 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ void			expand_string(char **string);
 char			*replace_string(char *input, int p_start,
 					int p_len, char *replacement);
 int				is_nameless_variable(t_token *token);
+void			expand_token(t_token *token, t_token **head,
+					t_token **token_ptr, t_token **prev_ptr);
 
 // parser
 t_command		*parse(t_token *lexer_data);
@@ -135,32 +137,29 @@ void			handle_memory_error(void);
 int				is_valid(t_token *lexer_data);
 
 // debug
-void			debug(t_token *token, t_command *cmd);
 char			*ft_str_arr_join(char **str_list, unsigned int str_count);
 
 // executer
 void			execute(t_command *cmds);
 void			handle_command(t_command *cmd, int *prev_p, int *next_p);
 char			*find_path(char *cmd);
-void			pid_error(int *prev_pipe, int *next_pipe);
 void			close_fds(t_file_descriptors fds);
 void			close_redirections(t_file_descriptors fds);
 int				get_input_fd(int *pipe, t_command *cmd);
 int				get_output_fd(int *pipe, t_command *cmd);
 void			close_pipe(int *pipe);
-void			path_error(char	*cmd);
 
 // builtin
-
 void			execute_builtin(t_command *cmd, int fd[2]);
 int				isbuiltin(char *cmd);
 void			builtin_exit(t_command *cmd);
 void			builtin_echo(t_command *cmd, int fd[2]);
 void			builtin_pwd(t_command *cmd);
 void			builtin_export(t_command *cmd, int fd[2]);
+void			export_env(char *format);
 void			builtin_unset(t_command *cmd, int fd[2]);
-int				ft_strcmp(char *s1, char *s2);
 int				should_run_in_child(t_command *cmd);
+int				ft_strcmp(char *s1, char *s2);
 
 // cd
 void			builtin_cd(t_command *cmd);
@@ -168,8 +167,9 @@ void			execute_cd(char *str, t_command *cmd);
 void			change_pwd(t_command *cmd);
 void			change_old(char *str);
 
-// heredocs
+// heredocs and redirections
 int				read_heredoc_input(char *delimiter);
+void			handle_file_redirections(t_command *cur);
 
 //signal
 void			register_signal_handler(void);
@@ -181,11 +181,11 @@ int				*get_exit_status(void);
 // abort
 void			abort_function(void);
 
+// utils
 char			*ft_unsafe_strdup(const char *str);
-void			export_env(char *format);
-void			handle_file_redirections(t_command *cur);
 
-void			expand_token(t_token *token, t_token **head,
-					t_token **token_ptr, t_token **prev_ptr);
+// error
+void			path_error(char	*cmd);
+void			pid_error(int *prev_pipe, int *next_pipe);
 
 #endif
