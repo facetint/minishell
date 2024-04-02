@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 02:37:53 by hamza             #+#    #+#             */
-/*   Updated: 2024/04/02 10:30:32 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:23:57 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	handle_signal(int signum)
 	*get_exit_status() = 1;
 	if (g_signal_type == PROMPT)
 	{
+		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
@@ -47,4 +48,5 @@ void	handle_signal(int signum)
 void	register_signal_handler(void)
 {
 	signal(SIGINT, handle_signal);
+	signal(SIGQUIT, SIG_IGN);
 }

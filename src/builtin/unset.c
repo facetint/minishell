@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:19:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 16:08:08 by hcoskun          ###   ########.fr       */
+/*   Updated: 2024/04/02 16:06:10 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	builtin_unset(t_command *cmd, int fd[2])
 			ft_putstr_fd("unset: `", 2);
 			ft_putstr_fd(cmd->args[i], 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
+			*get_exit_status() = 1;
 		}
 		i++;
 	}

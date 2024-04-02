@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 15:35:28 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 15:39:21 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:26:10 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ void	export_env(char *format)
 
 	node = to_node(format);
 	if (!node)
+	{
+		if (find_env(format) != NULL)
+			return;
 		node = create_node(ft_strdup(format), ft_strdup(""));
+	}
 	set_export(*get_global_env(), node);
 }
