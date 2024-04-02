@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 17:34:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 15:40:57 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:35:15 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	handle_external(t_command *cmd, t_file_descriptors fds)
 	close_fds(fds);
 	path_cmd = find_path(cmd->args[0]);
 	path = ft_unsafe_strdup(path_cmd);
-	envp = ft_unsafe_strarrdup(to_arr(*get_global_env()));
+	envp = ft_unsafe_strarrdup(to_arr(*get_env()));
 	args = ft_unsafe_strarrdup(cmd->args);
 	abort_function();
 	execve(path, args, envp);

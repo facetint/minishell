@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 15:35:28 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/02 16:26:10 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:34:45 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	set_export(t_list *env, t_list *node)
 	existing_node = find_node(env, ((t_entry *)node->content)->key);
 	if (!existing_node)
 	{
-		ft_lstadd_back(get_global_env(), node);
+		ft_lstadd_back(get_env(), node);
 		return ;
 	}
 	safe_free(((t_entry *)existing_node->content)->key);
@@ -43,5 +43,5 @@ void	export_env(char *format)
 			return;
 		node = create_node(ft_strdup(format), ft_strdup(""));
 	}
-	set_export(*get_global_env(), node);
+	set_export(*get_env(), node);
 }

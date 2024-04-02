@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   global_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 21:44:15 by fatmanurcet       #+#    #+#             */
-/*   Updated: 2024/03/31 06:14:52 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/02 17:35:11 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/libft.h"
 
-t_list	**get_global_env(void)
+t_list	**get_env(void)
 {
 	static t_list	*env = NULL;
 
