@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 09:27:13 by hamza             #+#    #+#             */
-/*   Updated: 2024/03/31 09:27:30 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/02 17:01:45 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,6 @@ typedef struct s_entry
 t_list		*to_node(char *env);
 t_list		*to_list(char **env);
 char		**to_arr(t_list *lst);
-void		print_list(t_entry *lst);
-void		print_env(char **env);
-char		*strchr_new(const char *str, int c);
-char		*strdup_n(char *str, char c);
 void		builtin_env(t_list *env, int fd[2]);
 t_list		**get_global_env(void);
 char		*ft_unsafe_substr(char const *s, unsigned int start, size_t len);
@@ -36,4 +32,5 @@ void		free_list(t_list *lst);
 char		*find_env(char *key);
 void		unset_env(char *varname);
 t_list		*find_node(t_list *env, char *key);
+
 #endif
