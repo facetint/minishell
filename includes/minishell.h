@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 09:14:38 by hamza             #+#    #+#             */
-/*   Updated: 2024/04/01 18:55:44 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:36:00 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,9 @@ void			handle_input(char *input);
 void			handle_memory_error(void);
 int				is_valid(t_token *lexer_data);
 
-// debug
+// utils
 char			*ft_str_arr_join(char **str_list, unsigned int str_count);
+char			*ft_unsafe_strdup(const char *str);
 
 // executer
 void			execute(t_command *cmds);
@@ -160,8 +161,6 @@ void			export_env(char *format);
 void			builtin_unset(t_command *cmd, int fd[2]);
 int				should_run_in_child(t_command *cmd);
 int				ft_strcmp(char *s1, char *s2);
-
-// cd
 void			builtin_cd(t_command *cmd);
 void			execute_cd(char *str, t_command *cmd);
 void			change_pwd(t_command *cmd);
@@ -175,14 +174,11 @@ void			handle_file_redirections(t_command *cur);
 void			register_signal_handler(void);
 void			handle_signal(int signum);
 
-// global
+//exit status
 int				*get_exit_status(void);
 
 // abort
 void			abort_function(void);
-
-// utils
-char			*ft_unsafe_strdup(const char *str);
 
 // error
 void			path_error(char	*cmd);
