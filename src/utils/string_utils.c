@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 07:07:07 by hamza             #+#    #+#             */
-/*   Updated: 2024/04/01 07:33:22 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/02 16:42:13 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	count_len(const char *str, int (*is_valid)(char))
 
 int	is_escaped(char *input, unsigned int index)
 {
+	if (input[index] == '\0')
+		return (0);
 	if (index == 0)
 		return (0);
 	if (input[index - 1] == '\\')
