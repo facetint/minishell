@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 15:46:47 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:26:50 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	init_env(envp);
-	export_env("OLDPWD");
+	export_env("OLDPWD=");
 	register_post_abort_func(handle_memory_error);
 	register_signal_handler();
 	while (1)
