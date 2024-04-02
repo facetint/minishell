@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 11:32:58 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 15:44:19 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/02 10:52:59 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	get_flags(t_redirection *redir)
 		flags = O_WRONLY | O_CREAT;
 	if (redir->flags & APPEND)
 		flags |= O_APPEND;
-	else
+	else if (!(redir->flags & INPUT))
 		flags |= O_TRUNC;
 	return (flags);
 }
