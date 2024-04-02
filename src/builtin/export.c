@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:01:40 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 15:40:13 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:34:48 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	builtin_export(t_command *cmd, int fd[2])
 	args_count = str_arr_size(cmd->args);
 	if (args_count == 1)
 	{
-		print_exports(*get_global_env(), fd);
+		print_exports(*get_env(), fd);
 		return ;
 	}
 	i = 1;

@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 15:52:07 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/01 15:38:29 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:34:43 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	change_old(char *str)
 	t_list	*env;
 	t_entry	*node;
 
-	env = *get_global_env();
+	env = *get_env();
 	while (env)
 	{
 		node = env->content;
@@ -41,7 +41,7 @@ void	change_pwd(t_command *cmd)
 	t_list	*env;
 	t_entry	*node;
 
-	env = *get_global_env();
+	env = *get_env();
 	while (env)
 	{
 		node = env->content;

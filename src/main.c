@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:18:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/02 16:26:50 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:34:33 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_env(char **envp)
 	lst = to_list(envp);
 	if (!lst)
 		return ;
-	*get_global_env() = lst;
+	*get_env() = lst;
 }
 
 int	main(int ac, char **av, char **envp)

@@ -6,7 +6,7 @@
 /*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 13:19:04 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/02 16:06:10 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:34:59 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	unset_env(char *varname)
 	t_list	*cur;
 	t_list	*prev;
 
-	cur = *get_global_env();
+	cur = *get_env();
 	prev = NULL;
 	while (cur)
 	{
@@ -66,7 +66,7 @@ void	unset_env(char *varname)
 			if (prev)
 				prev->next = cur->next;
 			else
-				*get_global_env() = cur->next;
+				*get_env() = cur->next;
 			safe_free(((t_entry *)cur->content)->key);
 			safe_free(((t_entry *)cur->content)->value);
 			safe_free(cur->content);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_error_message.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 17:18:11 by facetint          #+#    #+#             */
-/*   Updated: 2024/03/31 06:44:16 by hamza            ###   ########.fr       */
+/*   Updated: 2024/04/02 17:35:17 by facetint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ void	handle_invalid_input(t_token *lexical_data)
 void	handle_memory_error(void)
 {
 	ft_putstr_fd("Insufficent memory! Minishell aborting...", 2);
-	free_list(*get_global_env());
+	free_list(*get_env());
 	exit(1);
 }
