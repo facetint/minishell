@@ -311,6 +311,11 @@ echo $0
 ```
 Should print the first argument of your program. (eg: ./minishell)
 
+```bash
+env | grep SHLVL
+```
+This variable should be increased by 1 at init. If the inherited value is bigger than 999 bash sets it to 1 with a warning.
+
 ### Extreme
 You don't have to implement these features.
 ```bash
