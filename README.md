@@ -306,6 +306,11 @@ env | grep VAR
 ```
 The value of `VAR` should be `VAL`.
 
+```bash
+echo $0
+```
+Should print the first argument of your program. (eg: ./minishell)
+
 ### Extreme
 You don't have to implement these features.
 ```bash
@@ -326,6 +331,20 @@ Should print `a` and `'` in order.
 ls missingfile > error.txt 2>&1
 ```
 Should write `ls: missingfile: No such file or directory` to error.txt
+
+```bash
+echo ~0
+echo ~+
+echo ~
+```
+Should print current directory.
+
+```
+echo ~-
+```
+Should print old directory.
+
+```
 
 ## Installation
 
