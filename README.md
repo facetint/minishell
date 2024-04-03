@@ -349,8 +349,6 @@ echo ~-
 ```
 Should print old directory.
 
-```
-
 ## Installation
 
 ### Clone the repository:
