@@ -300,11 +300,6 @@ ls | >> a < a > a << a cat
 Should write heredoc input to file a.
 
 ```bash
-ls | >> a < a > a << a cat
-```
-Should write heredoc input to file a.
-
-```bash
 export VAR=VAL
 export VAR
 env | grep VAR
