@@ -316,6 +316,11 @@ env | grep SHLVL
 ```
 This variable should be increased by 1 at init. If the inherited value is bigger than 999 bash sets it to 1 with a warning.
 
+```bash
+cd -
+```
+Should go old directory.
+
 ### Extreme
 You don't have to implement these features.
 ```bash
@@ -344,10 +349,28 @@ echo ~
 ```
 Should print current directory.
 
-```
+```bash
 echo ~-
 ```
 Should print old directory.
+
+```bash
+cat < <(echo a)
+```
+Should print `a`.
+
+```bash
+export TEST_VAR=abc
+echo ${TEST_VAR/a/b}
+```
+Should print `bbc`.
+
+```bash
+!-2
+```
+Should execute the last 2. executed command.
+
+
 
 ## Installation
 
