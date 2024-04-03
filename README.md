@@ -104,6 +104,56 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 
 ![state-machine-example](https://github.com/facetint/minishell/assets/99668549/a5263d1a-815e-4f7c-a977-2298fb066e2c)
 
+## Tokenization
+This minishell project uses tokens:
+
+      DOUBLE_QUOTED_WORD
+      SINGLE_QUOTED_WORD
+      UNQUOTED_WORD
+      PIPE
+      OUTPUT_REDIRECTION
+      INPUT_REDIRECTION
+      HEREDOC_REDIRECTION
+      APPEND_REDIRECTION
+      DELIMITER
+      UNKNOWN
+**Note:** The 'Unknown' token type is reserved for future purposes.
+### Examples
+    Input:  echo               a
+    Tokens: UNQUOTED_WORD  DELIMITER  UNQUOTED_WORD
+                echo        <spaces>       a
+
+    Input:  echo\ a
+    Tokens: UNQUOTED_WORD
+              echo a
+
+    Input:  'echo' "a"
+    Tokens: SINGLE_QUOTED_WORD  DELIMITER  DOUBLE_QUOTED_WORD
+                 echo            <space>             a
+
+    Input:  e'c'"ho" a
+    Tokens: UNQUOTED_WORD  SINGLE_QUOTED_WORD  DOUBLE_QUOTED_WORD  DELIMITER  UNQUOTED_WORD
+                e                   c                 ho             <space>       a
+
+    Input:  echo < a
+    Tokens: UNQUOTED_WORD  DELIMITER  INPUT_REDIRECTION  DELIMITER  UNQUOTED_WORD
+                echo        <space>            <          <space>         a        
+
+    Input:  echo << a
+    Tokens: UNQUOTED_WORD  DELIMITER  HEREDOC_REDIRECTION  DELIMITER  UNQUOTED_WORD
+                echo        <space>            <          <space>         a        
+
+    Input:  echo > a
+    Tokens: UNQUOTED_WORD  DELIMITER  OUTPUT_REDIRECTION  DELIMITER  UNQUOTED_WORD
+                echo        <space>            <          <space>         a        
+
+    Input:  echo >> a
+    Tokens: UNQUOTED_WORD  DELIMITER  APPEND_REDIRECTION  DELIMITER  UNQUOTED_WORD
+                echo        <space>            <          <space>         a    
+
+    Input:  ls | cat
+    Tokens: UNQUOTED_WORD  DELIMITER  PIPE  DELIMITER  UNQUOTED_WORD
+                 ls         <space>    |     <space>        a            
 
 ## Implementation
 
@@ -227,45 +277,60 @@ EXAMPLE :
 
 <img width="1225" alt="Ekran Resmi 2023-12-24 14 38 56" src="https://github.com/facetint/minishell/assets/99668549/2b0c9e5a-ca26-48b3-95de-bb416d03c85b">
 
+## Test Cases
 
-
-
-
-
-
-#### -Example Commands-
-
-```  
+### Common
+```bash
 cat | ls -l | wc -l
-
-```
-``` 
-exit 23 45
-```
-
-``` 
-cat << | wc -l
-```
-
-``` 
+exit 21 42
 exit | exit
-```
-
-``` 
+exit -42
+exit 42a
+exit " -42"
 cat file | cat << file
-```
-
-``` 
 cat << file | cat << file
+exit 256
+echo facetint | cat << a << b << e
 ```
+### Edge
 
-``` 
-echo facetint | cat << file << file2 << file3
+```bash
+ls | >> a < a > a << a cat
 ```
+Should write heredoc input to file a.
 
-``` 
-exit 234
+```bash
+ls | >> a < a > a << a cat
 ```
+Should write heredoc input to file a.
+
+```bash
+export VAR=VAL
+export VAR
+env | grep VAR
+```
+The value of `VAR` should be `VAL`.
+
+### Extreme
+You don't have to implement these features.
+```bash
+'
+```
+Should wait for `'` char like heredoc.
+
+```bash
+export test1="o a"
+ech$test1
+
+export test2="'"
+echo $test2
+```
+Should print `a` and `'` in order.
+
+```bash
+ls missingfile > error.txt 2>&1
+```
+Should write `ls: missingfile: No such file or directory` to error.txt
 
 ## Installation
 
