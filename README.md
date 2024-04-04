@@ -232,17 +232,12 @@ This minishell project uses these tokens:
 ### BUILTINS
 
 | Command | Description |
-
 |---|---|
-|`cd`| + changes the current directory to the first argument provided
-+ can be relative or absolute path
-+ -- changes to HOME
-+ - changes to OLDPWD
-+ PWD and OLDPWD are set accordingly |
+|`cd`| Changes the working directory of the current shell execution environment and updates the environment variables `PWD` and `OLDPWD`. <br>Without arguments it change the working directory to the home directory.  <br>`-` changes the directory to the `OLDPWD`. |
 |`echo`| Displays a line of text<br>Optional flag `-n`: do not output the trailing newline|
 |`env` | Displays the environment variables|
 |`exit`| Terminates the shell.<br>Accepts optional argument `n`, which sets the exit status to `n`. |
-|`export`| Accepts arguments `name[=value]`.<br>Adds name to the environment.  Set's value of name to `value`.<br>If no argument is given, displays list of exported variables.|
+|`export`|  with an argument it needs a valid identifier followed by an optional = and value. creates or changes the value of an existing environment variable. if no argument is provided it will print the environment variables in a weird format.|
 |`pwd`| Shows the current directory as an absolute path.|
 |`unset`|Accepts argument `name`. <br> Removes the variable `name` from the environment.|
  **exit**
