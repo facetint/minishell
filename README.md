@@ -233,7 +233,7 @@ This minishell project uses these tokens:
 
 | Command | Description |
 |---|---|
-|`cd`| Changes the working directory of the current shell execution environment and updates the environment variables `PWD` and `OLDPWD`. <br>Without arguments it change the working directory to the home directory.  <br>`-` changes the directory to the `OLDPWD`. |
+|`cd`| changes the current directory to the first argument provided. can be relative or absolute path. changes to HOME. changes to OLDPWD. PWD and OLDPWD are set accordingly |
 |`echo`| Displays a line of text<br>Optional flag `-n`: do not output the trailing newline|
 |`env` | Displays the environment variables|
 |`exit`| Terminates the shell.<br>Accepts optional argument `n`, which sets the exit status to `n`. |
@@ -243,13 +243,6 @@ This minishell project uses these tokens:
  **exit**
 + exits the shell with the status in the argument or the current status if none is specified
 + also needs a numeric argument for the status otherwise it will error
-  
- **cd**
-+ changes the current directory to the first argument provided
-+ can be relative or absolute path
-+ -- changes to HOME
-+ - changes to OLDPWD
-+ PWD and OLDPWD are set accordingly
 
 **export**
 + with an argument it needs a valid identifier followed by an optional = and value
