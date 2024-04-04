@@ -355,7 +355,7 @@ echo $test2
 ```
 Should print `a` and `'` in order.
 
-<img width="488" alt="Ekran Resmi 2024-04-01 ÖÖ 10 24 29" src="https://github.com/facetint/minishell/assets/99668549/fe1b3a43-cb8f-4134-a6f9-c727aab55c0c">
+<img width="469" alt="Ekran Resmi 2024-04-04 ÖS 7 53 48" src="https://github.com/facetint/minishell/assets/99668549/ef625091-f791-4dec-9fd8-48dbafaa34e4">
 
 
 ```bash
