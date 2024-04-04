@@ -233,7 +233,7 @@ This minishell project uses these tokens:
 
 | Command | Description |
 |---|---|
-|`cd`| changes the current directory to the first argument provided. can be relative or absolute path. changes to HOME. changes to OLDPWD. PWD and OLDPWD are set accordingly |
+|`cd`| changes the current directory to the first argument provided. <br> can be relative or absolute path. <br> changes to HOME. <br> changes to OLDPWD. <br> PWD and OLDPWD are set accordingly |
 |`echo`| Displays a line of text<br>Optional flag `-n`: do not output the trailing newline|
 |`env` | Displays the environment variables|
 |`exit`| Terminates the shell.<br>Accepts optional argument `n`, which sets the exit status to `n`. |
