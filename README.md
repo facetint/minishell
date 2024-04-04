@@ -236,35 +236,11 @@ This minishell project uses these tokens:
 |`cd`| changes the current directory to the first argument provided. <br> can be relative or absolute path. <br> changes to HOME. <br> changes to OLDPWD. <br> PWD and OLDPWD are set accordingly |
 |`echo`| Displays a line of text<br>Optional flag `-n`: do not output the trailing newline|
 |`env` | Displays the environment variables|
-|`exit`| Terminates the shell.<br>Accepts optional argument `n`, which sets the exit status to `n`. |
-|`export`|  with an argument it needs a valid identifier followed by an optional = and value. creates or changes the value of an existing environment variable. if no argument is provided it will print the environment variables in a weird format.|
+|`exit`| exits the shell with the status in the argument or the current status if none is specified .<br>also needs a numeric argument for the status otherwise it will error |
+|`export`|  with an argument it needs a valid identifier followed by an optional = and value. <br> creates or changes the value of an existing environment variable. <br> if no argument is provided it will print the environment variables in a weird format.|
 |`pwd`| Shows the current directory as an absolute path.|
-|`unset`|Accepts argument `name`. <br> Removes the variable `name` from the environment.|
- **exit**
-+ exits the shell with the status in the argument or the current status if none is specified
-+ also needs a numeric argument for the status otherwise it will error
-
-**export**
-+ with an argument it needs a valid identifier followed by an optional = and value
-+ creates or changes the value of an existing environment variable
-+ if no argument is provided it will print the environment variables in a weird format
+|`unset`|with a valid identifier as argument it unsets/deletes the environment variable. <br>otherwise it shows an error.|
  
-**unset**
-+ with a valid identifier as argument it unsets/deletes the environment variable
-+ otherwise it shows an error
-
-**pwd**
-+ prints the current working directory to the stdout
-  
-**echo**
-
-+ writes all the arguments to stdout followed by a newline
-+ if the option -n is specified, no newline is added afterwards
-+ some interesting differences are between "echo" in just lowercase and any other case version, as the latter would also accept multiple -n with as many "n" as we want
-
-**env**
-+ prints the current environment variables to the stdout
-
 
 ### Signals
 
