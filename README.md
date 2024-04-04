@@ -87,13 +87,7 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 
 ### **ALGORITM**
 
-
-![minishell-plan](https://github.com/facetint/minishell/assets/99668549/5d95d53a-b022-4547-9478-da55f6ffad94)
-
-
 **When we wrote this project, we were inspired by state machines.**
-
-
 
 
 #### STATE MACHINE 
