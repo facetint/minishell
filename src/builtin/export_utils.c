@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: facetint <facetint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcoskun <hcoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/30 15:35:28 by facetint          #+#    #+#             */
-/*   Updated: 2024/04/02 17:34:45 by facetint         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:16:21 by hcoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	export_env(char *format)
 	if (!node)
 	{
 		if (find_env(format) != NULL)
-			return;
+			return ;
 		node = create_node(ft_strdup(format), ft_strdup(""));
 	}
 	set_export(*get_env(), node);
