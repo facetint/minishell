@@ -24,6 +24,8 @@
       - [echo](#echo)
       - [env](#env)
   - [Signals](#signals)
+  - [Heredoc](#heredoc)
+  - [Redirection](#redirections)
   - [Example Commands](#example-commands)
   - [Pipe](#pipe)
 - [Installation](#installation)
