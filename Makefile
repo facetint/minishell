@@ -4,7 +4,7 @@ LIBFT_DIR = ./libft
 LIBFT_PATH = $(LIBFT_DIR)/libft.a
 
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 
 MEMORY_ALLOCATOR_SOURCES = memory-allocator/aborter.c memory-allocator/allocator.c
 SOURCES = src/execute/execute_utils.c src/builtin/cd.c src/builtin/exit.c src/builtin/export.c src/builtin/export_utils.c \
@@ -20,7 +20,20 @@ SOURCES = src/execute/execute_utils.c src/builtin/cd.c src/builtin/exit.c src/bu
 MINISHELL_SOURCES = src/main.c $(SOURCES)
 MINISHELL_OBJECTS = $(MINISHELL_SOURCES:.c=.o)
 
+TEST_PATH = tests
+TEST_SOURCES = $(wildcard $(TEST_PATH)/*.c)
+TEST_OBJECTS = $(TEST_SOURCES:.c=.o)
+
 all: $(NAME)
+
+$(TEST_PATH):
+	@mkdir $(TEST_PATH)
+
+test: $(TEST_PATH) $(NAME)
+	@printf "$(CLEAN_CAR)$(GREEN_COLOR)[Tests compiling]$(BLUE_COLOR) : $(PURPLE_COLOR)$<$(NO_COLOR)"
+	@$(CC) $(FLAGS) $(SOURCES:.c=.o) $(LIBFT_PATH) $(TEST_SOURCES) -o $(TEST_PATH)/tests -lcriterion -L/usr/local/lib -I/usr/local/include -lreadline
+	@printf "$(CLEAN_CAR)$(GREEN_COLOR)Tests running right now. Please wait.\n$(BLUE_COLOR)$(NO_COLOR)"
+	@./$(TEST_PATH)/tests ; export TEST_RESULT=$$? ; rm -f __test_file* | exit $$TEST_RESULT 
 
 $(LIBFT_PATH):
 	@make bonus -C $(LIBFT_DIR) FLAGS="$(FLAGS)"
@@ -35,14 +48,14 @@ $(NAME): $(LIBFT_PATH) $(MINISHELL_OBJECTS)
 	@$(CC) $(FLAGS) -c $< -o $@
 
 clean:
-	@printf "$(CLEAN_CAR)$(GREEN_COLOR)All object files removed.\n$(NO_COLOR)"
+	@printf "$(CLEAN_CAR)$(GREEN_COLOR)All object files removed.$(NO_COLOR)"
 	@rm -f $(MINISHELL_OBJECTS)
 	@make -C libft clean
 
 fclean:
 	@printf "$(CLEAN_CAR)$(GREEN_COLOR)All object and executable files removed.$(NO_COLOR)"
 	@rm -f $(MINISHELL_OBJECTS)
-	@rm -f $(NAME)
+	@rm -f $(NAME) $(TEST_PATH)/tests
 	@make -C libft fclean
 
 re: fclean all
