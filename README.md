@@ -371,11 +371,24 @@ echo ${TEST_VAR/a/b}
 Should print `bbc`.
 
 ```bash
-!-2
+!-1
 ```
-Should execute the last 2. executed command.
+Should execute the last command.
 
+```bash
+export HISTSIZE=1000
+````
+Should set a limit to the history list.
 
+```bash
+echo $-
+```
+Shows bash's options. Idk how to implement it for minishell lol.
+
+```bash
+echo !$
+```
+...
 
 ## Installation
 
