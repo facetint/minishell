@@ -321,6 +321,11 @@ cd -
 ```
 Should go old directory.
 
+```bash
+USER=abc
+````
+Sets User the variable to `abc`.
+
 ### Extreme
 You don't have to implement these features.
 ```bash
