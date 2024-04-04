@@ -303,7 +303,7 @@ cat << file | cat << file
 exit 256
 echo facetint | cat << a << b << e 
 ```
-<img width="488" alt="Ekran Resmi 2024-04-01 ÖÖ 10 24 29" src="https://github.com/facetint/minishell/assets/99668549/859be314-8fa5-4b7f-ac06-31b050101633">
+<img width="469" alt="Ekran Resmi 2024-04-04 ÖS 7 52 42" src="https://github.com/facetint/minishell/assets/99668549/8b51fcb4-27c0-4a48-99ef-adf03cbbacd3">
 
 ### Edge
 
