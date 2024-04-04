@@ -230,7 +230,21 @@ This minishell project uses these tokens:
 ▶︎ Returns the result to the user.
 
 ### BUILTINS
-  
+
+| Command | Description |
+
+|---|---|
+|`cd`| + changes the current directory to the first argument provided
++ can be relative or absolute path
++ -- changes to HOME
++ - changes to OLDPWD
++ PWD and OLDPWD are set accordingly |
+|`echo`| Displays a line of text<br>Optional flag `-n`: do not output the trailing newline|
+|`env` | Displays the environment variables|
+|`exit`| Terminates the shell.<br>Accepts optional argument `n`, which sets the exit status to `n`. |
+|`export`| Accepts arguments `name[=value]`.<br>Adds name to the environment.  Set's value of name to `value`.<br>If no argument is given, displays list of exported variables.|
+|`pwd`| Shows the current directory as an absolute path.|
+|`unset`|Accepts argument `name`. <br> Removes the variable `name` from the environment.|
  **exit**
 + exits the shell with the status in the argument or the current status if none is specified
 + also needs a numeric argument for the status otherwise it will error
