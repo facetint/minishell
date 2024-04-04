@@ -301,8 +301,10 @@ exit " -42"
 cat file | cat << file
 cat << file | cat << file
 exit 256
-echo facetint | cat << a << b << e
+echo facetint | cat << a << b << e 
 ```
+<img width="488" alt="Ekran Resmi 2024-04-01 ÖÖ 10 24 29" src="https://github.com/facetint/minishell/assets/99668549/859be314-8fa5-4b7f-ac06-31b050101633">
+
 ### Edge
 
 ```bash
@@ -352,6 +354,9 @@ export test2="'"
 echo $test2
 ```
 Should print `a` and `'` in order.
+
+<img width="488" alt="Ekran Resmi 2024-04-01 ÖÖ 10 24 29" src="https://github.com/facetint/minishell/assets/99668549/fe1b3a43-cb8f-4134-a6f9-c727aab55c0c">
+
 
 ```bash
 ls missingfile > error.txt 2>&1
