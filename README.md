@@ -248,7 +248,33 @@ This minishell project uses these tokens:
 
 + ctrl-\ isn't handled but it should inside heredocs which is an oversight on our part
 
+### Heredoc
 
++ In Bash, a "heredoc" (here document) is a construct used to feed a block of text or a series of commands into a specific process. Heredoc allows you to directly write text within a file or a script and pass this text as input to a command or operation.
+
+```
+command << eof
+text
+eof
+```
+Here, << eof denotes the beginning of the heredoc, and it is terminated with the label eof. The text or commands in between are taken until the line containing the specified label, and provided as input to the specified operation.
+
++ The usage of heredoc is commonly employed to make long and complex text blocks or command sequences more readable and manageable within text or script files.
+
+### Redirections
+
+In Bash, redirections are used to change or redirect the standard input, standard output, or standard error streams of a command. They are primarily used to perform operations such as writing the output of a command to a file, reading from a file, or redirecting the input/output from/to another command.
+
++ '>' : This operator redirects the output of a command to a specified file, overwriting the file if it already exists.
+
++ '>>' : This operator appends the output of a command to a specified file, preserving the existing content of the file.
+
++ '<' : This operator redirects the content of a file to the input of a command.
+
++ '|'  : This operator redirects the output of one command to the input of another command. This is known as a "pipe."
+
+
+ 
 ## Useful shell utilities :
 
 
