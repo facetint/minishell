@@ -166,6 +166,16 @@ This minishell project uses these tokens:
 ▶︎ For example, it takes the command "ls -l" and converts it into a delimited array like [ "ls", "-l" ].
 
 
+``` typedef struct s_token
+{
+	char			*value;
+	t_token_type	type;
+	struct s_token	*next;
+}	t_token;
+
+```
+
+
 ### PARSER 
 
 ▶︎ Parses symbols and tokens from the lexer to understand the structure of commands.
@@ -173,6 +183,20 @@ This minishell project uses these tokens:
 ▶︎ Creates the syntax tree. This tree represents the structure of the command in a hierarchical way.
 
 ▶︎ For example, it converts the command "ls -l" into a tree structure.
+
+
+``` typedef struct s_command
+{
+	char				**args;
+	int					output;
+	int					input;
+	int					pid;
+	t_redirection		*redirections;
+	struct s_command	*next;
+	struct s_command	*prev;
+}	t_command;
+
+```
 
 
 ### EXPANDER
