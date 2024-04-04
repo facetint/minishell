@@ -98,6 +98,12 @@ These basic steps of Bash provide a user-friendly command-line environment and c
 
 #### STATE MACHINE 
 
+``` typedef struct s_token		t_token;
+    typedef struct s_command	t_command;
+
+    typedef void	*(*t_lexer_state)(t_token **lexer_data, char *input, int *const i);
+    typedef void	*(*t_parser_state)(t_token **lexer_data, t_command *command);
+```
 
   *The basic building blocks of a state machine are states and transitions. A state is a situation of a system depending on previous inputs and causes a reaction on following inputs. One state is marked as the initial state; this is where the execution of the machine starts. A state transition defines for which input a state is changed from one to another. Depending on the state machine type, states and/or transitions produce outputs.*
 
@@ -166,9 +172,9 @@ This minishell project uses these tokens:
 ▶︎ For example, it takes the command "ls -l" and converts it into a delimited array like [ "ls", "-l" ].
 
 
-``` typedef struct s_token
+```typedef struct s_token
 {
-	char			*value;
+	char		*value;
 	t_token_type	type;
 	struct s_token	*next;
 }	t_token;
@@ -184,16 +190,25 @@ This minishell project uses these tokens:
 
 ▶︎ For example, it converts the command "ls -l" into a tree structure.
 
+```typedef struct s_redirection
+{
+	char		*redirected;
+	int		redir_fd;
+	int		flags;
+}	t_redirection;
 
-``` typedef struct s_command
+
+```
+
+```typedef struct s_command
 {
 	char				**args;
-	int					output;
-	int					input;
-	int					pid;
-	t_redirection		*redirections;
-	struct s_command	*next;
-	struct s_command	*prev;
+	int				output;
+	int				input;
+	int				pid;
+	t_redirection			*redirections;
+	struct s_command		*next;
+	struct s_command		*prev;
 }	t_command;
 
 ```
