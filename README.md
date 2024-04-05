@@ -375,13 +375,10 @@ You don't have to implement these features.
 Should wait for `'` char like heredoc.
 
 ```bash
-export test1="o a"
-ech$test1
-
-export test2="'"
-echo $test2
+export test="o '"
+ech$test
 ```
-Should print `a` and `'` in order.
+Should print `'`.
 
 <img width="469" alt="Ekran Resmi 2024-04-04 ÖS 7 53 48" src="https://github.com/facetint/minishell/assets/99668549/ef625091-f791-4dec-9fd8-48dbafaa34e4">
 
