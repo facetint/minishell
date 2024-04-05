@@ -429,7 +429,7 @@ Shows bash's options. Idk how to implement it for minishell lol.
 ```bash
 echo !$
 ```
-...
+Should print the last argument of the last executed command.
 
 ## Installation
 
