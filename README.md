@@ -334,6 +334,7 @@ echo facetint | cat << a << b << e
 <img width="469" alt="Ekran Resmi 2024-04-04 ÖS 7 52 42" src="https://github.com/facetint/minishell/assets/99668549/8b51fcb4-27c0-4a48-99ef-adf03cbbacd3">
 
 ### Edge
+Bash's edge case tests. We never say that minishells must have these implementations.
 
 ```bash
 ls | >> a < a > a << a cat
@@ -367,7 +368,6 @@ USER=abc
 ````
 Sets User the variable to `abc`. (Use env and export commands for a surprise.)
 
-You don't have to implement these features.
 ```bash
 '
 ```
