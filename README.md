@@ -365,9 +365,8 @@ Should go old directory.
 ```bash
 USER=abc
 ````
-Sets User the variable to `abc`.
+Sets User the variable to `abc`. (Use env and export commands for a surprise.)
 
-### Extreme
 You don't have to implement these features.
 ```bash
 '
@@ -430,6 +429,26 @@ Shows bash's options. Idk how to implement it for minishell lol.
 echo !$
 ```
 Should print the last argument of the last executed command.
+
+```bash
+echo !!
+```
+It should expand the last executed command but it should expand the prompt.
+
+```bash
+/bin/ech? hello
+/bin/ech[lower] hello
+/bin/ech*o hello
+```
+Should print hello.
+
+```bash
+echo "\\n"
+echo \\n
+echo "\n"
+echo \n
+```
+Should print `\n`, `\n`, `\n`, and `n`. (They are not newline.)
 
 ## Installation
 
