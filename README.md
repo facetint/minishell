@@ -260,12 +260,6 @@ Programs does not know where to read or write. By default, every program writes 
 ### Shell features
 <img width="1149" alt="Ekran Resmi 2023-12-24 02 03 18" src="https://github.com/facetint/minishell/assets/99668549/96539ad5-74b5-43d8-8f1b-0bd95c8fb441">
 
-EXAMPLE : 
-
-**command : ls -l | grep "txt" | sort | nl**
-
-<img width="1225" alt="Ekran Resmi 2023-12-24 14 38 56" src="https://github.com/facetint/minishell/assets/99668549/2b0c9e5a-ca26-48b3-95de-bb416d03c85b">
-
 ## Test Cases
 
 ### Common
