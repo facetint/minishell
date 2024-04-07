@@ -30,97 +30,102 @@
   - [Pipe](#pipe)
 - [Installation](#installation)
 
-## Shell Introduction
-
-✣ In a shell, the user can run programs and also direct input from a file and output from a file.
+## Introduction
+In a shell, the user can run programs and also direct input from a file and output from a file.
     Bash allows users to enter commands and give instructions to the operating system.
 
-## What Is Bash and How Does It Work?
+## What is Bash
+<!--
+![bash](https://github.com/facetint/minishell/assets/99668549/9482ef70-4411-4efb-a871-2403ab33af95)
+-->
 
+* Bash is the shell, or command language interpreter, for the GNU operating system.
 
-![bahs](https://github.com/facetint/minishell/assets/99668549/9482ef70-4411-4efb-a871-2403ab33af95)
+At first sight, Bash appears to be a simple command/response system, where users enter commands and Bash returns the results after those commands are run. However, Bash is also a programming platform and users are enabled to write programs that accept input and produce output using shell commands in shell scripts.
 
+## How does the Bash work?
 
-➤ *Bash is the shell, or command language interpreter, for the GNU operating system.*
+### Prompt Display
 
-➤ *Essentially it breaks down the process into 4 steps: `lexer` → `parser` → `expander` → `executor`, which we replicated in our project.*
-
-△ *At first sight bash appears to be a simple command/response system, where users enter commands and bash returns the results after those commands are run. However, bash is also a programming platform and users are enabled to write programs that accept input and produce output using shell commands in shell scripts.*
-*One of the most basic bash commands, ls, does one thing: list directory contents. By itself this command lists only the names of files and subdirectories in the current working directory.*
-
-
-  ## Prompt Display :
-
-  Bash displays a "prompt" for the user to enter a command. Typically, this prompt contains the user name, computer name and working directory. The user can enter commands under this prompt.
+Bash displays a "prompt" for the user to enter a command. Typically, this prompt contains the user name, computer name, and working directory. The user can enter commands under this prompt.
 
 <img width="892" alt="Ekran Resmi 2023-12-18 23 33 41" src="https://github.com/facetint/minishell/assets/99668549/d5399419-a858-4802-b4d7-b8f33b25a196">
 
+### Command Input
+The user can enter commands under the prompt. These commands are used to perform system-related operations (file management, program execution, network operations, etc.)
 
-  ## Command Input :
+### Command Interpreter
+Bash interprets commands entered by the user. This means checking if the command is a defined program, processing the parameters if necessary, and executing the command.
 
-  The user can enter commands under prompt. These commands are used to perform system-related operations (file management, program execution, network operations, etc.)
+### Command Execution
+It passes the interpreted command to the operating system through system calls and the operating system executes the command. For example, the ls command, a file listing command, requests the operating system to list files.
 
-  ## Command Interpreter :
+### Output and Error Checking 
+After the command is executed, Bash checks whether the command is completed successfully. If an error occurs, it displays error messages. It also reports the exit status of the command (0 if successful, or a different value if failed).
 
-  Bash interprets commands entered by the user. This means checking if the command is a defined program, processing the parameters if necessary and executing the command.
+### History and Retrieval
+It keeps a history of commands entered by the user and allows the user to access this history and undo previous commands. This is achieved with the arrow keys or the history command.
 
-  ## Command Execution :
-
-  It passes the interpreted command to the operating system through system calls and the operating system executes the command. For example, the ls command, a file listing command, requests the operating system to list files.
-
-  ## Output and Error Checking : 
-
-  After the command is executed, Bash checks whether the command completed successfully. If an error occurred, it displays error messages. It also reports the exit status of the command (0 if successful, or a different value if failed).
-
-  ## History and Retrieval :
-
-  It keeps a history of commands entered by the user and allows the user to access this history and undo previous commands. This is achieved with the arrow keys or the history command.
-
-  ## Shell Scripts :
-
-  Bash also allows users to create shell scripts that contain a sequence of commands. These scripts are used to automate specific tasks by stringing together sequential commands.
+### Shell Scripts
+Bash also allows users to create shell scripts that contain a sequence of commands. These scripts are used to automate specific tasks by stringing together sequential commands.
 
 These basic steps of Bash provide a user-friendly command-line environment and come with a wide range of commands. Users can customize Bash and there is extensive documentation and community support.
 
+## How does this Minishell work?
+Essentially bash breaks down the process into 4 steps:
+  * `lexer` accepts the raw string input of the user and converts it to tokens. 
+  * `expander` accepts a list of tokens and replaces placeholders with its values.
+  * `parser` accepts a list of tokens and converts them to commands.
+  * `executor` accepts a list of commands and runs them.
 
+### State Machines
+When we wrote this project, we were inspired by state machines.
 
+#### Prototypes of states
 
+```c
+    typedef void *(*t_lexer_state)(t_token **lexer_data, char *input, int *const i);
+    /* a function pointer that returns void* and accepts 3 parameters. */
 
-
-### **ALGORITM**
-
-**When we wrote this project, we were inspired by state machines.**
-
-
-#### STATE MACHINE 
-
-``` typedef struct s_token		t_token;
-    typedef struct s_command	t_command;
-
-    typedef void	*(*t_lexer_state)(t_token **lexer_data, char *input, int *const i);
-    typedef void	*(*t_parser_state)(t_token **lexer_data, t_command *command);
+    typedef void *(*t_parser_state)(t_token **lexer_data, t_command *command);
+    /* a function pointer that returns void* and accepts 2 parameters. */
 ```
 
-  *The basic building blocks of a state machine are states and transitions. A state is a situation of a system depending on previous inputs and causes a reaction on following inputs. One state is marked as the initial state; this is where the execution of the machine starts. A state transition defines for which input a state is changed from one to another. Depending on the state machine type, states and/or transitions produce outputs.*
+The basic building blocks of a state machine are states and transitions. A state is a situation of a system depending on previous inputs and causes a reaction on following inputs. One state is marked as the initial state; this is where the execution of the machine starts. A state transition defines for which input a state is changed from one to another. Depending on the state machine type, states and/or transitions produce outputs.
 
 
 ![state-machine-example](https://github.com/facetint/minishell/assets/99668549/a5263d1a-815e-4f7c-a977-2298fb066e2c)
 
-## Tokenization
-This minishell project uses these tokens:
+### Lexing
 
-      DOUBLE_QUOTED_WORD
-      SINGLE_QUOTED_WORD
-      UNQUOTED_WORD
-      PIPE
-      OUTPUT_REDIRECTION
-      INPUT_REDIRECTION
-      HEREDOC_REDIRECTION
-      APPEND_REDIRECTION
-      DELIMITER
-      UNKNOWN
+This minishell project uses 10 different types of tokens. The crucial point is understanding definitions of redirections and words.
+
+**Words**: Words are minimal string parts of the user input. Words can be fit in quotes or not. Words can be contiguous with another word.
+* `echo` has one word.
+* `ec"ho"` has two words.
+* `e'c'h"o"` has four words.
+
+**Redirections:** Redirections are all unquoted `>`,`>>`,`<<` and `<` characters. That's all.
+
+```c
+typedef enum e_token_type {
+      DOUBLE_QUOTED_WORD, SINGLE_QUOTED_WORD, UNQUOTED_WORD, PIPE, OUTPUT_REDIRECTION, INPUT_REDIRECTION, HEREDOC_REDIRECTION, APPEND_REDIRECTION, DELIMITER, UNKNOWN
+} t_token_type;
+```
 **Note:** The 'Unknown' token type is reserved for future purposes.
-### Examples
+
+```c
+typedef struct s_token
+{
+	char		*value;
+	t_token_type	type;
+	struct s_token	*next;
+}	t_token;
+```
+
+#### Examples
+Here are some example user inputs and lexer outputs.
+
     Input:  echo               a
     Tokens: UNQUOTED_WORD  DELIMITER  UNQUOTED_WORD
                 echo        <spaces>       a
@@ -157,36 +162,13 @@ This minishell project uses these tokens:
     Tokens: UNQUOTED_WORD  DELIMITER  PIPE  DELIMITER  UNQUOTED_WORD
                  ls         <space>    |     <space>        a            
 
-## Implementation
+### Parsing 
+* Parses symbols and tokens from the lexer to understand the structure of commands.
+* Creates the syntax tree. This tree represents the structure of the command in a hierarchical way.
+* For example, it converts the command "ls -l" into a tree structure.
 
-### LEXER
-
-▶︎ Its task is to decompose the commands entered by the user.
-
-▶︎ It parses the input into symbols and tokens.
-
-▶︎ For example, it takes the command "ls -l" and converts it into a delimited array like [ "ls", "-l" ].
-
-
-```typedef struct s_token
-{
-	char		*value;
-	t_token_type	type;
-	struct s_token	*next;
-}	t_token;
-
-```
-
-
-### PARSER 
-
-▶︎ Parses symbols and tokens from the lexer to understand the structure of commands.
-
-▶︎ Creates the syntax tree. This tree represents the structure of the command in a hierarchical way.
-
-▶︎ For example, it converts the command "ls -l" into a tree structure.
-
-```typedef struct s_redirection
+```c
+typedef struct s_redirection
 {
 	char		*redirected;
 	int		redir_fd;
@@ -196,7 +178,8 @@ This minishell project uses these tokens:
 
 ```
 
-```typedef struct s_command
+```c
+typedef struct s_command
 {
 	char				**args;
 	int				output;
@@ -209,23 +192,16 @@ This minishell project uses these tokens:
 
 ```
 
+### Expansion
+* Evaluate variables and replace them with their values before running the command.
+* For example, it replaces `$HOME` with the home directory.
+* Also `$?` expression expands as the exit status of the last executed command.
 
-### EXPANDER
+### Execution
+* Creates a new process using system calls such as fork and exec and executes the command specified in that process.
+* Returns the result to the user.
 
-▶︎ Evaluates variables, wildcards and other special characters within the command.
-
-▶︎ For example, it replaces "~" with home directory or matches "*" with file names.
-
-
-### EXECUTE
-
-▶︎ Starts a real process using a tree structure.
-
-▶︎ Creates a new process using system calls such as fork and exec and executes the command specified in that process.
-
-▶︎ Returns the result to the user.
-
-### BUILTINS
+### Builtin Commands
 
 | Command | Description |
 |---|---|
@@ -238,21 +214,15 @@ This minishell project uses these tokens:
 |`unset`|with a valid identifier as argument it unsets/deletes the environment variable. <br>otherwise it shows an error.|
  
 
-### Signals
-
-+ during the entire parent process ctrl-\ is ignored
-
-+ ctrl-C will always set a global variable to true, which quits the current processing and returns to readline
-
-+ during readline ctrl-C needs some more functions so that we get a new line because readline doesn't return
-
-+ the heredoc also has a special handler for readline
-
-+ ctrl-\ isn't handled but it should inside heredocs which is an oversight on our part
+### Signal Handling
+* All `ctrl-\` signals are ignored for minishell.
+* `ctrl-C` will always set a global variable to true, which quits the current processing and returns to readline
+* during readline ctrl-C needs some more functions so that we get a new line because readline doesn't return
+* the heredoc also has a special handler for readline
+* ctrl-\ isn't handled but it should inside heredocs which is an oversight on our part
 
 ### Heredoc
-
-+ In Bash, a "heredoc" (here document) is a construct used to feed a block of text or a series of commands into a specific process. Heredoc allows you to directly write text within a file or a script and pass this text as input to a command or operation.
+In Bash, a "heredoc" (here document) is a construct used to feed a block of text or a series of commands into a specific process. Heredoc allows you to directly write text within a file or a script and pass this text as input to a command or operation.
 
 ```
 command << eof
@@ -263,52 +233,32 @@ Here, << eof denotes the beginning of the heredoc, and it is terminated with the
 
 + The usage of heredoc is commonly employed to make long and complex text blocks or command sequences more readable and manageable within text or script files.
 
-### Redirections
+### Redirections and Pipe
 
-In Bash, redirections are used to change or redirect the standard input, standard output, or standard error streams of a command. They are primarily used to perform operations such as writing the output of a command to a file, reading from a file, or redirecting the input/output from/to another command.
+In Bash, redirections are used to redirect standard input and standard output, or standard error streams of a command. They are primarily used to perform operations such as writing the output of a command to a file, reading from a file, or redirecting the input/output from/to another command.
 
-+ '>' : This operator redirects the output of a command to a specified file, overwriting the file if it already exists.
+* Output Redirection(`>`): This operator redirects the output of a command to a specified file, overwriting the file if it already exists.
+* Append Redirection(`>>`): This operator appends the output of a command to a specified file, preserving the existing content of the file.
+* Input Redirection(`<`): This operator redirects the content of a file to the input of a command.
+  * For example, in `cat < file`
+    file is opened by the shell and assigned a [file descriptor](https://en.wikipedia.org/wiki/File_descriptor).
+    `cat`'s input is replaced as the file. So `cat` reads the file.
+* Pipe(`|`): Redirects the output of command left to the input of command right.
+  * For example, in `echo a | cat`
+    `echo`'s output is replaced as the pipe by the shell.
+    `cat`'s input is replaced with the same pipe. So they write and read to each other.
 
-+ '>>' : This operator appends the output of a command to a specified file, preserving the existing content of the file.
-
-+ '<' : This operator redirects the content of a file to the input of a command.
-
-+ '|'  : This operator redirects the output of one command to the input of another command. This is known as a "pipe."
-
-
+Programs does not know where to read or write. By default, every program writes to its STD_OUT(1) and reads from its STD_IN(0) but the shell changes files pointed by their STD_OUT and STD_IN.
  
-## Useful shell utilities :
 
-
+### Useful shell utilities
 <img width="884" alt="Ekran Resmi 2023-12-24 02 00 35" src="https://github.com/facetint/minishell/assets/99668549/96413fde-0f58-4353-a8bf-ad7c6ef93644">
 
-
-## Shell subset :
-
-
+### Shell subset
 <img width="1149" alt="Ekran Resmi 2023-12-24 02 02 24" src="https://github.com/facetint/minishell/assets/99668549/3c889fb0-2727-4dca-bd88-d889304053ce">
 
-
-
-## Shell features :
-
-
+### Shell features
 <img width="1149" alt="Ekran Resmi 2023-12-24 02 03 18" src="https://github.com/facetint/minishell/assets/99668549/96539ad5-74b5-43d8-8f1b-0bd95c8fb441">
-
-
-## PIPE
-
-
-In Bash, pipes are a fundamental mechanism for connecting the output of one command to the input of another command. This allows you to chain multiple commands together to perform more complex operations.
-
-The basic syntax for a pipe operation is:
-
-``` 
-command1 | command2
-```
-
-This command sequence takes the output of command1 and feeds it directly into the input of command2. The output of command1 is processed by command2, and the result is displayed to the user or redirected for further processing.
-
 
 EXAMPLE : 
 
@@ -452,24 +402,11 @@ Should print `\n`, `\n`, `\n`, and `n`. (They are not newline.)
 
 ## Installation
 
-### Clone the repository:
-``` 
-git clone https://github.com/facetint/minishell.git
-cd minishell
-make
-```
+1. Clone the repository: `git clone https://github.com/facetint/minishell.git`
+2. run `cd minishell`
+3. run `make`
+4. run the executable: `./minishell`
 
-### Run Minishell
-```
-./minishell
-```
-
-
-
-
-
-
-
-
-
-
+### Testing
+1. Install the [Criterion framework](https://github.com/Snaipe/Criterion?tab=readme-ov-file#packages).
+2. run `make test`
