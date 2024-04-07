@@ -72,7 +72,7 @@ Bash also allows users to create shell scripts that contain a sequence of comman
 These basic steps of Bash provide a user-friendly command-line environment and come with a wide range of commands. Users can customize Bash and there is extensive documentation and community support.
 
 ## How does this Minishell work?
-Essentially bash breaks down the process into 4 steps:
+Essentially we breaks down the process into 4 steps:
   * `lexer` accepts the raw string input of the user and converts it to tokens. 
   * `expander` accepts a list of tokens and replaces placeholders with its values.
   * `parser` accepts a list of tokens and converts them to commands.
