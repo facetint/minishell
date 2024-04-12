@@ -394,6 +394,11 @@ echo \n
 ```
 Should print `\n`, `\n`, `\n`, and `n`. (They are not newline.)
 
+```bash
+echo abc # xyz klm
+```
+Should print `abc`.
+
 ## Installation
 
 1. Clone the repository: `git clone https://github.com/facetint/minishell.git`
