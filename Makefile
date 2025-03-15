@@ -5,7 +5,7 @@ LIBFT_PATH = $(LIBFT_DIR)/libft.a
 
 CC = gcc
 
-FLAGS = -g -Wall -Wextra -Werror -fsanitize=address  -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib -lreadline  -Wno-unused-command-line-argument #-fsanitize=address
+FLAGS = -Wall -Wextra -Werror -L/usr/local/lib -I/usr/local/include -lreadline
 
 MEMORY_ALLOCATOR_SOURCES = memory-allocator/aborter.c memory-allocator/allocator.c
 SOURCES = src/execute/execute_utils.c src/builtin/cd.c src/builtin/exit.c src/builtin/export.c src/builtin/export_utils.c \
