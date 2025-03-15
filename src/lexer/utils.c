@@ -75,11 +75,12 @@ int	str_arr_size(char **strings)
 	return (i);
 }
 
-int	is_internal_field_sep(char *str, int index)
+int	is_internal_field_sep(char c)
 {
-	if (is_escaped(str, index))
+	char *ifs = find_env("IFS");
+	if (!ifs)
 		return (0);
-	if (is_field_terminator(str[index]))
+	if (ft_strchr(ifs, c))
 		return (1);
 	return (0);
 }

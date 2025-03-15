@@ -72,3 +72,15 @@ void	uninit_tokens(t_token *lexical_data)
 		lexical_data = next;
 	}
 }
+
+t_token **find_token_ptr_before(t_token **head, t_token *tofind)
+{
+	t_token **prev = NULL;
+	t_token **cur = head;
+
+	while (*cur && *cur != tofind) {	
+		prev = cur;
+		cur = &((*cur)->next);
+	}
+	return prev;
+}

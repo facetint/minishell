@@ -4,7 +4,8 @@ LIBFT_DIR = ./libft
 LIBFT_PATH = $(LIBFT_DIR)/libft.a
 
 CC = gcc
-FLAGS = -g -Wall -Wextra -Werror #-fsanitize=address
+
+FLAGS = -g -Wall -Wextra -Werror -fsanitize=address  -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib -lreadline  -Wno-unused-command-line-argument #-fsanitize=address
 
 MEMORY_ALLOCATOR_SOURCES = memory-allocator/aborter.c memory-allocator/allocator.c
 SOURCES = src/execute/execute_utils.c src/builtin/cd.c src/builtin/exit.c src/builtin/export.c src/builtin/export_utils.c \
@@ -13,7 +14,7 @@ SOURCES = src/execute/execute_utils.c src/builtin/cd.c src/builtin/exit.c src/bu
  src/lexer/lexer.c src/lexer/unquote.c src/lexer/lexer_utils.c src/execute/execute.c \
  src/lexer/lexer_error_message.c src/lexer/is_valid.c src/execute/error_message.c src/execute/fd_utils.c \
  src/parser/parser.c src/parser/parser_state.c src/parser/parser_utils.c src/execute/heredoc.c \
- src/expander/expander.c src/splitter.c src/lexer/syntax_analyzer.c src/signal.c $(MEMORY_ALLOCATOR_SOURCES) \
+ src/expander/expander.c src/lexer/syntax_analyzer.c src/signal.c $(MEMORY_ALLOCATOR_SOURCES) \
  src/redirections/redirections.c src/env/global_env.c src/utils/unsafe_utils.c src/utils/char_classification.c src/utils/string_utils.c \
  src/utils/quote_classification.c src/expander/expander_2.c
 
@@ -31,15 +32,22 @@ $(TEST_PATH):
 
 test: $(TEST_PATH) $(NAME)
 	@printf "$(CLEAN_CAR)$(GREEN_COLOR)[Tests compiling]$(BLUE_COLOR) : $(PURPLE_COLOR)$<$(NO_COLOR)"
-	@$(CC) $(FLAGS) $(SOURCES:.c=.o) $(LIBFT_PATH) $(TEST_SOURCES) -o $(TEST_PATH)/tests -lcriterion -L/usr/local/lib -I/usr/local/include -lreadline
+	@$(CC) $(FLAGS) $(SOURCES:.c=.o) $(LIBFT_PATH) $(TEST_SOURCES) -o $(TEST_PATH)/tests -I/opt/homebrew/Cellar/criterion/2.4.2_2/include -L/opt/homebrew/Cellar/criterion/2.4.2_2/lib -lcriterion
 	@printf "$(CLEAN_CAR)$(GREEN_COLOR)Tests running right now. Please wait.\n$(BLUE_COLOR)$(NO_COLOR)"
 	@./$(TEST_PATH)/tests ; export TEST_RESULT=$$? ; rm -f __test_file* | exit $$TEST_RESULT 
+
+testifs: $(TEST_PATH) $(NAME)
+	@printf "$(CLEAN_CAR)$(GREEN_COLOR)[Tests compiling]$(BLUE_COLOR) : $(PURPLE_COLOR)$<$(NO_COLOR)"
+	@$(CC) $(FLAGS) $(SOURCES:.c=.o) $(LIBFT_PATH)  -o $(TEST_PATH)/tests -I/opt/homebrew/Cellar/criterion/2.4.2_2/include -L/opt/homebrew/Cellar/criterion/2.4.2_2/lib -lcriterion
+	@printf "$(CLEAN_CAR)$(GREEN_COLOR)Tests running right now. Please wait.\n$(BLUE_COLOR)$(NO_COLOR)"
+	@./$(TEST_PATH)/tests ; export TEST_RESULT=$$? ; rm -f __test_file* | exit $$TEST_RESULT 
+
 
 $(LIBFT_PATH):
 	@make bonus -C $(LIBFT_DIR) FLAGS="$(FLAGS)"
 
 $(NAME): $(LIBFT_PATH) $(MINISHELL_OBJECTS)
-	@$(CC) $(FLAGS) -o $(NAME) $(MINISHELL_OBJECTS) $(LIBFT_PATH) -L/usr/local/lib -I/usr/local/include -lreadline
+	@$(CC) $(FLAGS) -o $(NAME) $(MINISHELL_OBJECTS) $(LIBFT_PATH)
 	@sleep 0.2
 	@echo "$(CLEAN_CAR)$(GREEN_COLOR)Minishell compiled!$(NO_COLOR)"
 
@@ -60,7 +68,7 @@ fclean:
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re test testifs
 
 NO_COLOR		=	\x1b[0m
 GREEN_COLOR		=	\x1b[32;01m

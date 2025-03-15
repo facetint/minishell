@@ -112,14 +112,13 @@ void			handle_invalid_input(t_token *lexer_data);
 
 // expander
 void			expand(t_token **head);
-void			internal_field_split(t_token **token);
-void			insert_uword_tokens(t_token **token_ptr, char **strings);
+void			internal_field_split(t_token **token, t_token**next_token_ptr);
 void			expand_string(char **string);
 char			*replace_string(char *input, int p_start,
 					int p_len, char *replacement);
 int				is_nameless_variable(t_token *token);
 void			expand_token(t_token *token, t_token **head,
-					t_token **token_ptr, t_token **prev_ptr);
+					t_token **token_ptr, t_token **prev_ptr, t_token**next_token);
 
 // parser
 t_command		*parse(t_token *lexer_data);
@@ -183,5 +182,9 @@ void			abort_function(void);
 // error
 void			path_error(char	*cmd);
 void			pid_error(int *prev_pipe, int *next_pipe);
+
+int				are_quotes_valid(t_token *token);
+t_token			*do_ifs(char *str);
+t_token			**find_token_ptr_before(t_token **head, t_token *tofind);
 
 #endif

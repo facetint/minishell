@@ -15,16 +15,17 @@
 #include "../../libft/libft.h"
 
 void	expand_token(t_token *token, t_token **head,
-		t_token **token_ptr, t_token **prev_ptr)
+		t_token **token_ptr, t_token **prev_ptr, t_token**next_token_ptr)
 {
 	if (is_nameless_variable(token))
 		token->value = ft_strdup("");
 	else
 	{
+		int isvar = token->value[0] == '$';
 		expand_string(&token->value);
 		if (is_full_of_spaces(token->value))
 			remove_token(prev_ptr, head, token);
-		else if (token->type == UNQUOTED_WORD)
-			internal_field_split(token_ptr);
+		else if ((token->type == UNQUOTED_WORD && isvar))
+			internal_field_split(token_ptr, next_token_ptr);
 	}
 }

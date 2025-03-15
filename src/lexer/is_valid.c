@@ -59,7 +59,6 @@ int	are_tokens_valid(t_token *lexer_data)
 int	is_valid(t_token *lexer_data)
 {
 	return (are_tokens_valid(lexer_data)
-		&& are_quotes_valid(lexer_data)
 		&& is_there_lack_of_word(lexer_data)
 		&& validate_pipes(lexer_data));
 }

@@ -12,6 +12,8 @@
 
 #include "../includes/minishell.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
 
 int	*get_exit_status(void)
 {
@@ -39,14 +41,16 @@ void	handle_input(char *input)
 		return (handle_invalid_input(lexer_data));
 	if (is_empty(lexer_data))
 		return ;
+	if (are_quotes_valid(lexer_data) == 0)
+		return (handle_invalid_input(lexer_data));
+	unquote(lexer_data);
 	expand(&lexer_data);
 	if (!is_valid(lexer_data))
 		return (handle_invalid_input(lexer_data));
-	unquote(lexer_data);
 	parser_data = parse(lexer_data);
 	handle_file_redirections(parser_data);
 	g_signal_type = RUNNING_COMMANDS;
+	uninit_tokens(lexer_data);
 	execute(parser_data);
 	g_signal_type = PROMPT;
-	uninit_tokens(lexer_data);
 }

@@ -37,6 +37,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	init_env(envp);
 	export_env("OLDPWD=");
+	export_env("IFS= \t\n");
 	register_post_abort_func(handle_memory_error);
 	register_signal_handler();
 	while (1)

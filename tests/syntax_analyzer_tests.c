@@ -38,7 +38,7 @@ Test(syntax_analyzer, unclosed_double_quotes)
 	t_token t1 = (t_token) {.value = NULL, .next = &t2, .type = DELIMITER};
 	t_token t0 = (t_token) {.value = strdup("\"anything"), .next = &t1, .type = DOUBLE_QUOTED_WORD};
 
-	cr_assert_eq(is_valid(&t0), 0, "Expected invalid, but got valid.");
+	cr_assert_eq(are_quotes_valid(&t0), 0, "Expected invalid, but got valid.");
 }
 
 Test(syntax_analyzer, unclosed_single_quotes)
@@ -49,7 +49,7 @@ Test(syntax_analyzer, unclosed_single_quotes)
 	t_token t1 = (t_token) {.value = NULL, .next = &t2, .type = DELIMITER};
 	t_token t0 = (t_token) {.value = strdup("'anything"), .next = &t1, .type = SINGLE_QUOTED_WORD};
 
-	cr_assert_eq(is_valid(&t0), 0, "Expected invalid, but got valid.");
+	cr_assert_eq(are_quotes_valid(&t0), 0, "Expected invalid, but got valid.");
 }
 
 Test(syntax_analyzer, pipe_only)

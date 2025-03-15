@@ -16,28 +16,6 @@
 #include "../../includes/char_classification.h"
 #include "../../memory-allocator/allocator.h"
 
-void	insert_uword_tokens(t_token **token_ptr, char **strings)
-{
-	t_token	*token;
-	t_token	*list;
-	t_token	*new;
-	int		i;
-
-	token = *token_ptr;
-	token->value = strings[0];
-	list = NULL;
-	i = 1;
-	while (strings[i])
-	{
-		new = lexer_data_new((t_token){NULL, DELIMITER, NULL});
-		lexer_data_append(&list, new);
-		new = lexer_data_new((t_token){strings[i], UNQUOTED_WORD, NULL});
-		lexer_data_append(&list, new);
-		i++;
-	}
-	lexer_data_insert(token, list);
-}
-
 int	is_nameless_variable(t_token *token)
 {
 	return (ft_strcmp(token->value, "$") == 0

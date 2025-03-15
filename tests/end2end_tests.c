@@ -5,8 +5,10 @@
 #include <pthread.h>
 #include <unistd.h>
 
+
 void redirect_all_stdout(void)
 {
+	export_env("IFS= \t\n");
 	cr_redirect_stdout();
 	cr_redirect_stderr();
 }
@@ -53,7 +55,7 @@ Test(end2end, escaping_alphas, .init=redirect_all_stdout)
 
 Test(end2end, start_with_quotes, .init=redirect_all_stdout)
 {
-	  exec_assert_stdout("\"e\"'c'h'o' hello", "hello\n");
+	exec_assert_stdout("\"e\"'c'h'o' hello", "hello\n");
 }
 
 Test(end2end, start_with_quotes_and_spaces, .init=redirect_all_stdout)

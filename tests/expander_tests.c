@@ -43,6 +43,7 @@ Test(expander, expand_sequence_variables)
 
 Test(expander, ifs_split)
 {
+	export_env("IFS= \t\n");
 	handle_input("export TEST_VAR='A B C'");
 	t_token t0 = (t_token) {.value = strdup("$TEST_VAR"), .type = UNQUOTED_WORD};
 	t_token *token = &t0;
@@ -63,37 +64,3 @@ Test(expander, ifs_split)
 	cr_assert_eq(token->type, DOUBLE_QUOTED_WORD);
 }
 
-Test(expander, insert_words)
-{
-	char *strings[] = {"a","b","c","d", NULL};
-	t_token t0 = (t_token) {.value = strdup("anything"), .next = NULL, .type = UNQUOTED_WORD};
-	t_token *token = &t0;
-	insert_uword_tokens(&token, strings);
-
-	check_tokens(token, "anything", "UW D UW D UW D UW");
-	cr_assert_str_eq(token->value, "a");
-	cr_assert_str_eq(token->next->next->value, "b");
-	cr_assert_str_eq(token->next->next->next->next->value, "c");
-	cr_assert_str_eq(token->next->next->next->next->next->next->value, "d");
-}
-
-Test(expander, insert_words_in_middle)
-{
-	char *strings[] = {"a","b","c","d", NULL};
-	t_token t4 = (t_token) {.value = strdup("thing"), .next = NULL, .type = UNQUOTED_WORD};
-	t_token t3 = (t_token) {.value = NULL, .next = &t4, .type = DELIMITER};
-	t_token t2 = (t_token) {.value = strdup("something"), .next = &t3, .type = UNQUOTED_WORD};
-	t_token t1 = (t_token) {.value = NULL, .next = &t2, .type = DELIMITER};
-	t_token t0 = (t_token) {.value = strdup("\"anything\""), .next = &t1, .type = DOUBLE_QUOTED_WORD};
-	t_token *token = &t2;
-	insert_uword_tokens(&token, strings);
-
-	token = &t0;
-	check_tokens(token, "\"anything\" something thing", "DW D UW D UW D UW D UW D UW");
-	cr_assert_str_eq(token->value, "\"anything\"");
-	cr_assert_str_eq(token->next->next->value, "a");
-	cr_assert_str_eq(token->next->next->next->next->value, "b");
-	cr_assert_str_eq(token->next->next->next->next->next->next->value, "c");
-	cr_assert_str_eq(token->next->next->next->next->next->next->next->next->value, "d");
-	cr_assert_str_eq(token->next->next->next->next->next->next->next->next->next->next->value, "thing");
-}

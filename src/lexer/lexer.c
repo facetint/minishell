@@ -55,9 +55,15 @@ t_lexer_state	word_state(t_token **lexer_data, char *input, int *const i)
 	}
 	else
 	{
-		token.type = UNQUOTED_WORD;
-		while (is_unquoted_word_char(input[*i]) || is_escaped(input, *i))
+		if (input[*i] == '$'){
 			(*i)++;
+			while (is_name_char(input[*i]))
+				(*i)++;
+		} else {
+			while ((is_unquoted_word_char(input[*i]) || is_escaped(input, *i)) && input[*i] != '$')
+				(*i)++;
+		}
+		token.type = UNQUOTED_WORD;
 		(*i)--;
 	}
 	token.value = ft_substr(input, start_i, *i - start_i + 1);
