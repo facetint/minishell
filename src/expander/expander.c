@@ -95,7 +95,6 @@ void	expand(t_token **head)
 
 t_token		*do_ifs(char *str)
 {
-	//printf("do_ifs: %s\n", str);
 	int len = ft_strlen(str);
 	int i = 0;
 	t_token		*head = NULL;
@@ -128,16 +127,6 @@ t_token		*do_ifs(char *str)
 				i++;
 		}
 	}
-
-	/* debug purposes - inspect tokens 
-
-	t_token t = *head;
-	while (t.next) {
-		printf(t.type == UNQUOTED_WORD ? "'%s' ->" : "'DELIMITER' -> ", t.value);
-		t = *t.next;
-	}
-	printf(t.type == UNQUOTED_WORD ? "'%s'\n" : "'DELIMITER'\n", t.value);
-*/
 	return head;
 }
 
