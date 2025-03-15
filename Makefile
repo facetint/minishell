@@ -5,7 +5,7 @@ LIBFT_PATH = $(LIBFT_DIR)/libft.a
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -g -Wall -Wextra -Werror -fsanitize=address  -I/opt/homebrew/opt/readline/include -L/opt/homebrew/opt/readline/lib -lreadline  -Wno-unused-command-line-argument #-fsanitize=address
 
 MEMORY_ALLOCATOR_SOURCES = memory-allocator/aborter.c memory-allocator/allocator.c
 SOURCES = src/execute/execute_utils.c src/builtin/cd.c src/builtin/exit.c src/builtin/export.c src/builtin/export_utils.c \
@@ -32,12 +32,16 @@ $(TEST_PATH):
 
 test: $(TEST_PATH) $(NAME)
 	@printf "$(CLEAN_CAR)$(GREEN_COLOR)[Tests compiling]$(BLUE_COLOR) : $(PURPLE_COLOR)$<$(NO_COLOR)"
-	@$(CC) $(FLAGS) $(SOURCES:.c=.o) $(LIBFT_PATH) $(TEST_SOURCES) -o $(TEST_PATH)/tests -lcriterion -L/usr/local/lib -I/usr/local/include -lreadline
+	@$(CC) $(FLAGS) $(SOURCES:.c=.o) $(LIBFT_PATH) $(TEST_SOURCES) -o $(TEST_PATH)/tests -I/opt/homebrew/Cellar/criterion/2.4.2_2/include -L/opt/homebrew/Cellar/criterion/2.4.2_2/lib -lcriterion
 	@printf "$(CLEAN_CAR)$(GREEN_COLOR)Tests running right now. Please wait.\n$(BLUE_COLOR)$(NO_COLOR)"
 	@./$(TEST_PATH)/tests ; export TEST_RESULT=$$? ; rm -f __test_file* | exit $$TEST_RESULT 
 
-$(LIBFT_PATH):
-	@make bonus -C $(LIBFT_DIR) FLAGS="$(FLAGS)"
+testifs: $(TEST_PATH) $(NAME)
+	@printf "$(CLEAN_CAR)$(GREEN_COLOR)[Tests compiling]$(BLUE_COLOR) : $(PURPLE_COLOR)$<$(NO_COLOR)"
+	@$(CC) $(FLAGS) $(SOURCES:.c=.o) $(LIBFT_PATH)  -o $(TEST_PATH)/tests -I/opt/homebrew/Cellar/criterion/2.4.2_2/include -L/opt/homebrew/Cellar/criterion/2.4.2_2/lib -lcriterion
+	@printf "$(CLEAN_CAR)$(GREEN_COLOR)Tests running right now. Please wait.\n$(BLUE_COLOR)$(NO_COLOR)"
+	@./$(TEST_PATH)/tests ; export TEST_RESULT=$$? ; rm -f __test_file* | exit $$TEST_RESULT 
+
 
 $(LIBFT_PATH):
 	@make bonus -C $(LIBFT_DIR) FLAGS="$(FLAGS)"
@@ -64,7 +68,7 @@ fclean:
 
 re: fclean all
 
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re test testifs
 
 NO_COLOR		=	\x1b[0m
 GREEN_COLOR		=	\x1b[32;01m
